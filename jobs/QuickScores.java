@@ -42,10 +42,17 @@ public class QuickScores
      */
     public static void sortScores(double [] scores, List<Job> jobs)
     {
+        // Copies the given list of jobs into the homonym class variable
         QuickScores.jobs = new ArrayList<Job>(jobs);
 
         // Sorts scores array AND the jobs list
         sort(scores);
+
+        // Updates the given jobs list copying the sorted class variable
+        for(int i = 0; i < jobs.size(); i++)
+        {
+            jobs.set(i, QuickScores.jobs.get(i));
+        }
     }
 
     //-------------------------------------------------------------------------
@@ -102,7 +109,7 @@ public class QuickScores
         double p = a[lb];
         int i = lb + 1;
         for (int j = lb + 1; j <= ub; j++) {
-            if (a[j] < p) {
+            if (a[j] >= p) {
                 swap(a, j, i);
                 i++;
             }

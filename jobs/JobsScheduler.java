@@ -66,9 +66,9 @@ public class JobsScheduler
         switch(type)
         {
             case 1: JobsScheduler.scheduleByDifference(jobs);
-                break;
+                    break;
             case 2: JobsScheduler.scheduleByRatio(jobs);
-                break;
+                    break;
         }
         // Gets and returns the sum of completion times of the ordered jobs
         return JobsScheduler.getSumOfCompletionTimes(jobs);

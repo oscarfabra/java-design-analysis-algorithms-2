@@ -41,9 +41,9 @@ public class Solver
         // decreasing order of their difference (weight - length)
         int sum = JobsScheduler.getSumOfCompletionTimes(1, jobs);
 
-        System.out.println("The sum of completion times scheduling jobs in" +
-                "decreasing order of their difference (weight - length) is:" +
-                sum);
+        System.out.println("The sum of completion times scheduling jobs in decreasing ");
+        System.out.println("order of their difference (weight - length) is: ");
+        System.out.println(sum);
     }
 
     /**
