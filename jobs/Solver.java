@@ -31,7 +31,19 @@ public class Solver
      */
     private static void solve(List<String> lines)
     {
-        // TODO: Solve the given problem...
+        // Gets the number of jobs
+        int n = Integer.parseInt(lines.remove(0));
+
+        // Gets the list of jobs from the given lines
+        List<Job> jobs = JobsScheduler.readJobsList(lines);
+
+        // Gets the sum of weighted completion times scheduling jobs in
+        // decreasing order of their difference (weight - length)
+        int sum = JobsScheduler.getSumOfCompletionTimes(1, jobs);
+
+        System.out.println("The sum of completion times scheduling jobs in" +
+                "decreasing order of their difference (weight - length) is:" +
+                sum);
     }
 
     /**
