@@ -26,6 +26,16 @@ public class Job
         this.length = length;
     }
 
+    /**
+     * Copy constructor.
+     * @param that Job to copy.
+     */
+    public Job(Job that)
+    {
+        this.weight = that.weight;
+        this.length = that.length;
+    }
+
     //-------------------------------------------------------------------------
     // PUBLIC METHODS
     //-------------------------------------------------------------------------

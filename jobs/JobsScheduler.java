@@ -70,7 +70,6 @@ public class JobsScheduler
             case 2: JobsScheduler.scheduleByRatio(jobs);
                 break;
         }
-
         // Gets and returns the sum of completion times of the ordered jobs
         return JobsScheduler.getSumOfCompletionTimes(jobs);
     }
@@ -86,7 +85,18 @@ public class JobsScheduler
      */
     private static void scheduleByDifference(List<Job> jobs)
     {
-        // TODO: Schedule jobs by the difference (weight - length) of each job
+        double [] scores = new double[jobs.size()];
+
+        // Walks through the jobs list collecting their respective scores
+        int i = 0;
+        for(Job job : jobs)
+        {
+            scores[i] = job.getWeight() - job.getLength();
+            i++;
+        }
+
+        // Sorts the jobs list in descending order of their scores
+        QuickScores.sortScores(scores, jobs);
     }
 
     /**
@@ -100,18 +110,22 @@ public class JobsScheduler
     }
 
     /**
-     * Computes and returns the sum of the completion times of the given
-     * schedule (list of jobs already ordered by some method).
+     * Computes and returns the sum of the weighted completion times of the
+     * given schedule (list of jobs already ordered by some method).
      * @param schedule List of jobs already scheduled by some method.
      * @return Sum of the completion times of the given list of jobs.
      */
     private static int getSumOfCompletionTimes(List<Job> schedule)
     {
+        // Walks through the list of jobs adding the weighted completion times
+        // of each of them
         int sum = 0;
-        // TODO: Compute the sum of the completion times of the given schedule
+        int ctime = 0;
+        for(Job job : schedule)
+        {
+            ctime += job.getLength();
+            sum += job.getWeight() * ctime;
+        }
         return sum;
     }
-
-
-
 }
