@@ -106,7 +106,18 @@ public class JobsScheduler
      */
     private static void scheduleByRatio(List<Job> jobs)
     {
-        // TODO: Schedule jobs by the ratio (weight/length) of each job
+        double [] scores = new double[jobs.size()];
+
+        // Walks through the jobs list collecting their respective scores
+        int i = 0;
+        for(Job job : jobs)
+        {
+            scores[i] = (double) job.getWeight()/job.getLength();
+            i++;
+        }
+
+        // Sorts the jobs list in descending order of their scores
+        QuickScores.sortScores(scores, jobs);
     }
 
     /**

@@ -43,7 +43,11 @@ public class QuickScores
     public static void sortScores(double [] scores, List<Job> jobs)
     {
         // Copies the given list of jobs into the homonym class variable
-        QuickScores.jobs = new ArrayList<Job>(jobs);
+        QuickScores.jobs = new ArrayList<Job>(jobs.size());
+        for(Job job : jobs)
+        {
+            QuickScores.jobs.add(job);
+        }
 
         // Sorts scores array AND the jobs list
         sort(scores);
@@ -89,7 +93,8 @@ public class QuickScores
      */
     private static void sort(double[] a, int lb, int ub)
     {
-        if (lb >= ub) {
+        if (lb >= ub)
+        {
             return;
         }
         int p = partitionFirst(a, lb, ub);
@@ -108,14 +113,32 @@ public class QuickScores
     {
         double p = a[lb];
         int i = lb + 1;
-        for (int j = lb + 1; j <= ub; j++) {
-            if (a[j] >= p) {
+        for (int j = lb + 1; j <= ub; j++)
+        {
+            // Swap if element at j is greater than the pivot, or if they're
+            // equal but weight of but job in position j has higher weight
+            if(a[j] > p || (a[j] == p && higherWeight(j, lb)))
+            {
                 swap(a, j, i);
                 i++;
             }
         }
         swap(a, lb, i - 1);
         return i - 1;
+    }
+
+    /**
+     * Determines whether job at position i has higher weight than job at
+     * position j.
+     * @param i Index of first job in the jobs class list.
+     * @param j Index of second job in the jobs class list.
+     * @return Whether first job has higher weight than second job.
+     */
+    private static boolean higherWeight(int i, int j)
+    {
+        Job job1 = QuickScores.jobs.get(i);
+        Job job2 = QuickScores.jobs.get(j);
+        return job1.getWeight() > job2.getWeight();
     }
 
     /**

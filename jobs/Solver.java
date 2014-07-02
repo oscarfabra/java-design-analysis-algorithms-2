@@ -36,6 +36,7 @@ public class Solver
 
         // Gets the list of jobs from the given lines
         List<Job> jobs = JobsScheduler.readJobsList(lines);
+        List<Job> jobsAux = new ArrayList<Job>(jobs);
 
         // Gets the sum of weighted completion times scheduling jobs in
         // decreasing order of their difference (weight - length)
@@ -43,6 +44,20 @@ public class Solver
 
         System.out.println("The sum of completion times scheduling jobs in decreasing ");
         System.out.println("order of their difference (weight - length) is: ");
+        System.out.println(sum);
+
+        // Updates the job list with the values of the past list
+        for(int i = 0; i < jobsAux.size(); i++)
+        {
+            jobs.set(i, jobsAux.get(i));
+        }
+
+        // Gets the sum of weighted completion times scheduling jobs in
+        // decreasing order of their difference (weight - length)
+        sum = JobsScheduler.getSumOfCompletionTimes(2, jobs);
+
+        System.out.println("The sum of completion times scheduling jobs in decreasing ");
+        System.out.println("order of their ratio (weight/length) is: ");
         System.out.println(sum);
     }
 
