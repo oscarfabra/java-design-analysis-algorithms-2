@@ -2,7 +2,7 @@ Design and Analysis of Algorithms (Part II)
 ===========================================
 
 <p><b>Description:</b> Solutions to problems based on Stanford's Coursera Course<br/>
-<b>Author:</b> Oscar Fabra, oscarfabra@gmail.com</p>
+<b>Author:</b> Oscar Fabra, <a href="mailto:oscarfabra@gmail.com">oscarfabra@gmail.com</a></p>
 
 <p><b>About:</b></p>
 
