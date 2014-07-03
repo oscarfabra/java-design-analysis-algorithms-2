@@ -13,7 +13,9 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * class that reads and solves a greedy algorithm for computing the minimum
@@ -31,7 +33,32 @@ public class Solver
      */
     private static void solve(List<String> lines)
     {
-        // TODO: Solve the MST problem for the given edges...
+        // Gets the number of vertices and edges from the first line
+        String firstLine = lines.remove(0);
+        String [] values = firstLine.split(" ");
+        int n = Integer.parseInt(values[0]);
+        int m = Integer.parseInt(values[1]);
+
+        // Builds the adjacency list of each vertex from the given lines
+        Map<Integer, List<Edge>> vertexEndpoints =
+                Graph.buildVertexEdges(m, lines);
+
+        // Creates a new graph
+        Graph graph = new Graph(n, vertexEndpoints);
+
+        // Finds the Minimum Spanning Tree of the given graph
+        List<Integer> mst = new ArrayList<Integer>(graph.getN());
+        long cost = MST.solve(graph, mst);
+
+        // Prints the answer in standard output
+        System.out.println("The overall cost of the Minimum Spanning Tree " +
+                "of the given graph is: " + cost);
+        System.out.println("The MST comprise the following vertices: ");
+        for(int i = 0; i < mst.size(); i++)
+        {
+            System.out.print(mst.get(i));
+            System.out.println((i == mst.size() - 1)?", ":".");
+        }
     }
 
     /**

@@ -8,6 +8,7 @@
  * @since 03/07/14
  */
 
+import java.util.List;
 
 /**
  * Class that implements a greedy algorithm for computing the minimum spanning
@@ -24,6 +25,20 @@ public class MST
     //-------------------------------------------------------------------------
     // PUBLIC CLASS METHODS
     //-------------------------------------------------------------------------
+
+    /**
+     * Finds the Minimum Spanning Tree (MST) of the given graph and returns its
+     * cost.
+     * @param graph Graph to examine.
+     * @param mst List of Integers in which to store the MST.
+     * @return The overall cost of the MST found.
+     */
+    public static long solve(Graph graph, List<Integer> mst)
+    {
+        int cost = 0;
+        // TODO: Find MST...
+        return cost;
+    }
 
     //-------------------------------------------------------------------------
     // PRIVATE HELPER METHODS
