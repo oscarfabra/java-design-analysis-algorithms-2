@@ -60,7 +60,7 @@ public class JobsScheduler
      * @return Sum of the weighted completion times according to the specified
      * greedy algorithm to run.
      */
-    public static int getSumOfCompletionTimes(int type, List<Job> jobs)
+    public static long getSumOfCompletionTimes(int type, List<Job> jobs)
     {
         // Orders the given jobs according to the specified greedy algorithm
         switch(type)
@@ -112,7 +112,7 @@ public class JobsScheduler
         int i = 0;
         for(Job job : jobs)
         {
-            scores[i] = (double) job.getWeight()/job.getLength();
+            scores[i] = (1.0 * job.getWeight())/(1.0 * job.getLength());
             i++;
         }
 
@@ -126,12 +126,12 @@ public class JobsScheduler
      * @param schedule List of jobs already scheduled by some method.
      * @return Sum of the completion times of the given list of jobs.
      */
-    private static int getSumOfCompletionTimes(List<Job> schedule)
+    private static long getSumOfCompletionTimes(List<Job> schedule)
     {
         // Walks through the list of jobs adding the weighted completion times
         // of each of them
-        int sum = 0;
-        int ctime = 0;
+        long sum = 0;
+        long ctime = 0;
         for(Job job : schedule)
         {
             ctime += job.getLength();

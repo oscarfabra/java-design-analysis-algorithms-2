@@ -43,11 +43,7 @@ public class QuickScores
     public static void sortScores(double [] scores, List<Job> jobs)
     {
         // Copies the given list of jobs into the homonym class variable
-        QuickScores.jobs = new ArrayList<Job>(jobs.size());
-        for(Job job : jobs)
-        {
-            QuickScores.jobs.add(job);
-        }
+        QuickScores.jobs = new ArrayList<Job>(jobs);
 
         // Sorts scores array AND the jobs list
         sort(scores);
@@ -115,8 +111,8 @@ public class QuickScores
         int i = lb + 1;
         for (int j = lb + 1; j <= ub; j++)
         {
-            // Swap if element at j is greater than the pivot, or if they're
-            // equal but weight of but job in position j has higher weight
+            // Swap if score at j is greater than the pivot, or if they're
+            // equal but weight of job in position j has higher weight
             if(a[j] > p || (a[j] == p && higherWeight(j, lb)))
             {
                 swap(a, j, i);

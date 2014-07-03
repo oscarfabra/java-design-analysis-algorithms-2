@@ -34,13 +34,17 @@ public class Solver
         // Gets the number of jobs
         int n = Integer.parseInt(lines.remove(0));
 
-        // Gets the list of jobs from the given lines
+        // Gets the list of jobs from the given lines and makes a copy of it
         List<Job> jobs = JobsScheduler.readJobsList(lines);
-        List<Job> jobsAux = new ArrayList<Job>(jobs);
+        List<Job> jobsAux = new ArrayList<Job>();
+        for(Job job : jobs)
+        {
+            jobsAux.add(new Job(job));
+        }
 
         // Gets the sum of weighted completion times scheduling jobs in
         // decreasing order of their difference (weight - length)
-        int sum = JobsScheduler.getSumOfCompletionTimes(1, jobs);
+        long sum = JobsScheduler.getSumOfCompletionTimes(1, jobs);
 
         System.out.println("The sum of completion times scheduling jobs in decreasing ");
         System.out.println("order of their difference (weight - length) is: ");
