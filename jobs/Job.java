@@ -1,4 +1,14 @@
 /**
+ * $Id: Job.java, v 1.0 02/07/14 20:38 oscarfabra Exp $
+ * {@code Job} Is a class that represents a job for the greedy algorithm for
+ * minimizing the weighted sum of completion times.
+ *
+ * @author <a href="mailto:oscarfabra@gmail.com">Oscar Fabra</a>
+ * @version 1.0
+ * @since 02/07/14
+ */
+
+/**
  * Class that represents a job for the greedy algorithm for minimizing the
  * weighted sum of completion times.
  */

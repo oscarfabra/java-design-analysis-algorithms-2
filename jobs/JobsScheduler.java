@@ -1,5 +1,5 @@
 /**
- * $Id: JobsScheduler.java, v 1.1 02/07/14 20:38 oscarfabra Exp $
+ * $Id: JobsScheduler.java, v 1.0 02/07/14 20:38 oscarfabra Exp $
  * {@code JobsScheduler} Is a class that implements a greedy algorithm for
  * minimizing the weighted sum of completion times.
  *
