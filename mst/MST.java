@@ -46,6 +46,8 @@ public class MST
         x.add(s);
 
         // Main loop for finding and storing the MST, O(n*m) algorithm
+        System.out.println("Building Minimum Spanning Tree using Prim's " +
+                "Algorithm...");
         while(x.size() < n)
         {
             // Finds the cheapest edge and adds its cost to the overall cost
@@ -61,7 +63,14 @@ public class MST
             {
                 x.add(minEdge.getTail());
             }
+            // Message in standard output for debugging purposes
+            if(x.size()%10 == 0)
+            {
+                System.out.println("-- [" + x.size() + " vertices covered " +
+                        "so far.]");
+            }
         }
+        System.out.println("...MST built.");
 
         // Copies the list of vertices V into the given list mst
         for(Integer vertexId : x)
