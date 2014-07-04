@@ -29,7 +29,7 @@ public class MST
 
     /**
      * Finds the Minimum Spanning Tree (MST) of the given graph using Prim's
-     * MST algorithm and returns its cost. O(n * m) algorithm.
+     * MST algorithm and returns its cost; O(n * m) algorithm. <br/>
      * <b>Pre: </b>The given graph is connected and has no cycles.
      * @param graph Graph to examine.
      * @param mst List of Integers in which to store the MST.
@@ -79,6 +79,29 @@ public class MST
         }
 
         return cost;
+    }
+
+    /**
+     * Finds the Minimum Spanning Tree (MST) of the given graph using Prim's
+     * MST algorithm using heaps; O(mlogn) algorithm. <br/>
+     * <b>Pre: </b>The given graph is connected and has no cycles.
+     * @param graph Graph to examine.
+     * @param mst List of Integers in which to store the MST.
+     * @return The overall cost of the MST found.
+     */
+    public static long solveByHeaps(Graph graph, List<Integer> mst)
+    {
+        // Initializes the first vertex s, the number of vertices, and the
+        // overall cost for finding the MST
+        int s = 1;
+        int n = graph.getN();
+        long cost = 0;
+        List<Integer> x = new ArrayList<Integer>(n);
+        x.add(s);
+
+        // TODO: Solve problem using heaps using keys = edge costs...
+
+        return 0;
     }
 
     //-------------------------------------------------------------------------

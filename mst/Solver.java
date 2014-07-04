@@ -46,9 +46,10 @@ public class Solver
         // Creates a new graph
         Graph graph = new Graph(n, vertexEndpoints);
 
-        // Finds the Minimum Spanning Tree of the given graph
+        // Finds the MST of the given graph using the Prim's algorithm
+        // implementation using heaps
         List<Integer> mst = new ArrayList<Integer>(graph.getN());
-        long cost = MST.solveByPrims(graph, mst);
+        long cost = MST.solveByHeaps(graph, mst);
 
         // Prints the answer in standard output
         System.out.println("The overall cost of the Minimum Spanning Tree " +
@@ -60,6 +61,13 @@ public class Solver
             System.out.print((i != mst.size() - 1)?"--":".");
         }
         System.out.println();
+
+        // Finds the Minimum Spanning Tree of the given graph using Prim's
+        // algorithm
+        // mst = new ArrayList<Integer>(graph.getN());
+        // cost = MST.solveByPrims(graph, mst);
+
+
     }
 
     /**
