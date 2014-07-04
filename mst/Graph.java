@@ -43,9 +43,9 @@ public class Graph
     /**
      * Creates a new graph from the given map of head vertices of each vertex.
      * @param n Number of vertices of the graph.
-     * @param vertexEdges Map of Lists with the adjacent edges of each vertex.
+     * @param vertexEndpoints Map of Lists with the adjacent edges of each vertex.
      */
-    public Graph(int n, Map<Integer, List<Edge>> vertexEdges)
+    public Graph(int n, Map<Integer, List<Edge>> vertexEndpoints)
     {
         // Initializes the map of vertices, O(n) algorithm
         this.V = new HashMap<Integer, Vertex>(n);
@@ -61,13 +61,13 @@ public class Graph
         this.E = new HashMap<Integer, Edge>(this.n * 2);
         this.vertexEdges = new HashMap<Integer, List<Integer>>(this.n);
         System.out.println("-- Initializing list of edges E...");
-        for(Integer key : vertexEdges.keySet())
+        for(Integer key : vertexEndpoints.keySet())
         {
-            List<Edge> adjacentEdges = vertexEdges.get(key);
+            List<Edge> adjacentEdges = vertexEndpoints.get(key);
             for(Edge edge : adjacentEdges)
             {
                 this.E.put(edge.getId(), edge);
-                this.addVertexEdge(key, edge.getId());
+                this.addVertexEdge(edge);
             }
 
         }
@@ -111,7 +111,7 @@ public class Graph
         {
             // Extracts and adds the corresponding pair (key, value of list) to
             // the hashmap. Each pair (key, list) in the hashmap is the id of a
-            // vertex, and the list of adjacent edges that come out from it.
+            // vertex, and the list of adjacent edges adjacent to it.
             String line = edges.get(i);
             String[] values = line.split(" ");
             int key = Integer.parseInt(values[0]);
@@ -119,12 +119,6 @@ public class Graph
             int cost = Integer.parseInt(values[2]);
             Edge edge = new Edge(newEdgeId++, key, value, cost);
             Graph.addVertexEdge(vertexEdges, key, edge);
-
-            // Message in standard output for logging purposes
-            if((i + 1) % 20000 == 0)
-            {
-                System.out.println("---- "+(i + 1)+" endPoints stored.");
-            }
         }
         return vertexEdges;
     }
@@ -250,19 +244,29 @@ public class Graph
 
     /**
      * Adds a new adjacent edge Id to the vertexEdges hashmap.
-     * @param key Key to associate with the edgeId (id of a vertex in V).
-     * @param edgeId Id of an adjacent edge to assign to the given key.
+     * @param edge Adjacent edge to assign to both of its vertices.
      */
-    private void addVertexEdge(Integer key, int edgeId)
+    private void addVertexEdge(Edge edge)
     {
         // Removes the list of the given key, adds the value, and puts it
-        // again
-        List<Integer> adjEdgesIds = vertexEdges.remove(key);
+        // again in the hashmap, repeats for each vertex of the edge
+        int vertexId = edge.getTail();
+        List<Integer> adjEdgesIds = vertexEdges.remove(vertexId);
         if(adjEdgesIds == null)
         {
             adjEdgesIds = new ArrayList<Integer>();
         }
-        adjEdgesIds.add(edgeId);
-        vertexEdges.put(key, adjEdgesIds);
+        adjEdgesIds.add(edge.getId());
+        vertexEdges.put(vertexId, adjEdgesIds);
+
+        // Does it again for the head vertex
+        vertexId = edge.getHead();
+        adjEdgesIds = vertexEdges.remove(vertexId);
+        if(adjEdgesIds == null)
+        {
+            adjEdgesIds = new ArrayList<Integer>();
+        }
+        adjEdgesIds.add(edge.getId());
+        vertexEdges.put(vertexId, adjEdgesIds);
     }
 }

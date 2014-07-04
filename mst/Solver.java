@@ -52,13 +52,14 @@ public class Solver
 
         // Prints the answer in standard output
         System.out.println("The overall cost of the Minimum Spanning Tree " +
-                "of the given graph is: " + cost);
+                "is: " + cost);
         System.out.println("The MST comprise the following vertices: ");
         for(int i = 0; i < mst.size(); i++)
         {
             System.out.print(mst.get(i));
-            System.out.println((i != mst.size() - 1)?", ":".");
+            System.out.print((i != mst.size() - 1)?"--":".");
         }
+        System.out.println();
     }
 
     /**

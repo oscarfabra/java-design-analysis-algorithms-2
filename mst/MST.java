@@ -37,7 +37,8 @@ public class MST
      */
     public static long solveByPrims(Graph graph, List<Integer> mst)
     {
-        // Sets the first vertex s, number of vertices,
+        // Initializes the first vertex s, the number of vertices, and the
+        // overall cost for finding the MST
         int s = 1;
         int n = graph.getN();
         long cost = 0;
@@ -47,9 +48,19 @@ public class MST
         // Main loop for finding and storing the MST, O(n*m) algorithm
         while(x.size() < n)
         {
+            // Finds the cheapest edge and adds its cost to the overall cost
             Edge minEdge = MST.findCheapestEdge(x, graph);
             cost += minEdge.getCost();
-            x.add(minEdge.getHead());
+
+            // Adds the appropriate vertex id
+            if(!x.contains(Integer.valueOf(minEdge.getHead())))
+            {
+                x.add(minEdge.getHead());
+            }
+            else
+            {
+                x.add(minEdge.getTail());
+            }
         }
 
         // Copies the list of vertices V into the given list mst
@@ -106,9 +117,9 @@ public class MST
             // Explores the adjacent edges of the vertices that are in x
             for(Edge edge : graph.getAdjacentEdges(uId))
             {
-                int vertexA = edge.getTail();
-                int vertexB = edge.getHead();
-                int vertexToAdd = 0;
+                Integer vertexA = edge.getTail();
+                Integer vertexB = edge.getHead();
+                Integer vertexToAdd = 0;
                 if(x.contains(vertexA) && !x.contains(vertexB))
                 {
                     vertexToAdd = vertexB;
