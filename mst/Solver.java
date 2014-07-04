@@ -48,7 +48,7 @@ public class Solver
 
         // Finds the Minimum Spanning Tree of the given graph
         List<Integer> mst = new ArrayList<Integer>(graph.getN());
-        long cost = MST.solve(graph, mst);
+        long cost = MST.solveByPrims(graph, mst);
 
         // Prints the answer in standard output
         System.out.println("The overall cost of the Minimum Spanning Tree " +
@@ -57,7 +57,7 @@ public class Solver
         for(int i = 0; i < mst.size(); i++)
         {
             System.out.print(mst.get(i));
-            System.out.println((i == mst.size() - 1)?", ":".");
+            System.out.println((i != mst.size() - 1)?", ":".");
         }
     }
 

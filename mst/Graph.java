@@ -33,7 +33,7 @@ public class Graph
     // List of edges
     private Map<Integer,Edge> E;
 
-    // Map of lists of vertices that indicates leaving edges of each vertex
+    // Map of lists of vertices that indicates adjacent edges of each vertex
     private Map<Integer,List<Integer>> vertexEdges;
 
     //-------------------------------------------------------------------------
@@ -228,23 +228,20 @@ public class Graph
     }
 
     /**
-     * Returns a list with the vertices to where the vertex with the given id
-     * points at.
+     * Returns a list with the ids of the adjacent edges of the given vertex.
      * @param vertexId Id of the vertex to look for.
      * @return List of vertices to where the vertex with the given id points
      * at.
      */
-    public List<Vertex> getHeadVertices(int vertexId)
+    public List<Edge> getAdjacentEdges(int vertexId)
     {
-        // Walks through the list of vertices head of the vertex with the
-        // given id
-        List<Vertex> headVertices = new ArrayList<Vertex>();
+        // Walks through the list of adjacent edges of the given vertex id
+        List<Edge> adjacentEdges = new ArrayList<Edge>();
         for(Integer edgeId : this.vertexEdges.get(vertexId))
         {
-            int headId = this.E.get(edgeId).getHead();
-            headVertices.add(this.V.get(headId));
+            adjacentEdges.add(this.E.get(edgeId));
         }
-        return headVertices;
+        return adjacentEdges;
     }
 
     //-------------------------------------------------------------------------
