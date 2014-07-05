@@ -7,10 +7,7 @@
  * @since 3/06/14
  */
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Represents a directed graph with n vertices and m edges.
@@ -236,6 +233,25 @@ public class Graph
             adjacentEdges.add(this.E.get(edgeId));
         }
         return adjacentEdges;
+    }
+
+    /**
+     * Gets the keys of the edges hashmap.
+     * @return Set of keys of the edges of this graph.
+     */
+    public Set<Integer> getEdgeKeys()
+    {
+        return this.E.keySet();
+    }
+
+    /**
+     * Gets the edge in E with the given key edgeId.
+     * @param edgeId Key of the edge in the hashmap E.
+     * @return Edge in E with the given key.
+     */
+    public Edge getEdge(Integer edgeId)
+    {
+        return this.E.get(edgeId);
     }
 
     //-------------------------------------------------------------------------
