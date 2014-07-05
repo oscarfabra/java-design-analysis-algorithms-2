@@ -171,6 +171,71 @@ public class MST
         return cost;
     }
 
+    //-------------------------------------------------------------------------
+    // PRIVATE HELPER METHODS
+    //-------------------------------------------------------------------------
+
+    /**
+     * Finds the cheapest edge of the given graph with a vertex in x, and the
+     * other vertex outside of x.
+     * @param graph Graph to examine.
+     * @return Edge with the smallest cost that posses the required conditions.
+     */
+    private static Edge findCheapestEdge(Graph graph)
+    {
+        // Assumes smallest cost to be a very large number
+        int minCost = 1000000;
+        Edge minEdge = null;
+
+        for(Edge crossingEdge : findCrossingEdges(graph))
+        {
+            if(crossingEdge.getCost() < minCost)
+            {
+                minEdge = crossingEdge;
+                minCost = crossingEdge.getCost();
+            }
+        }
+        // Returns the edge with the minimum cost
+        return minEdge;
+    }
+
+    /**
+     * Finds a returns the edges that have one vertex in x and the other
+     * outside x.
+     * @param graph Graph to examine.
+     * @return List of edges that have one vertex in x and the other outside x.
+     */
+    private static List<Edge> findCrossingEdges(Graph graph)
+    {
+        // Determines which are the crossing edges
+        List<Edge> crossingEdges = new ArrayList<Edge>();
+        for(Integer uId : MST.x)
+        {
+            // Explores the adjacent edges of the vertices that are in x
+            for(Edge edge : graph.getAdjacentEdges(uId))
+            {
+                Integer vertexA = edge.getTail();
+                Integer vertexB = edge.getHead();
+                Integer vertexToAdd = 0;
+                if(MST.x.contains(vertexA) && !MST.x.contains(vertexB))
+                {
+                    vertexToAdd = vertexB;
+                }
+                else if(!MST.x.contains(vertexA) && MST.x.contains(vertexB))
+                {
+                    vertexToAdd = vertexA;
+                }
+                // If only one of the vertices is in x, then we know it's a
+                // crossing edge
+                if(vertexToAdd != 0)
+                {
+                    crossingEdges.add(edge);
+                }
+            }
+        }
+        return crossingEdges;
+    }
+
     /**
      * Adds the vertex with the given id to the heap, putting its respective
      * score in the heap and mapping its vertexId as appropriate.
@@ -272,70 +337,5 @@ public class MST
         // and another vertex in X. If no such edge exists, minCost is a large
         // number, which represents infinite.
         return minCost;
-    }
-
-    //-------------------------------------------------------------------------
-    // PRIVATE HELPER METHODS
-    //-------------------------------------------------------------------------
-
-    /**
-     * Finds the cheapest edge of the given graph with a vertex in x, and the
-     * other vertex outside of x.
-     * @param graph Graph to examine.
-     * @return Edge with the smallest cost that posses the required conditions.
-     */
-    private static Edge findCheapestEdge(Graph graph)
-    {
-        // Assumes smallest cost to be a very large number
-        int minCost = 1000000;
-        Edge minEdge = null;
-
-        for(Edge crossingEdge : findCrossingEdges(graph))
-        {
-            if(crossingEdge.getCost() < minCost)
-            {
-                minEdge = crossingEdge;
-                minCost = crossingEdge.getCost();
-            }
-        }
-        // Returns the edge with the minimum cost
-        return minEdge;
-    }
-
-    /**
-     * Finds a returns the edges that have one vertex in x and the other
-     * outside x.
-     * @param graph Graph to examine.
-     * @return List of edges that have one vertex in x and the other outside x.
-     */
-    private static List<Edge> findCrossingEdges(Graph graph)
-    {
-        // Determines which are the crossing edges
-        List<Edge> crossingEdges = new ArrayList<Edge>();
-        for(Integer uId : MST.x)
-        {
-            // Explores the adjacent edges of the vertices that are in x
-            for(Edge edge : graph.getAdjacentEdges(uId))
-            {
-                Integer vertexA = edge.getTail();
-                Integer vertexB = edge.getHead();
-                Integer vertexToAdd = 0;
-                if(MST.x.contains(vertexA) && !MST.x.contains(vertexB))
-                {
-                    vertexToAdd = vertexB;
-                }
-                else if(!MST.x.contains(vertexA) && MST.x.contains(vertexB))
-                {
-                    vertexToAdd = vertexA;
-                }
-                // If only one of the vertices is in x, then we know it's a
-                // crossing edge
-                if(vertexToAdd != 0)
-                {
-                    crossingEdges.add(edge);
-                }
-            }
-        }
-        return crossingEdges;
     }
 }
