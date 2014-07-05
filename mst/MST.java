@@ -8,10 +8,7 @@
  * @since 03/07/14
  */
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.PriorityQueue;
+import java.util.*;
 
 /**
  * Class that implements a greedy algorithm for computing the Minimum Spanning
@@ -23,7 +20,7 @@ public class MST
     // CLASS VARIABLES
     //-------------------------------------------------------------------------
 
-    // List of vertices added to the MST
+    // List of vertices already added to the MST
     private static List<Integer> x = null;
 
     // Heap on which to store edge costs of the vertices not yet included in
@@ -123,21 +120,23 @@ public class MST
 
         // Initializes the heap with the appropriate scores for each vertex
         MST.heap = new PriorityQueue<Integer>(n - 1);
+        MST.verticesHeapKeys = new HashMap<Integer, List<Integer>>(n - 1);
+        MST.heapKeysVertices = new HashMap<Integer, Integer>(n - 1);
         for(int i = s + 1; i<= n; i++)
         {
-            int score = MST.findVertexHeapKey(i, graph);
+            int score = MST.findVertexScore(i, graph);
             MST.addToHeap(score, i);
         }
 
         // Walks through the graph getting the MST as appropriate
-        while(x.size() < n)
+        while(MST.x.size() < n)
         {
             // Extracts the minimum cost edge from the heap
             int [] v = MST.extractFromHeap();
             int vId = v[0];
             int vScore = v[1];
             cost += vScore;
-            x.add(vId);
+            MST.x.add(vId);
 
             // Recomputes keys of the altered vertices (those adjacent to vId)
             for(Edge edge : graph.getAdjacentEdges(vId))
@@ -237,6 +236,41 @@ public class MST
     }
 
     /**
+     * Gets the heap key for the vertex with the given id as the cost of the
+     * cheapest edge that contains the given vertex and other vertex in X.
+     * <b>Pre: </b>The given vertex is outside X.
+     * @param vertexId Id of the vertex to find the heap key for.
+     * @param graph Graph to examine.
+     * @return Cost of the cheapest edge that contains the given vertex and the
+     * other vertex in X.
+     */
+    private static Integer findVertexScore(int vertexId, Graph graph)
+    {
+        // Assumes smallest cost to be a very large number
+        int minCost = 1000000;
+
+        // Walks through the list of vertices added to the MST looking for its
+        // corresponding cheapest edge
+        for(Integer uId : MST.x)
+        {
+            // Explores the edges that contain the given vertex and another
+            // vertex in x
+            for(Edge edge : graph.getAdjacentEdges(uId))
+            {
+                if((edge.getTail() == vertexId || edge.getHead() == vertexId)
+                        && (edge.getCost() < minCost))
+                {
+                    minCost = edge.getCost();
+                }
+            }
+        }
+        // Returns the minimum cost of the adjacent edge with the given edge
+        // and another vertex in X. If no such edge exists, minCost is a large
+        // number, which represents infinite.
+        return minCost;
+    }
+
+    /**
      * Adds the vertex with the given id to the heap, putting its respective
      * score in the heap and mapping its vertexId as appropriate.
      * @param score Key to add to the heap.
@@ -271,7 +305,7 @@ public class MST
         List<Integer> vertexIds = MST.verticesHeapKeys.remove(vScore);
         int vId = vertexIds.remove(0);
         MST.verticesHeapKeys.put(vScore, vertexIds);
-        MST.heapKeysVertices.remove(Integer.valueOf(vId));
+        MST.heapKeysVertices.remove(vId);
 
         // Creates and assigns the array to return
         int [] v = new int[2];
@@ -298,44 +332,9 @@ public class MST
         MST.verticesHeapKeys.put(vScore, vertexIds);
 
         // Finally the score of the given vertex from the heap
-        MST.heap.remove(Integer.valueOf(vScore));
+        MST.heap.remove(vScore);
 
         // Return the score of the given vertex
         return vScore;
-    }
-
-    /**
-     * Gets the heap key for the vertex with the given id as the cost of the
-     * cheapest edge that contains the given vertex and other vertex in X.
-     * <b>Pre: </b>The given vertex is outside X.
-     * @param vertexId Id of the vertex to find the heap key for.
-     * @param graph Graph to examine.
-     * @return Cost of the cheapest edge that contains the given vertex and the
-     * other vertex in X.
-     */
-    private static Integer findVertexHeapKey(int vertexId, Graph graph)
-    {
-        // Assumes smallest cost to be a very large number
-        int minCost = 1000000;
-
-        // Walks through the list of vertices added to the MST looking for its
-        // corresponding cheapest edge
-        for(Integer uId : MST.x)
-        {
-            // Explores the edges that contain the given vertex and another
-            // vertex in x
-            for(Edge edge : graph.getAdjacentEdges(uId))
-            {
-                if((edge.getTail() == vertexId || edge.getHead() == vertexId)
-                        && (edge.getCost() < minCost))
-                {
-                    minCost = edge.getCost();
-                }
-            }
-        }
-        // Returns the minimum cost of the adjacent edge with the given edge
-        // and another vertex in X. If no such edge exists, minCost is a large
-        // number, which represents infinite.
-        return minCost;
     }
 }
