@@ -24,7 +24,7 @@ public class MST
     private static List<Integer> x = null;
 
     // Heap on which to store edge costs of the vertices not yet included in
-    // the SMT
+    // the MST
     private static PriorityQueue<Integer> heap = null;
 
     // Maps scores in the heap with their corresponding vertex ids. Uses a
