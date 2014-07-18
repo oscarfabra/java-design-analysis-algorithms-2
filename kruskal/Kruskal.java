@@ -9,7 +9,9 @@
  */
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Class that implements a greedy algorithm for computing the minimum spanning
@@ -21,8 +23,11 @@ public class Kruskal
     // CLASS VARIABLES
     //-------------------------------------------------------------------------
 
-    // Stores the ids of the covered vertices of the MST
+    // Stores the ids of the covered edges of the MST
     private static List<Integer> T = null;
+
+    // Stores the ids of the covered vertices of the MST in a given iteration
+    private static List<Integer> X = null;
 
     //-------------------------------------------------------------------------
     // CONSTRUCTOR
@@ -51,8 +56,9 @@ public class Kruskal
         int [] edges = new int[m];
         QuickEdges.sortEdges(graph, edges);
 
-        // Initializes the list on which to store the explored vertices
-        Kruskal.T = new ArrayList<Integer>(graph.getN()/2);
+        // Initializes the list on which to store the explored edges
+        Kruskal.T = new ArrayList<Integer>(m/2);
+        Kruskal.X = new ArrayList<Integer>();
         long cost = 0;
 
         // Walks through the edges of the graph in increasing order of their
@@ -64,8 +70,7 @@ public class Kruskal
             Edge edge = graph.getEdge(edges[i]);
             if(!Kruskal.edgeProducesACycle(edge,graph))
             {
-                Kruskal.T.add(edge.getTail());
-                Kruskal.T.add(edge.getHead());
+                Kruskal.T.add(edge.getId());
                 cost += edge.getCost();
             }
         }
@@ -80,7 +85,7 @@ public class Kruskal
 
     /**
      * Determines whether the edge with the given id of the given graph
-     * produces a cycle in the graph.
+     * produces a cycle using depth-first search (DFS).
      *
      * @param edge Edge to look for in the given graph.
      * @param graph Graph to examine.
@@ -88,7 +93,83 @@ public class Kruskal
      */
     private static boolean edgeProducesACycle(Edge edge, Graph graph)
     {
-        return Kruskal.T.contains(Integer.valueOf(edge.getTail())) &&
-                Kruskal.T.contains(Integer.valueOf(edge.getHead()));
+        // Finds a cycle using vertices' explored attribute
+        graph.setVertexExploredValue(edge.getTail(), true);
+        boolean hasCycle = DFSForFindingACycle(edge.getHead(), graph);
+
+        // Cleans the explored attribute of visited vertices
+        for(Integer vertexId : Kruskal.X)
+        {
+            graph.setVertexExploredValue(vertexId, false);
+        }
+        Kruskal.X = new ArrayList<Integer>();
+
+        // Returns the answer found
+        return hasCycle;
+    }
+
+    /**
+     * Performs a depth-first search to determine whether T + {edgeToAdd}
+     * produces a cycle, starting at the given vertex id.
+     * @param vertexId Id of the vertex in which to start to look at.
+     * @param graph Graph to examine.
+     * @return Whether there's a cycle or not.
+     */
+    private static boolean DFSForFindingACycle(int vertexId, Graph graph)
+    {
+        // If it encounters an already-explored vertex, then there's a cycle
+        if(graph.getVertex(vertexId).isExplored())
+        {
+            return true;
+        }
+
+        // Sets the given vertex as explored and adds it to X
+        graph.setVertexExploredValue(vertexId, true);
+        Kruskal.X.add(vertexId);
+
+        // Walks through the list of adjacent edges of the given vertex
+        // looking for cycles
+        for(Edge edge : graph.getAdjacentEdges(vertexId))
+        {
+            // Determines whether there's a cycle
+            if(Kruskal.T.contains(Integer.valueOf(edge.getId()))
+                    && Kruskal.vertexNotAlreadyVisited(vertexId, edge))
+            {
+                int tailId = edge.getTail();
+                int headId = edge.getHead();
+                if(tailId == vertexId)
+                {
+                    return DFSForFindingACycle(headId, graph);
+                }
+                else
+                {
+                    return DFSForFindingACycle(tailId, graph);
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Determines if a given vertex has already been visited looking at the
+     * list of visited vertices X.
+     * @param vertexId Id of the vertex in which to look for.
+     * @param edge Edge to examine.
+     * @return Whether the vertex has been visited or not.
+     */
+    private static boolean vertexNotAlreadyVisited(int vertexId, Edge edge)
+    {
+        if(vertexId == edge.getTail())
+        {
+            return Kruskal.X.contains(Integer.valueOf(edge.getHead()));
+        }
+        else if(vertexId == edge.getHead())
+        {
+            return Kruskal.X.contains(Integer.valueOf(edge.getTail()));
+        }
+        else
+        {
+            return false;
+        }
     }
 }

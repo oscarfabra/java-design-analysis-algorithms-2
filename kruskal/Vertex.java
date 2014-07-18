@@ -70,10 +70,11 @@ public class Vertex
     }
 
     /**
-     * Indicates that current vertex has been explored.
+     * Decides whether current value is explored or not.
+     * @param value Whether to set the vertex as explored or unexplored.
      */
-    public void setExplored()
+    public void setExplored(boolean value)
     {
-        this.explored = true;
+        this.explored = value;
     }
 }

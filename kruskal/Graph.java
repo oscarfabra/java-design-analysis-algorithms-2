@@ -194,6 +194,15 @@ public class Graph
     }
 
     /**
+     * Gets the ids of the vertices of the graph.
+     * @return Set of integers that represent the ids of V.
+     */
+    public Set<Integer> getVertexKeys()
+    {
+        return this.V.keySet();
+    }
+
+    /**
      * Gets the vertex with the given id in V.
      * @param vertexId Id of the vertex to look for.
      * @return Vertex with the given id.
@@ -208,13 +217,15 @@ public class Graph
     }
 
     /**
-     * Sets the vertex with the given id as explored in V.
+     * Sets the vertex with the given id as explored or unexplored
+     * depending on the boolean variable given.
      * @param vertexId Id of the vertex to look for.
+     * @param explored If vertex needs to be set to explored or unexplored.
      */
-    public void setVertexAsExplored(int vertexId)
+    public void setVertexExploredValue(int vertexId, boolean explored)
     {
         Vertex vertex = this.V.remove(vertexId);
-        vertex.setExplored();
+        vertex.setExplored(explored);
         this.V.put(vertexId, vertex);
     }
 
