@@ -15,6 +15,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Class that reads and solves a greedy algorithm for computing the minimum
@@ -32,7 +33,26 @@ public class Solver
      */
     private static void solve(List<String> lines)
     {
-        // TODO: Solve the MST problem using kruskal's algorithm.
+        // Gets the first line from the list
+        String firstLine = lines.remove(0);
+        String [] nAndM = firstLine.split(" ");
+        Integer n = Integer.parseInt(nAndM[0]);
+        Integer m = Integer.parseInt(nAndM[1]);
+
+        // Builds the adj list of edges of each vertex from the given lines
+        Map<Integer,List<Edge>> vertexEndpoints =
+                Graph.buildVertexEdges(m, lines);
+
+        // Creates a new graph
+        Graph graph = new Graph(n, vertexEndpoints);
+
+        // Finds the MST of the given graph using Kruskal's straightforward
+        // implementation
+        long cost = Kruskal.solveStraightforward(graph);
+
+        // Prints the answer in standard output
+        System.out.println("The cost of the minimum spanning tree (MST) of " +
+                "the given graph is: " + cost);
     }
 
     /**
