@@ -108,7 +108,7 @@
       <file leaf-file-name="Kruskal.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Kruskal.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="95" column="20" selection-start="3541" selection-end="3541" vertical-scroll-proportion="0.41485506" vertical-offset="1386" max-vertical-offset="3077">
+            <state line="124" column="0" selection-start="4566" selection-end="4566" vertical-scroll-proportion="0.030797102" vertical-offset="2091" max-vertical-offset="3077">
               <folding>
                 <element signature="n#!!doc" expanded="true" />
                 <element signature="imports" expanded="true" />
@@ -514,12 +514,12 @@
       <updated>1405649547115</updated>
       <workItem from="1405649559372" duration="24000" />
       <workItem from="1405649587859" duration="10414000" />
-      <workItem from="1405702564871" duration="20798000" />
+      <workItem from="1405702564871" duration="21080000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="31236000" />
+    <option name="totallyTimeSpent" value="31518000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-6" y="0" width="1375" height="768" extended-state="0" />
@@ -676,7 +676,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Kruskal.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="95" column="20" selection-start="3541" selection-end="3541" vertical-scroll-proportion="0.41485506" vertical-offset="1386" max-vertical-offset="3077">
+        <state line="124" column="0" selection-start="4566" selection-end="4566" vertical-scroll-proportion="0.030797102" vertical-offset="2091" max-vertical-offset="3077">
           <folding>
             <element signature="n#!!doc" expanded="true" />
             <element signature="imports" expanded="true" />

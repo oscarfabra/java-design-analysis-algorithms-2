@@ -133,7 +133,7 @@ public class Kruskal
         {
             // Determines whether there's a cycle
             if(Kruskal.T.contains(Integer.valueOf(edge.getId()))
-                    && Kruskal.vertexNotAlreadyVisited(vertexId, edge))
+                    && !Kruskal.vertexAlreadyVisited(vertexId, edge))
             {
                 int tailId = edge.getTail();
                 int headId = edge.getHead();
@@ -157,7 +157,7 @@ public class Kruskal
      * @param edge Edge to examine.
      * @return Whether the vertex has been visited or not.
      */
-    private static boolean vertexNotAlreadyVisited(int vertexId, Edge edge)
+    private static boolean vertexAlreadyVisited(int vertexId, Edge edge)
     {
         if(vertexId == edge.getTail())
         {
