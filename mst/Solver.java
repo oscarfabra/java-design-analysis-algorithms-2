@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * class that reads and solves a greedy algorithm for computing the minimum
+ * Class that reads and solves a greedy algorithm for computing the minimum
  * spanning tree (MST) of a given undirected graph.
  */
 public class Solver
@@ -122,8 +122,8 @@ public class Solver
 
     /**
      * Main test method.
-     * @param args filepath relative to the file with the representation of a
-     *             directed graph in the form -file=filepath
+     * @param args filepath relative to the file with the representation of an
+     *             undirected graph in the form -file=filepath
      */
     public static void main(String [] args)
     {
