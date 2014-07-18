@@ -27,7 +27,7 @@ public class Graph
     // Map of vertices with (vertexId, Vertex) pairs
     private Map<Integer,Vertex> V;
 
-    // List of edges
+    // Map of edges with (edgeId, Edge) pairs
     private Map<Integer,Edge> E;
 
     // Map of lists of vertices that indicates adjacent edges of each vertex
@@ -67,7 +67,6 @@ public class Graph
                 this.E.put(edge.getId(), edge);
                 this.addVertexEdge(edge);
             }
-
         }
         this.m = this.E.size();
         System.out.println("-- ...list of edges E initialized.");

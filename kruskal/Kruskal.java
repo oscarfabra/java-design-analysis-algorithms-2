@@ -21,7 +21,7 @@ public class Kruskal
     // CLASS VARIABLES
     //-------------------------------------------------------------------------
 
-    // Stores the ids of the covered edges of the MST
+    // Stores the ids of the covered vertices of the MST
     private static List<Integer> T = null;
 
     //-------------------------------------------------------------------------
@@ -39,6 +39,7 @@ public class Kruskal
      * MST algorithm's straightforward implementation and returns its cost;
      * O(n*m) algorithm. <br/>
      * <b>Pre: </b> The given graph is connected and has no cycles.
+     *
      * @param graph Graph to examine.
      * @return The overall cost of the MST found.
      */
@@ -50,20 +51,22 @@ public class Kruskal
         int [] edges = new int[m];
         QuickEdges.sortEdges(graph, edges);
 
-        // Initializes the list in which to store the explored edges
-        T = new ArrayList<Integer>(m/2);
+        // Initializes the list on which to store the explored vertices
+        Kruskal.T = new ArrayList<Integer>(graph.getN()/2);
         long cost = 0;
 
         // Walks through the edges of the graph in increasing order of their
         // costs, choosing them as appropriate
         for(int i = 0; i < m; i++)
         {
-            // Add to T and increase the overall cost only if the next edge
-            // doesn't produce any cycles
-            if(Kruskal.edgeDoesntProduceCycles(edges[i],graph))
+            // Adds tail and head vertices to T and increase the overall cost
+            // only if the next edge doesn't produce any cycles
+            Edge edge = graph.getEdge(edges[i]);
+            if(!Kruskal.edgeProducesACycle(edge,graph))
             {
-               T.add(edges[i]);
-                cost += graph.getEdge(edges[i]).getCost();
+                Kruskal.T.add(edge.getTail());
+                Kruskal.T.add(edge.getHead());
+                cost += edge.getCost();
             }
         }
 
@@ -77,15 +80,15 @@ public class Kruskal
 
     /**
      * Determines whether the edge with the given id of the given graph
-     * produces a cycle in the graph or not.
-     * @param edgeId Id of the edge to look for in the given graph.
+     * produces a cycle in the graph.
+     *
+     * @param edge Edge to look for in the given graph.
      * @param graph Graph to examine.
-     * @return Whether the edge with the given id produces a cycle or not.
+     * @return Whether the edge with the given id produces a cycle.
      */
-    private static boolean edgeDoesntProduceCycles(int edgeId, Graph graph)
+    private static boolean edgeProducesACycle(Edge edge, Graph graph)
     {
-        // TODO: edgeDoesntProduceCycles...
-
-        return false;
+        return Kruskal.T.contains(Integer.valueOf(edge.getTail())) &&
+                Kruskal.T.contains(Integer.valueOf(edge.getHead()));
     }
 }

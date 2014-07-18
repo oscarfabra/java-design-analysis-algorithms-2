@@ -8,13 +8,19 @@
  * @since 20/05/14
  */
 
-
 /**
  * Class that sorts the edges of a given graph in increasing order of their
  * respective costs.
  */
 public class QuickEdges
 {
+    //-------------------------------------------------------------------------
+    // CLASS VARIABLES
+    //-------------------------------------------------------------------------
+
+    // Array of integers in which to store the edges of the graph
+    private static int [] edges;
+
     //-------------------------------------------------------------------------
     // CONSTRUCTOR
     //-------------------------------------------------------------------------
@@ -27,15 +33,6 @@ public class QuickEdges
     //-------------------------------------------------------------------------
 
     /**
-     * Sorts the given array using quicksort pivoting over the first element.
-     * @param a Array of int numbers.
-     */
-    public static void sort(int [] a)
-    {
-        sort(a, 0, a.length - 1);
-    }
-
-    /**
      * Sorts the edges of the given graph according to their respective costs
      * and stores their ids in the edges array.
      * @param graph Graph to examine.
@@ -44,7 +41,35 @@ public class QuickEdges
      */
     public static void sortEdges(Graph graph, int[] edges)
     {
-        // TODO: SortEdges...
+        // Stores the ids of each edge in the edges class array, and their
+        // costs in the costs array
+        int m = graph.getM();
+        int [] costs = new int[m];
+        QuickEdges.edges = new int[m];
+        int i = 0;
+        for(Integer edgeId : graph.getEdgeKeys())
+        {
+            QuickEdges.edges[i] = edgeId;
+            costs[i++] = graph.getEdge(edgeId).getCost();
+        }
+
+        // Sorts the costs array AND the edges class array
+        QuickEdges.sort(costs);
+
+        // Updates the given edges array
+        for(i = 0; i < m; i++)
+        {
+            edges[i] = QuickEdges.edges[i];
+        }
+    }
+
+    /**
+     * Sorts the given array using quicksort pivoting over the first element.
+     * @param a Array of int numbers.
+     */
+    public static void sort(int [] a)
+    {
+        sort(a, 0, a.length - 1);
     }
 
     //-------------------------------------------------------------------------
@@ -99,5 +124,10 @@ public class QuickEdges
         int aux = a[j];
         a[j] = a[i];
         a[i] = aux;
+
+        // Swaps the respective edge ids
+        aux = QuickEdges.edges[j];
+        QuickEdges.edges[j] = QuickEdges.edges[i];
+        QuickEdges.edges[i] = aux;
     }
 }
