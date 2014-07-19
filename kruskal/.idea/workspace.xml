@@ -99,7 +99,16 @@
       <file leaf-file-name="Solver.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Solver.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="50" column="0" selection-start="1721" selection-end="1721" vertical-scroll-proportion="0.0" vertical-offset="411" max-vertical-offset="1972">
+            <state line="50" column="0" selection-start="1721" selection-end="1721" vertical-scroll-proportion="0.0" vertical-offset="407" max-vertical-offset="1972">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="edges_14_1.txt" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/data/edges_14_1.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="493">
               <folding />
             </state>
           </provider>
@@ -108,7 +117,7 @@
       <file leaf-file-name="Kruskal.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Kruskal.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="124" column="0" selection-start="4566" selection-end="4566" vertical-scroll-proportion="0.030797102" vertical-offset="2091" max-vertical-offset="3077">
+            <state line="116" column="27" selection-start="4314" selection-end="4314" vertical-scroll-proportion="0.9384058" vertical-offset="1454" max-vertical-offset="2907">
               <folding>
                 <element signature="n#!!doc" expanded="true" />
                 <element signature="imports" expanded="true" />
@@ -120,9 +129,13 @@
       <file leaf-file-name="Edge.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Edge.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="85" column="0" selection-start="2213" selection-end="2213" vertical-scroll-proportion="0.0" vertical-offset="1063" max-vertical-offset="1615">
+            <state line="76" column="0" selection-start="2052" selection-end="2052" vertical-scroll-proportion="0.0" vertical-offset="972" max-vertical-offset="1717">
               <folding>
+                <element signature="e#2082#2083#0" expanded="true" />
+                <element signature="e#2211#2212#0" expanded="true" />
                 <element signature="e#2243#2244#0" expanded="true" />
+                <element signature="e#2358#2359#0" expanded="true" />
+                <element signature="e#2388#2389#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -153,9 +166,12 @@
       <file leaf-file-name="Graph.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Graph.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="215" column="0" selection-start="7051" selection-end="7051" vertical-scroll-proportion="0.0" vertical-offset="3352" max-vertical-offset="5066">
+            <state line="215" column="0" selection-start="7051" selection-end="7051" vertical-scroll-proportion="0.0" vertical-offset="3403" max-vertical-offset="5117">
               <folding>
                 <element signature="n#!!doc" expanded="true" />
+                <element signature="e#6516#6517#0" expanded="true" />
+                <element signature="e#6545#6546#0" expanded="true" />
+                <element signature="e#7981#7987#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -481,7 +497,7 @@
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <option name="MAIN_CLASS_NAME" value="Solver" />
       <option name="VM_PARAMETERS" value="" />
-      <option name="PROGRAM_PARAMETERS" value="-file=./data/edges_6_1.txt" />
+      <option name="PROGRAM_PARAMETERS" value="-file=./data/edges_14_1.txt" />
       <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" value="" />
@@ -514,12 +530,12 @@
       <updated>1405649547115</updated>
       <workItem from="1405649559372" duration="24000" />
       <workItem from="1405649587859" duration="10414000" />
-      <workItem from="1405702564871" duration="21080000" />
+      <workItem from="1405702564871" duration="28188000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="31518000" />
+    <option name="totallyTimeSpent" value="38626000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-6" y="0" width="1375" height="768" extended-state="0" />
@@ -532,7 +548,7 @@
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.39939255" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.4229309" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
@@ -540,11 +556,11 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32899022" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.19438116" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.19438116" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.1040243" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.1040243" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -610,6 +626,9 @@
         <state line="16" column="14" selection-start="366" selection-end="366" vertical-scroll-proportion="0.0" vertical-offset="272" max-vertical-offset="5015">
           <folding>
             <element signature="n#!!doc" expanded="true" />
+            <element signature="e#6516#6517#0" expanded="true" />
+            <element signature="e#6545#6546#0" expanded="true" />
+            <element signature="e#7981#7987#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -638,22 +657,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Solver.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="50" column="0" selection-start="1721" selection-end="1721" vertical-scroll-proportion="0.0" vertical-offset="400" max-vertical-offset="1972">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Graph.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="215" column="0" selection-start="7051" selection-end="7051" vertical-scroll-proportion="0.0" vertical-offset="3352" max-vertical-offset="5066">
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Vertex.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="68" column="0" selection-start="1722" selection-end="1722" vertical-scroll-proportion="0.0" vertical-offset="740" max-vertical-offset="1292">
@@ -665,18 +668,48 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Graph.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="215" column="0" selection-start="7051" selection-end="7051" vertical-scroll-proportion="0.0" vertical-offset="3403" max-vertical-offset="5117">
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+            <element signature="e#6516#6517#0" expanded="true" />
+            <element signature="e#6545#6546#0" expanded="true" />
+            <element signature="e#7981#7987#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Edge.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="85" column="0" selection-start="2213" selection-end="2213" vertical-scroll-proportion="0.0" vertical-offset="1063" max-vertical-offset="1615">
+        <state line="76" column="0" selection-start="2052" selection-end="2052" vertical-scroll-proportion="0.0" vertical-offset="972" max-vertical-offset="1717">
           <folding>
+            <element signature="e#2082#2083#0" expanded="true" />
+            <element signature="e#2211#2212#0" expanded="true" />
             <element signature="e#2243#2244#0" expanded="true" />
+            <element signature="e#2358#2359#0" expanded="true" />
+            <element signature="e#2388#2389#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data/edges_14_1.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="493">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Solver.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="50" column="0" selection-start="1721" selection-end="1721" vertical-scroll-proportion="0.0" vertical-offset="407" max-vertical-offset="1972">
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Kruskal.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="124" column="0" selection-start="4566" selection-end="4566" vertical-scroll-proportion="0.030797102" vertical-offset="2091" max-vertical-offset="3077">
+        <state line="116" column="27" selection-start="4314" selection-end="4314" vertical-scroll-proportion="0.9384058" vertical-offset="1454" max-vertical-offset="2907">
           <folding>
             <element signature="n#!!doc" expanded="true" />
             <element signature="imports" expanded="true" />
