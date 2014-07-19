@@ -158,6 +158,11 @@ public class Kruskal
                 {
                     cycleTowardTail = DFSForFindingACycle(tailId, graph);
                 }
+                // Break out of the loop if a loop has been found
+                if(cycleTowardHead || cycleTowardTail)
+                {
+                    break;
+                }
             }
         }
         return cycleTowardHead || cycleTowardTail;
