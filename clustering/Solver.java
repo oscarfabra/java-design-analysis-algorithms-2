@@ -49,7 +49,7 @@ public class Solver
         // Creates a new graph to solve the k-clustering problem
         Graph graph = new Graph(n, vertexEndpoints);
 
-        // Finds the max-spaacing of the k-clustering of the distance function
+        // Finds the max-spacing of a k-clustering of the distance function
         // represented in the graph
         int maxSpacing = Clustering.findMaxSpacing(graph,Solver.k);
 
