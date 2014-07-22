@@ -11,7 +11,7 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.Vector;
 import java.util.List;
 import java.util.Map;
 
@@ -68,7 +68,7 @@ public class Solver
     private static List<String> readLines(String[] args)
             throws Exception
     {
-        List<String> lines = new ArrayList<String>();
+        List<String> lines = new Vector<String>();
         String filename = null;
 
         // Gets the file name

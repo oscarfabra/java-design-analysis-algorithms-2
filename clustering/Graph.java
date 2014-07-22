@@ -7,7 +7,7 @@
  * @since 3/06/14
  */
 
-import java.util.ArrayList;
+import java.util.Vector;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -139,7 +139,7 @@ public class Graph
         List<Edge> adjacentEdges = vertexEdges.remove(key);
         if(adjacentEdges == null)
         {
-            adjacentEdges = new ArrayList<Edge>();
+            adjacentEdges = new Vector<Edge>();
         }
         adjacentEdges.add(newEdge);
         vertexEdges.put(key, adjacentEdges);
@@ -242,7 +242,7 @@ public class Graph
     public List<Edge> getAdjacentEdges(int vertexId)
     {
         // Walks through the list of adjacent edges of the given vertex id
-        List<Edge> adjacentEdges = new ArrayList<Edge>();
+        List<Edge> adjacentEdges = new Vector<Edge>();
         for(Integer edgeId : this.vertexEdges.get(vertexId))
         {
             adjacentEdges.add(this.E.get(edgeId));
@@ -285,7 +285,7 @@ public class Graph
         List<Integer> adjEdgesIds = vertexEdges.remove(vertexId);
         if(adjEdgesIds == null)
         {
-            adjEdgesIds = new ArrayList<Integer>();
+            adjEdgesIds = new Vector<Integer>();
         }
         adjEdgesIds.add(edge.getId());
         vertexEdges.put(vertexId, adjEdgesIds);
@@ -295,7 +295,7 @@ public class Graph
         adjEdgesIds = vertexEdges.remove(vertexId);
         if(adjEdgesIds == null)
         {
-            adjEdgesIds = new ArrayList<Integer>();
+            adjEdgesIds = new Vector<Integer>();
         }
         adjEdgesIds.add(edge.getId());
         vertexEdges.put(vertexId, adjEdgesIds);
