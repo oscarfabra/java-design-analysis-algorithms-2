@@ -64,8 +64,9 @@ public class Clustering
     {
         // Initializes data structures
         int m = graph.getM();
+        int n = graph.getN();
         Clustering.clustersVertices = new HashMap<Integer, List<Integer>>(m);
-        Clustering.vertexCluster = new HashMap<Integer, Integer>(graph.getN());
+        Clustering.vertexCluster = new HashMap<Integer, Integer>(n);
 
         // Stores the distances between points (edge costs)
         int [] distances = new int[m];
@@ -90,19 +91,24 @@ public class Clustering
         Clustering.currentDistanceIndex = 0;
         while(Clustering.clustersNumber > k)
         {
-            // Gets the closest pair of separated points
-            int closestPair = distances[Clustering.currentDistanceIndex];
+            // Gets the closest pair of points, guaranteeing that they belong
+            // to different clusters
+            int closestPair = distances[Clustering.currentDistanceIndex++];
             Edge pAndQ = graph.getEdge(Integer.valueOf(closestPair));
-            Clustering.closestPairSpacing = pAndQ.getCost();
-
-            // Merges the clusters that contain p and q into a single one, AND
-            // updates distances between clusters accordingly
             int p = pAndQ.getTail();
             int q = pAndQ.getHead();
-            Clustering.mergeClustersAndUpdateDistances(p, q, graph, distances);
+            while(Clustering.vertexCluster.get(Integer.valueOf(p))
+                    == Clustering.vertexCluster.get(Integer.valueOf(q)))
+            {
+                closestPair = distances[Clustering.currentDistanceIndex++];
+                pAndQ = graph.getEdge(Integer.valueOf(closestPair));
+                p = pAndQ.getTail();
+                q = pAndQ.getHead();
+            }
+            Clustering.closestPairSpacing = pAndQ.getCost();
 
-            // Increases current distance index
-            Clustering.currentDistanceIndex++;
+            // Merges the clusters that contain p and q into a single one
+            Clustering.mergeClusters(p, q);
         }
 
         // Returns the distance between the closest pair of separated points
@@ -143,25 +149,22 @@ public class Clustering
         List<Integer> verticesIds =
                 Clustering.clustersVertices.remove(Integer.valueOf(clusterId));
         verticesIds.remove(vertexId);
-        Clustering.clustersVertices.put(clusterId, verticesIds);
+        if(verticesIds.size() > 0)
+        {
+            Clustering.clustersVertices.put(clusterId, verticesIds);
+        }
         Clustering.vertexCluster.remove(vertexId);
     }
 
     /**
-     * Merges vertices with ids p and q into a single cluster AND updates
-     * distances as appropriate. <br/>
+     * Merges vertices with ids p and q into a single cluster. <br/>
      * <b>Pre:</b> p and q belong to different clusters. (i.e. <br/>
      * vertexCluster.get(Integer.valueOf(p))
      * != vertexCluster.get(Integer.valueOf(q))).
      * @param p Id of the first vertex to merge.
      * @param q Id of the second vertex to merge.
-     * @param graph Graph with the distance function to examine.
-     * @param distances Array of int with the ids of the edges or distances
-     *                  between clusters, ordered in increasing order.
      */
-    private static void mergeClustersAndUpdateDistances(int p, int q,
-                                                        Graph graph,
-                                                        int[] distances)
+    private static void mergeClusters(int p, int q)
     {
         int clusterOfP = Clustering.vertexCluster.get(Integer.valueOf(p));
         int clusterOfQ = Clustering.vertexCluster.get(Integer.valueOf(q));
@@ -174,48 +177,27 @@ public class Clustering
         int destinationCluster = 0;
         if(sizeOfClusterOfP >= sizeOfClusterOfQ)
         {
-            verticesIds =
-                    Clustering.clustersVertices.get(Integer.valueOf(clusterOfQ));
             originCluster = clusterOfQ;
             destinationCluster = clusterOfP;
         }
         else
         {
-            verticesIds =
-                    Clustering.clustersVertices.get(Integer.valueOf(clusterOfP));
             originCluster = clusterOfP;
             destinationCluster = clusterOfQ;
         }
 
         // Removes each vertex from originCluster and adds it to
         // destinationCluster, updating distances as appropriate
+        verticesIds =
+                Clustering.clustersVertices.get(Integer.valueOf(originCluster));
         for(Integer vertexId : verticesIds)
         {
             // Removes vertex from one cluster and adds it to the other
-            Clustering.removeFromCluster(clusterOfQ, vertexId);
-            Clustering.addToCluster(clusterOfP, vertexId);
-
-            // Updates distances between clusters
-            Clustering.updateDistances(vertexId, originCluster,
-                    destinationCluster, distances);
+            Clustering.removeFromCluster(originCluster, vertexId);
+            Clustering.addToCluster(destinationCluster, vertexId);
         }
 
         // Updates clustersNumber
         Clustering.clustersNumber--;
-    }
-
-    /**
-     * Updates distances between cluster taking into account the vertex that is
-     * being moved, its origin and its destination.
-     * @param vertexId Id of the vertex that is being moved.
-     * @param originCluster Id of the origin cluster.
-     * @param destinationCluster Id of the destination cluster.
-     * @param distances Array of int with the ids of the edges or distances
-     *                  between clusters, ordered in increasing order.
-     */
-    private static void updateDistances(Integer vertexId, int originCluster,
-                                        int destinationCluster, int[] distances)
-    {
-        // TODO: Update distances...
     }
 }

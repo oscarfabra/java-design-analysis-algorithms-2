@@ -76,7 +76,7 @@
       <file leaf-file-name="Solver.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Solver.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="53" column="43" selection-start="1850" selection-end="1850" vertical-scroll-proportion="0.0" vertical-offset="298" max-vertical-offset="2227">
+            <state line="53" column="43" selection-start="1850" selection-end="1850" vertical-scroll-proportion="0.0" vertical-offset="901" max-vertical-offset="2448">
               <folding />
             </state>
           </provider>
@@ -85,7 +85,7 @@
       <file leaf-file-name="Clustering.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Clustering.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="218" column="0" selection-start="8927" selection-end="8927" vertical-scroll-proportion="0.9435216" vertical-offset="3138" max-vertical-offset="3859">
+            <state line="118" column="29" selection-start="4648" selection-end="4648" vertical-scroll-proportion="0.9437086" vertical-offset="1436" max-vertical-offset="3553">
               <folding>
                 <element signature="n#!!doc" expanded="true" />
                 <element signature="imports" expanded="true" />
@@ -106,7 +106,7 @@
       <file leaf-file-name="Graph.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Graph.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="241" column="22" selection-start="7922" selection-end="7922" vertical-scroll-proportion="0.0" vertical-offset="3591" max-vertical-offset="4947">
+            <state line="241" column="22" selection-start="7922" selection-end="7922" vertical-scroll-proportion="0.0" vertical-offset="4097" max-vertical-offset="5253">
               <folding />
             </state>
           </provider>
@@ -115,7 +115,7 @@
       <file leaf-file-name="QuickEdges.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/QuickEdges.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="41" column="23" selection-start="1478" selection-end="1478" vertical-scroll-proportion="0.0" vertical-offset="361" max-vertical-offset="2227">
+            <state line="41" column="23" selection-start="1478" selection-end="1478" vertical-scroll-proportion="0.0" vertical-offset="697" max-vertical-offset="2363">
               <folding />
             </state>
           </provider>
@@ -447,15 +447,16 @@
       <workItem from="1405828724902" duration="21000" />
       <workItem from="1405828749366" duration="427000" />
       <workItem from="1405876690631" duration="5446000" />
-      <workItem from="1405963451196" duration="10395000" />
+      <workItem from="1405963451196" duration="13688000" />
+      <workItem from="1406047702851" duration="2066000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="16289000" />
+    <option name="totallyTimeSpent" value="21648000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="784" extended-state="6" />
+    <frame x="-8" y="-8" width="1382" height="784" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -481,8 +482,8 @@
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -502,6 +503,51 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/clustering.iml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="5" column="44" selection-start="259" selection-end="259" vertical-scroll-proportion="0.0" vertical-offset="85" max-vertical-offset="306">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Solver.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="53" column="43" selection-start="1850" selection-end="1850" vertical-scroll-proportion="0.0" vertical-offset="901" max-vertical-offset="2448">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Clustering.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="234" column="40" selection-start="9507" selection-end="9507" vertical-scroll-proportion="0.0" vertical-offset="3444" max-vertical-offset="4148">
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data/clustering1.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2120869">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Graph.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="241" column="22" selection-start="7922" selection-end="7922" vertical-scroll-proportion="0.0" vertical-offset="4097" max-vertical-offset="5253">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/QuickEdges.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="41" column="23" selection-start="1478" selection-end="1478" vertical-scroll-proportion="0.0" vertical-offset="697" max-vertical-offset="2363">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/clustering.iml">
       <provider selected="true" editor-type-id="text-editor">
         <state line="5" column="44" selection-start="259" selection-end="259" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="306">
@@ -582,13 +628,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Graph.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="241" column="22" selection-start="7922" selection-end="7922" vertical-scroll-proportion="0.0" vertical-offset="3591" max-vertical-offset="4947">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/QuickEdges.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="41" column="23" selection-start="1478" selection-end="1478" vertical-scroll-proportion="0.0" vertical-offset="361" max-vertical-offset="2227">
@@ -596,9 +635,16 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Graph.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="241" column="22" selection-start="7922" selection-end="7922" vertical-scroll-proportion="0.0" vertical-offset="3591" max-vertical-offset="4947">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Clustering.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="218" column="0" selection-start="8927" selection-end="8927" vertical-scroll-proportion="0.9435216" vertical-offset="3138" max-vertical-offset="3859">
+        <state line="118" column="29" selection-start="4648" selection-end="4648" vertical-scroll-proportion="0.9437086" vertical-offset="1436" max-vertical-offset="3553">
           <folding>
             <element signature="n#!!doc" expanded="true" />
             <element signature="imports" expanded="true" />
