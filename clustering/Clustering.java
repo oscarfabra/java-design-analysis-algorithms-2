@@ -54,6 +54,22 @@ public class Clustering
     //-------------------------------------------------------------------------
 
     /**
+     * Finds the largest value of k such that there is a k-clustering with
+     * spacing at least s taking into account the hamming distance between each
+     * of them.
+     * @param nodes Map with the list of associated bits for each node.
+     * @param bits Number of bits associated with each node.
+     * @param s Minimum spacing to look for.
+     * @return The largest value of k for a k-clustering with spacing at least
+     * s.
+     */
+    public static int findMaxClustering(Map<Integer, List<Integer>> nodes, int bits, int s)
+    {
+        // TODO: Find max clustering...
+        return 0;
+    }
+
+    /**
      * Finds the maximum spacing of a k-clustering of the distance function
      * represented in the given graph.
      * @param graph Graph with the distance function to examine.

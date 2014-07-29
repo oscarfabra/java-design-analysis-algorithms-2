@@ -11,9 +11,7 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Vector;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Class that reads and solves a greedy algorithm for computing a max-spacing
@@ -60,16 +58,50 @@ public class Solver
     }
 
     /**
-     * Solves the max-spacing k-clustering problem using the hamming distances
-     * provided as input. In this case
+     * Solves the k-clustering problem using the hamming distances and the
+     * min-spacing to look for provided as input.
      * @param lines List of bits associated for each node or point.
      * @param n Number of vertices or points of the problem.
      * @param bits Number of bits to assign to each node.
      * @param s Minimum spacing to look for, read from standard input.
      */
-    private static void solveByHammingDistances(List<String> lines, int n, int bits, int s)
+    private static void solveByHammingDistances(List<String> lines, int n,
+                                                int bits, int s)
     {
-        // TODO: Solve problem using the Hamming distances approach...
+        // Gets an array with the associated bits for each node
+        Map<Integer, List<Integer>> nodes =
+                new HashMap<Integer, List<Integer>>(n);
+        int nodeId = 1;
+        for(String line : lines)
+        {
+            List<Integer> nodeBits = Solver.getNodeBits(line, bits);
+            nodes.put(nodeId++,nodeBits);
+        }
+
+        // Finds the largest value of k to get an spacing of at least s
+        int maxK = Clustering.findMaxClustering(nodes, bits, s);
+
+        // Prints solution in standard output
+        System.out.println("The largest value of k for a min-spacing of " + s +
+                " is: "+ maxK);
+    }
+
+    /**
+     * Gets a list of integers with the bits for a node or point.
+     * <b>Pre:</b> The given line has exactly bits number of bits.
+     * @param line String with the label to get the bits from.
+     * @param bits Number of bits to get from the line.
+     * @return List of integers with the associated bits for a node.
+     */
+    private static List<Integer> getNodeBits(String line, int bits)
+    {
+        List<Integer> nodeBits = new ArrayList<Integer>(bits);
+        String [] bitsArray = line.split(" ");
+        for(int i = 0; i < bits; i++)
+        {
+            nodeBits.add(Integer.parseInt(bitsArray[i]));
+        }
+        return nodeBits;
     }
 
     /**
@@ -81,7 +113,8 @@ public class Solver
      * @param m Number of edges. In this case, they represent the distances
      * @param k Number of clusters desired, read from standard input.
      */
-    private static void solveByCostEdges(List<String> lines, int n, int m, int k)
+    private static void solveByCostEdges(List<String> lines, int n, int m,
+                                         int k)
     {
         // Gets the map of distances between each node and the other nodes
         Map<Integer, List<Edge>> vertexEndpoints =
