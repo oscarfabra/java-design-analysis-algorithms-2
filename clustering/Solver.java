@@ -25,11 +25,14 @@ public class Solver
     // CLASS VARIABLES
     //-------------------------------------------------------------------------
 
-    // Number of clusters desired read from standard input
-    private static int k;
+    // Number of clusters or spacing desired read from standard input.
+    // For a cost edges input, the number of clusters k must be provided.
+    // For a hamming distances input, the size of minimum spacing s must be
+    // provided.
+    private static int kOrSpacing;
 
     //-------------------------------------------------------------------------
-    // PUBLIC METHODS
+    // PRIVATE METHODS
     //-------------------------------------------------------------------------
 
     /**
@@ -38,10 +41,48 @@ public class Solver
      */
     private static void solve(List<String> lines)
     {
-        // Gets the number of vertices or nodes n, and the number of edges m
-        int n = Integer.parseInt(lines.remove(0));
-        int m = lines.size();
+        // Determines whether it is a problem to solve using hamming distances
+        String firstLine = lines.remove(0);
+        String [] lineContents = firstLine.split(" ");
+        int n = Integer.parseInt(lineContents[0]);
+        if(lineContents.length == 1)
+        {
+            // Solves using cost edges
+            int m = lines.size();
+            Solver.solveByCostEdges(lines, n, m, Solver.kOrSpacing);
+        }
+        else
+        {
+            // Solves using hamming distances
+            int bits = Integer.parseInt(lineContents[1]);
+            Solver.solveByHammingDistances(lines, n, bits, Solver.kOrSpacing);
+        }
+    }
 
+    /**
+     * Solves the max-spacing k-clustering problem using the hamming distances
+     * provided as input. In this case
+     * @param lines List of bits associated for each node or point.
+     * @param n Number of vertices or points of the problem.
+     * @param bits Number of bits to assign to each node.
+     * @param s Minimum spacing to look for, read from standard input.
+     */
+    private static void solveByHammingDistances(List<String> lines, int n, int bits, int s)
+    {
+        // TODO: Solve problem using the Hamming distances approach...
+    }
+
+    /**
+     * Solves the max-spacing k-clustering problem using the cost edges
+     * approach and prints the solution in standard output.
+     * @param lines List of edges containing tail and head vertices, and cost
+     *              for each edge.
+     * @param n Number of vertices or points of the problem.
+     * @param m Number of edges. In this case, they represent the distances
+     * @param k Number of clusters desired, read from standard input.
+     */
+    private static void solveByCostEdges(List<String> lines, int n, int m, int k)
+    {
         // Gets the map of distances between each node and the other nodes
         Map<Integer, List<Edge>> vertexEndpoints =
                 Graph.buildVertexEdges(m, lines);
@@ -51,10 +92,10 @@ public class Solver
 
         // Finds the max-spacing of a k-clustering of the distance function
         // represented in the graph
-        int maxSpacing = Clustering.findMaxSpacing(graph,Solver.k);
+        int maxSpacing = Clustering.findMaxSpacing(graph, k);
 
         // Prints solution in standard output
-        System.out.println("The max-spacing of a " + Solver.k +
+        System.out.println("The max-spacing of a " + k +
                 "-clustering is: "+ maxSpacing);
     }
 
@@ -83,16 +124,6 @@ public class Solver
             return null;
         }
 
-        // Reads second argument, throws exception if not an integer
-        try
-        {
-            Solver.k = Integer.parseInt(args[1]);
-        }
-        catch(NumberFormatException nfe)
-        {
-            throw nfe;
-        }
-
         // Reads the lines out of the file
         FileReader fileReader = new FileReader(filename);
         BufferedReader buffer = new BufferedReader(fileReader);
@@ -109,6 +140,17 @@ public class Solver
             e.printStackTrace();
         }
 
+        // Gets k or minimum spacing as second argument, throws an exception if
+        // not found
+        try
+        {
+            Solver.kOrSpacing = Integer.parseInt(args[1]);
+        }
+        catch(NumberFormatException nfe)
+        {
+            throw nfe;
+        }
+
         // Returns the lines read
         return lines;
     }
@@ -121,7 +163,10 @@ public class Solver
      * Main test method.
      * @param args filepath relative to the file with the representation of an
      *             undirected graph in the form -file=filepath
-     *             Number of clusters desired k.
+     *              For a cost edges input, the number of clusters k must be
+     *              provided as second input.
+     *              For a hamming distances input, the size of minimum spacing
+     *              s must be provided as second input.
      */
     public static void main(String [] args)
     {
