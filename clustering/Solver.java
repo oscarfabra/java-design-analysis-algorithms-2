@@ -69,13 +69,12 @@ public class Solver
                                                 int bits, int s)
     {
         // Gets an array with the associated bits for each node
-        Map<Integer, List<Integer>> nodes =
-                new HashMap<Integer, List<Integer>>(n);
-        int nodeId = 1;
+        List<Integer>[] nodes = (ArrayList<Integer>[])new ArrayList[n];
+        int i = 0;
         for(String line : lines)
         {
             List<Integer> nodeBits = Solver.getNodeBits(line, bits);
-            nodes.put(nodeId++,nodeBits);
+            nodes[i] = new ArrayList<Integer>(nodeBits);
         }
 
         // Finds the largest value of k to get an spacing of at least s
