@@ -27,7 +27,7 @@ public class Clustering
 
     // Maps the vertices that comprise each cluster. Uses list-chaining to
     // assign the vertices of each cluster.
-    private static Map<Integer,List<Integer>> clustersVertices;
+    private static Map<Integer,List<Integer>> clusterVertices;
 
     // Maps the cluster of each vertex. In this case there's no need for
     // chaining since each vertex can only belong to one cluster.
@@ -42,6 +42,10 @@ public class Clustering
 
     // Stores the index of the distances array that is being considered
     private static int currentDistanceIndex;
+
+    // List of edges (pair of nodes) already added to a cluster (for the hamming
+    // distances approach)
+    private static List<Integer> E;
 
     //-------------------------------------------------------------------------
     // CONSTRUCTOR
@@ -60,13 +64,47 @@ public class Clustering
      * @param nodes Map with the list of associated bits for each node.
      * @param bits Number of bits associated with each node.
      * @param s Minimum spacing to look for.
-     * @return The largest value of k for a k-clustering with spacing at least
-     * s.
+     * @return Largest value of k for a k-clustering with spacing at least s.
      */
-    public static int findMaxClustering(Map<Integer, List<Integer>> nodes, int bits, int s)
+    public static int findMaxClustering(Map<Integer, List<Integer>> nodes,
+                                        int bits, int s)
     {
-        // TODO: Find max clustering...
-        return 0;
+        // Initializes data structures
+        int n = nodes.size();
+        Clustering.clusterVertices = new HashMap<Integer, List<Integer>>(n);
+        Clustering.vertexCluster = new HashMap<Integer, Integer>(n);
+
+        // Initializes points putting each of them on a separate cluster
+        Clustering.clustersNumber = 1;
+        for(Integer nodeId: nodes.keySet())
+        {
+            Clustering.addToCluster(nodeId, Clustering.clustersNumber++);
+        }
+        Clustering.clustersNumber--;
+
+        // Finds the largest value of k such that there is a k-clustering with
+        // spacing at least s
+        Clustering.closestPairSpacing = 999999;
+        int [] pAndQ;
+        while(Clustering.closestPairSpacing >= s)
+        {
+            // Gets the closest pair of points, guaranteeing that they belong
+            // to different clusters
+            pAndQ = Clustering.updateClosestHammingDistance(nodes, bits);
+
+            // Merges the clusters that contain p and q into a single one
+            Integer p = Integer.valueOf(pAndQ[0]);
+            Integer q = Integer.valueOf(pAndQ[1]);
+            int clusterOfP = Clustering.vertexCluster.get(p);
+            int clusterOfQ = Clustering.vertexCluster.get(q);
+            Clustering.mergeClusters(clusterOfP, clusterOfQ);
+        }
+
+        // Finds and updates the closest pair spacing
+        Clustering.updateClosestHammingDistance(nodes, bits);
+
+        // Returns the largest value of k
+        return Clustering.clustersNumber;
     }
 
     /**
@@ -81,7 +119,7 @@ public class Clustering
         // Initializes data structures
         int m = graph.getM();
         int n = graph.getN();
-        Clustering.clustersVertices = new HashMap<Integer, List<Integer>>(m);
+        Clustering.clusterVertices = new HashMap<Integer, List<Integer>>(m);
         Clustering.vertexCluster = new HashMap<Integer, Integer>(n);
         int [] distances = new int[m];
 
@@ -125,6 +163,19 @@ public class Clustering
     //-------------------------------------------------------------------------
 
     /**
+     * Finds the pair of nodes with the smallest hamming distance between them,
+     * and updates this distance.
+     * @param nodes Map with the list of associated bits for each node.
+     * @param bits Number of bits associated with each node.
+     * @return Array of size 2 with p and q in positions 0 and 1 respectively.
+     */
+    private static int[] updateClosestHammingDistance(Map<Integer, List<Integer>> nodes, int bits)
+    {
+        // TODO: Update closest hamming distance and return the pair of nodes
+        return new int[0];
+    }
+
+    /**
      * Finds and updates the distance between the two vertices that belong to
      * different clusters and are the closest to each other.
      * @param graph Graph with the distance function to examine.
@@ -163,10 +214,10 @@ public class Clustering
     {
         // Moves vertices from the smaller cluster to the bigger one
         int sizeOfClusterOfP
-                = Clustering.clustersVertices.get(Integer.valueOf(clusterOfP))
+                = Clustering.clusterVertices.get(Integer.valueOf(clusterOfP))
                 .size();
         int sizeOfClusterOfQ
-                = Clustering.clustersVertices.get(Integer.valueOf(clusterOfQ))
+                = Clustering.clusterVertices.get(Integer.valueOf(clusterOfQ))
                 .size();
         List<Integer> verticesIds = null;
         int originCluster = 0;
@@ -185,7 +236,7 @@ public class Clustering
         // Removes each vertex from originCluster and adds it to
         // destinationCluster
         verticesIds =
-                Clustering.clustersVertices.get(Integer.valueOf(originCluster));
+                Clustering.clusterVertices.get(Integer.valueOf(originCluster));
         List<Integer> verticesAux = new Vector<Integer>(verticesIds);
         for(Integer vertexId : verticesAux)
         {
@@ -206,13 +257,13 @@ public class Clustering
     private static void addToCluster(int clusterId, Integer vertexId)
     {
         List<Integer> verticesIds =
-                Clustering.clustersVertices.remove(Integer.valueOf(clusterId));
+                Clustering.clusterVertices.remove(Integer.valueOf(clusterId));
         if(verticesIds == null)
         {
             verticesIds = new Vector<Integer>();
         }
         verticesIds.add(vertexId);
-        Clustering.clustersVertices.put(clusterId, verticesIds);
+        Clustering.clusterVertices.put(clusterId, verticesIds);
         Clustering.vertexCluster.put(vertexId, clusterId);
     }
 
@@ -226,11 +277,11 @@ public class Clustering
     private static void removeFromCluster(int clusterId, Integer vertexId)
     {
         List<Integer> verticesIds =
-                Clustering.clustersVertices.remove(Integer.valueOf(clusterId));
+                Clustering.clusterVertices.remove(Integer.valueOf(clusterId));
         verticesIds.remove(vertexId);
         if(verticesIds.size() > 0)
         {
-            Clustering.clustersVertices.put(clusterId, verticesIds);
+            Clustering.clusterVertices.put(clusterId, verticesIds);
         }
         Clustering.vertexCluster.remove(vertexId);
     }
