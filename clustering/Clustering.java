@@ -103,11 +103,8 @@ public class Clustering
             Clustering.mergeClusters(clusterOfP, clusterOfQ);
         }
 
-        // Finds and updates the closest pair spacing
-        Clustering.updateClosestHammingDistance(nodes, bits, spacing);
-
         // Returns the largest value of k
-        return Clustering.clustersNumber;
+        return --Clustering.clustersNumber;
     }
 
     /**
@@ -278,8 +275,7 @@ public class Clustering
         {
             if(nodeI.get(bit) != nodeJ.get(bit))
             {
-                distance++;
-                if (distance > Clustering.closestPairSpacing)
+                if (++distance > Clustering.closestPairSpacing)
                 {
                    return false;
                 }
