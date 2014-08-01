@@ -74,7 +74,7 @@ public class Solver
         for(String line : lines)
         {
             List<Integer> nodeBits = Solver.getNodeBits(line, bits);
-            nodes[i] = new ArrayList<Integer>(nodeBits);
+            nodes[i++] = new ArrayList<Integer>(nodeBits);
         }
 
         // Finds the largest value of k to get an spacing of at least s

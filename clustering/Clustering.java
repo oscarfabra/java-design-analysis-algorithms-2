@@ -40,9 +40,6 @@ public class Clustering
     // Stores the index of the distances array that is being considered
     private static int currentDistanceIndex;
 
-    // Stores the pairs of node indices that are being considered in the nodes Map
-    private static int [] currentPairIndices;
-
     // Stores the pairs of points already merged into a cluster
     private static List<Edge> merged;
 
@@ -72,7 +69,6 @@ public class Clustering
         int n = nodes.length;
         Clustering.clusterVertices = new HashMap<Integer, List<Integer>>(n);
         Clustering.vertexCluster = new HashMap<Integer, Integer>(n);
-        Clustering.currentPairIndices = new int[2];
         Clustering.merged = new ArrayList<Edge>(n / 2);
 
         // Initializes points putting each of them on a separate cluster
@@ -86,14 +82,12 @@ public class Clustering
         // Finds the largest value of k such that there is a k-clustering with
         // spacing at least s
         Clustering.closestPairSpacing = 0;
-        Clustering.currentPairIndices[0] = 0;
-        Clustering.currentPairIndices[1] = 1;
         int [] pAndQ;
         while(Clustering.closestPairSpacing <= spacing)
         {
             // Gets the closest pair of points, guaranteeing that they belong
             // to different clusters
-            pAndQ = Clustering.updateClosestHammingDistance(nodes, bits, spacing);
+            pAndQ = Clustering.updateClosestHammingDistance(nodes, n, spacing);
 
             // Merges the clusters that contain p and q into a single one
             Integer p = Integer.valueOf(pAndQ[0]);
@@ -167,28 +161,25 @@ public class Clustering
      * guaranteeing that they belong to different clusters and updates this
      * distance.
      * @param nodes Array of lists with the associated bits for each node.
-     * @param bits Number of bits associated with each node.
+     * @param n Number of nodes.
      * @param spacing Minimum spacing to look for.
      * @return Array of size 2 with p and q in positions 0 and 1 respectively.
      */
     private static int[] updateClosestHammingDistance(List<Integer>[] nodes,
-                                                      int bits, int spacing)
+                                                      int n, int spacing)
     {
         // Gets the closest pair of points guaranteeing that they belong to
         // different clusters
-        Edge edge = Clustering.getClosestPairHammingDistance(nodes, bits,
-                spacing);
+        Edge edge = Clustering.getClosestPairHammingDistance(nodes, n, spacing);
         Integer p = Integer.valueOf(edge.getTail());
         Integer q = Integer.valueOf(edge.getHead());
         while(Clustering.vertexCluster.get(p)
                 == Clustering.vertexCluster.get(q))
         {
-            edge = Clustering.getClosestPairHammingDistance(nodes, bits,
-                    spacing);
+            edge = Clustering.getClosestPairHammingDistance(nodes, n, spacing);
             p = edge.getTail();
             q = edge.getHead();
         }
-        Clustering.closestPairSpacing = edge.getCost();
         // Stores p and q in an array of integers and returns it
         int [] pAndQ = new int[2];
         pAndQ[0] = p;
@@ -199,40 +190,44 @@ public class Clustering
     /**
      * Finds the pair of nodes with the smallest hamming distance between them.
      * @param nodes Array of lists with the associated bits for each node.
-     * @param bits Number of bits associated with each node.
+     * @param n Number of nodes.
      * @param spacing Minimum spacing to look for.
      * @return Edge with the pair of points and the hamming distance in between.
      */
     private static Edge getClosestPairHammingDistance(List<Integer>[] nodes,
-                                                      int bits, int spacing)
+                                                      int n, int spacing)
     {
-        int iStart = Clustering.currentPairIndices[0];
-        int jStart = Clustering.currentPairIndices[1];
-        int i = 0;
-        int j = 0;
-        for(i = iStart; (i < bits - 1) &&
-                (Clustering.closestPairSpacing <= spacing); i++)
+        // Walks through the nodes array finding a pair of nodes with spacing
+        // closestPairSpacing
+        Edge edge = new Edge(-1, -1, -1, -1);
+        boolean pairFound = false;
+        while(Clustering.closestPairSpacing <= spacing)
         {
-            jStart += (i == jStart)? 1: 0;
-            for(j = jStart; j < bits; j++)
+            for(int i = 0; i < n - 1; i++)
             {
-                // Break if points haven't been merged before and posses the
-                // minimum distance closestPairSpacing
-                if(!Clustering.pairAlreadyMerged(i, j) &&
-                        Clustering.closestPair(nodes, i, j))
+                for(int j = i + 1; j < n; j++)
                 {
-                    break;
+                    // Break if points haven't been merged before and posses the
+                    // minimum distance closestPairSpacing
+                    if(!Clustering.pairAlreadyMerged(i, j) &&
+                            Clustering.closestPair(nodes, i, j))
+                    {
+                        // Updates the flag
+                        pairFound = true;
+
+                        // Saves the corresponding pairs and spacing to return
+                        edge = new Edge(0, i + 1, j + 1, Clustering.closestPairSpacing);
+                        Clustering.merged.add(edge);
+                        break;
+                    }
                 }
+                if(pairFound){ break; }
             }
-            // If it doesn't finds any other pair with current closestPairSpacing,
+            // If it doesn't finds any pair with spacing closestPairSpacing,
             // increments spacing
+            if(pairFound){ break; }
             Clustering.closestPairSpacing++;
         }
-        // Updates current indices and returns the corresponding pairs and spacing
-        Clustering.currentPairIndices[0] = i;
-        Clustering.currentPairIndices[1] = j;
-        Edge edge = new Edge(-1, i + 1, j + 1, Clustering.closestPairSpacing);
-        Clustering.merged.add(edge);
         return edge;
     }
 
