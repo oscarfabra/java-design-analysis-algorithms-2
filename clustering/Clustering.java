@@ -40,6 +40,9 @@ public class Clustering
     // Stores the index of the distances array that is being considered
     private static int currentDistanceIndex;
 
+    // Stores the sum of bits for each node
+    private static int [] bitsSum;
+
     // Stores the pairs of points already merged into a cluster
     private static List<Edge> merged;
 
@@ -65,9 +68,28 @@ public class Clustering
     {
         // Initializes data structures
         int n = nodes.length;
+        int bits = nodes[0].size();
         Clustering.clusterVertices = new HashMap<Integer, List<Integer>>(n);
         Clustering.vertexCluster = new HashMap<Integer, Integer>(n);
         Clustering.merged = new ArrayList<Edge>(n / 2);
+        Clustering.bitsSum = new int[n];
+
+        // Stores the sum of bits of each node for faster search of hamming
+        // distances
+        System.out.println("Finding sum of bits for each node...");
+        for(int i = 0; i < n; i++)
+        {
+            // Finds the sum of bits for node in position i
+            int sum = 0;
+            for(Integer bit : nodes[i]){ sum += bit; }
+            Clustering.bitsSum[i] = sum;
+            // Message in standard output for logging purposes
+            if((i + 1) % 5000 == 0)
+            {
+                System.out.println("-- " + (i + 1) + " sums so far.");
+            }
+        }
+        System.out.println("...sums of bits found.");
 
         // Initializes points putting each of them on a separate cluster
         System.out.println("Initializing clusters...");
@@ -180,7 +202,7 @@ public class Clustering
 
     /**
      * Finds the pair of nodes with the smallest hamming distance between them
-     * guaranteeing that they belong to different clusters and updates this
+     * guaranteeing that they belong to different clusters, and updates this
      * distance.
      * @param nodes Array of lists with the associated bits for each node.
      * @param n Number of nodes.
@@ -235,8 +257,8 @@ public class Clustering
             {
                 for(int j = i + 1; j < n; j++)
                 {
-                    // Break if points haven't been merged before and posses the
-                    // minimum distance closestPairSpacing
+                    // Pair is found if points haven't been merged before and
+                    // posses the minimum distance closestPairSpacing
                     if(!Clustering.pairAlreadyMerged(i+1, j+1) &&
                             Clustering.closestPairHammingDistance(nodes, i, j))
                     {
@@ -295,16 +317,27 @@ public class Clustering
         List<Integer> nodeJ = nodes[j];
         int distance = 0;
 
-        for(int bit = 0; bit < nodeI.size(); bit++)
+        // If sum of bits differ in more than closestPairSpacing, then they're
+        // not the closest pair
+        if(Math.abs(Clustering.bitsSum[i] - Clustering.bitsSum[j]) >
+                Clustering.closestPairSpacing)
         {
-            if(nodeI.get(bit) != nodeJ.get(bit))
+            return false;
+        }
+        else
+        {   // Walks through the bits of each node comparing them
+            for(int bit = 0; bit < nodeI.size(); bit++)
             {
-                if (++distance > Clustering.closestPairSpacing)
+                if(nodeI.get(bit) != nodeJ.get(bit))
                 {
-                   return false;
+                    if (++distance > Clustering.closestPairSpacing)
+                    {
+                        return false;
+                    }
                 }
             }
         }
+
         // Returns true if distance wasn't surpassed
         return true;
     }
@@ -382,10 +415,7 @@ public class Clustering
         }
 
         // Updates clustersNumber
-        if(Clustering.clustersNumber > 1)
-        {
-            Clustering.clustersNumber--;
-        }
+        Clustering.clustersNumber = Clustering.clusterVertices.size();
     }
 
     /**
