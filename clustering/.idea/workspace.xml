@@ -123,11 +123,13 @@
       <file leaf-file-name="Clustering.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Clustering.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="2253" max-vertical-offset="7871">
-              <caret line="144" column="0" selection-start-line="144" selection-start-column="0" selection-end-line="144" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="1887" max-vertical-offset="6188">
+              <caret line="112" column="27" selection-start-line="112" selection-start-column="27" selection-end-line="112" selection-end-column="27" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
-                <element signature="e#16301#16310#0" expanded="true" />
+                <element signature="docComment;method#findMaxSpacing#0;class#Clustering#0" expanded="false" />
+                <element signature="method#findMaxSpacing#0;class#Clustering#0" expanded="false" />
+                <element signature="e#14271#14280#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -518,15 +520,15 @@
       <workItem from="1406738117136" duration="11609000" />
       <workItem from="1406831099939" duration="591000" />
       <workItem from="1406907335916" duration="23949000" />
-      <workItem from="1406998046454" duration="7614000" />
+      <workItem from="1406998046454" duration="12649000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="88573000" />
+    <option name="totallyTimeSpent" value="93608000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="784" extended-state="7" />
+    <frame x="-8" y="-8" width="1382" height="784" extended-state="6" />
     <editor active="false" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -610,7 +612,9 @@
           <caret line="172" column="4" selection-start-line="172" selection-start-column="4" selection-end-line="172" selection-end-column="4" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
-            <element signature="e#16301#16310#0" expanded="true" />
+            <element signature="docComment;method#findMaxSpacing#0;class#Clustering#0" expanded="false" />
+            <element signature="method#findMaxSpacing#0;class#Clustering#0" expanded="false" />
+            <element signature="e#14271#14280#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -659,7 +663,9 @@
           <caret line="76" column="0" selection-start-line="76" selection-start-column="0" selection-end-line="76" selection-end-column="0" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
-            <element signature="e#16301#16310#0" expanded="true" />
+            <element signature="docComment;method#findMaxSpacing#0;class#Clustering#0" expanded="false" />
+            <element signature="method#findMaxSpacing#0;class#Clustering#0" expanded="false" />
+            <element signature="e#14271#14280#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -714,7 +720,9 @@
           <caret line="76" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
-            <element signature="e#16301#16310#0" expanded="true" />
+            <element signature="docComment;method#findMaxSpacing#0;class#Clustering#0" expanded="false" />
+            <element signature="method#findMaxSpacing#0;class#Clustering#0" expanded="false" />
+            <element signature="e#14271#14280#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -769,7 +777,9 @@
           <caret line="76" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
-            <element signature="e#16301#16310#0" expanded="true" />
+            <element signature="docComment;method#findMaxSpacing#0;class#Clustering#0" expanded="false" />
+            <element signature="method#findMaxSpacing#0;class#Clustering#0" expanded="false" />
+            <element signature="e#14271#14280#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -824,7 +834,9 @@
           <caret line="234" column="40" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
-            <element signature="e#16301#16310#0" expanded="true" />
+            <element signature="docComment;method#findMaxSpacing#0;class#Clustering#0" expanded="false" />
+            <element signature="method#findMaxSpacing#0;class#Clustering#0" expanded="false" />
+            <element signature="e#14271#14280#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -872,7 +884,9 @@
           <caret line="41" column="54" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
-            <element signature="e#16301#16310#0" expanded="true" />
+            <element signature="docComment;method#findMaxSpacing#0;class#Clustering#0" expanded="false" />
+            <element signature="method#findMaxSpacing#0;class#Clustering#0" expanded="false" />
+            <element signature="e#14271#14280#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -981,11 +995,13 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Clustering.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="2253" max-vertical-offset="7871">
-          <caret line="144" column="0" selection-start-line="144" selection-start-column="0" selection-end-line="144" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="1887" max-vertical-offset="6188">
+          <caret line="112" column="27" selection-start-line="112" selection-start-column="27" selection-end-line="112" selection-end-column="27" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
-            <element signature="e#16301#16310#0" expanded="true" />
+            <element signature="docComment;method#findMaxSpacing#0;class#Clustering#0" expanded="false" />
+            <element signature="method#findMaxSpacing#0;class#Clustering#0" expanded="false" />
+            <element signature="e#14271#14280#0" expanded="true" />
           </folding>
         </state>
       </provider>

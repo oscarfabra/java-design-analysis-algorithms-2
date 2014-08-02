@@ -68,7 +68,6 @@ public class Clustering
     {
         // Initializes data structures
         int n = nodes.length;
-        int bits = nodes[0].size();
         Clustering.clusterVertices = new HashMap<Integer, List<Integer>>(n);
         Clustering.vertexCluster = new HashMap<Integer, Integer>(n);
         Clustering.merged = new ArrayList<Edge>(n / 2);
@@ -118,7 +117,7 @@ public class Clustering
         {
             // Gets the closest pair of points, guaranteeing that they belong
             // to different clusters
-            pAndQ = Clustering.updateClosestHammingDistance(nodes, n, spacing);
+            pAndQ = Clustering.getClosestPairHammingDistance(nodes, n, spacing);
 
             // If it has found a pair of nodes with closestPairSpacing distance
             // between them
@@ -201,50 +200,13 @@ public class Clustering
     //-------------------------------------------------------------------------
 
     /**
-     * Finds the pair of nodes with the smallest hamming distance between them
-     * guaranteeing that they belong to different clusters, and updates this
-     * distance.
+     * Finds the pair of nodes with the smallest hamming distance between them.
      * @param nodes Array of lists with the associated bits for each node.
      * @param n Number of nodes.
      * @param spacing Minimum spacing to look for.
      * @return Array of size 2 with p and q in positions 0 and 1 respectively.
      */
-    private static int[] updateClosestHammingDistance(List<Integer>[] nodes,
-                                                      int n, int spacing)
-    {
-        // Gets the closest pair of points guaranteeing that they belong to
-        // different clusters
-        Edge edge = Clustering.getClosestPairHammingDistance(nodes, n, spacing);
-        Integer p = -1;
-        Integer q = -1;
-        // If it has found a pair of nodes with closestPairSpacing distance
-        if(edge.getId() != -1)
-        {
-            p = Integer.valueOf(edge.getTail());
-            q = Integer.valueOf(edge.getHead());
-            while((Clustering.clustersNumber>1) && (Clustering.vertexCluster.get(p)
-                    == Clustering.vertexCluster.get(q)))
-            {
-                edge = Clustering.getClosestPairHammingDistance(nodes, n, spacing);
-                p = edge.getTail();
-                q = edge.getHead();
-            }
-        }
-        // Stores p and q in an array of integers and returns it
-        int [] pAndQ = new int[2];
-        pAndQ[0] = p;
-        pAndQ[1] = q;
-        return pAndQ;
-    }
-
-    /**
-     * Finds the pair of nodes with the smallest hamming distance between them.
-     * @param nodes Array of lists with the associated bits for each node.
-     * @param n Number of nodes.
-     * @param spacing Minimum spacing to look for.
-     * @return Edge with the pair of points and the hamming distance in between.
-     */
-    private static Edge getClosestPairHammingDistance(List<Integer>[] nodes,
+    private static int [] getClosestPairHammingDistance(List<Integer>[] nodes,
                                                       int n, int spacing)
     {
         // Walks through the nodes array finding a pair of nodes with spacing
@@ -257,9 +219,10 @@ public class Clustering
             {
                 for(int j = i + 1; j < n; j++)
                 {
-                    // Pair is found if points haven't been merged before and
-                    // posses the minimum distance closestPairSpacing
-                    if(!Clustering.pairAlreadyMerged(i+1, j+1) &&
+                    // Pair is found if points don't belong to the same vertex
+                    // and posses the minimum distance closestPairSpacing
+                    if((Clustering.vertexCluster.get(i + 1) !=
+                            Clustering.vertexCluster.get(j + 1)) &&
                             Clustering.closestPairHammingDistance(nodes, i, j))
                     {
                         // Updates the flag
@@ -278,28 +241,13 @@ public class Clustering
             if(pairFound){ break; }
             Clustering.closestPairSpacing++;
         }
-        return edge;
-    }
 
-    /**
-     * Determines whether points with id vId and wId have already been merged.
-     * @param vId Id of the first point to look for in the merged class list.
-     * @param wId Id of the second point to look for in the merged class list.
-     * @return Whether the given points have already been merged or not.
-     */
-    private static boolean pairAlreadyMerged(int vId, int wId)
-    {
-        for(Edge edge : Clustering.merged)
-        {
-            int tailId = edge.getTail();
-            int headId = edge.getHead();
-            if((vId == tailId && wId == headId) ||
-                    (wId == tailId && vId == headId))
-            {
-                return true;
-            }
-        }
-        return false;
+        // Stores p and q in an array of integers and returns it
+        int [] pAndQ = new int[2];
+        pAndQ[0] = Integer.valueOf(edge.getTail());
+        pAndQ[1] = Integer.valueOf(edge.getHead());
+
+        return pAndQ;
     }
 
     /**
