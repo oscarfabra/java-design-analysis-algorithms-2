@@ -110,32 +110,39 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="Solver.java" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="Solver.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Solver.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="974" max-vertical-offset="3570">
-              <caret line="80" column="0" selection-start-line="80" selection-start-column="0" selection-end-line="80" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.8160535" vertical-offset="753" max-vertical-offset="3672">
+              <caret line="84" column="0" selection-start-line="84" selection-start-column="0" selection-end-line="84" selection-end-column="0" />
               <folding>
-                <element signature="e#5551#5559#0" expanded="true" />
+                <element signature="e#5777#5785#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Clustering.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="Clustering.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Clustering.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.33277592" vertical-offset="1093" max-vertical-offset="4760">
-              <caret line="85" column="0" selection-start-line="85" selection-start-column="0" selection-end-line="85" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="1387" max-vertical-offset="6086">
+              <caret line="117" column="13" selection-start-line="117" selection-start-column="13" selection-end-line="117" selection-end-column="13" />
               <folding>
-                <element signature="docComment;method#findMaxSpacing#0;class#Clustering#0" expanded="false" />
                 <element signature="method#findMaxSpacing#0;class#Clustering#0" expanded="false" />
-                <element signature="method#mergeClusters#0;class#Clustering#0" expanded="false" />
-                <element signature="docComment;method#addToCluster#0;class#Clustering#0" expanded="false" />
                 <element signature="method#addToCluster#0;class#Clustering#0" expanded="false" />
                 <element signature="docComment;method#removeFromCluster#0;class#Clustering#0" expanded="false" />
                 <element signature="method#removeFromCluster#0;class#Clustering#0" expanded="false" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="clustering_big.txt" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/data/clustering_big.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="3400119">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -470,7 +477,7 @@
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <option name="MAIN_CLASS_NAME" value="Solver" />
       <option name="VM_PARAMETERS" value="" />
-      <option name="PROGRAM_PARAMETERS" value="-file=./data/clustering2_6_7_1.txt 3" />
+      <option name="PROGRAM_PARAMETERS" value="-file=./data/clustering_big.txt 3" />
       <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" value="" />
@@ -514,16 +521,16 @@
       <workItem from="1406657507553" duration="13731000" />
       <workItem from="1406738117136" duration="11609000" />
       <workItem from="1406831099939" duration="591000" />
-      <workItem from="1406907335916" duration="13940000" />
+      <workItem from="1406907335916" duration="22259000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="70950000" />
+    <option name="totallyTimeSpent" value="79269000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="784" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -532,13 +539,13 @@
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="true" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3751891" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.4311649" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33606556" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33546326" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24862637" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -574,23 +581,17 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/Solver.java</url>
-          <line>213</line>
+          <line>219</line>
           <properties />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/Solver.java</url>
-          <line>207</line>
+          <line>213</line>
           <properties />
           <option name="timeStamp" value="3" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/Clustering.java</url>
-          <line>172</line>
-          <properties />
-          <option name="timeStamp" value="4" />
-        </line-breakpoint>
       </breakpoints>
-      <option name="time" value="5" />
+      <option name="time" value="8" />
     </breakpoint-manager>
   </component>
   <component name="antWorkspaceConfiguration">
@@ -598,20 +599,12 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/clustering.iml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="85" max-vertical-offset="306">
-          <caret line="5" column="44" selection-start-line="5" selection-start-column="44" selection-end-line="5" selection-end-column="44" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Solver.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3774">
           <caret line="81" column="41" selection-start-line="81" selection-start-column="41" selection-end-line="81" selection-end-column="41" />
           <folding>
-            <element signature="e#5551#5559#0" expanded="true" />
+            <element signature="e#5777#5785#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -621,10 +614,7 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="2394" max-vertical-offset="4794">
           <caret line="172" column="4" selection-start-line="172" selection-start-column="4" selection-end-line="172" selection-end-column="4" />
           <folding>
-            <element signature="docComment;method#findMaxSpacing#0;class#Clustering#0" expanded="false" />
             <element signature="method#findMaxSpacing#0;class#Clustering#0" expanded="false" />
-            <element signature="method#mergeClusters#0;class#Clustering#0" expanded="false" />
-            <element signature="docComment;method#addToCluster#0;class#Clustering#0" expanded="false" />
             <element signature="method#addToCluster#0;class#Clustering#0" expanded="false" />
             <element signature="docComment;method#removeFromCluster#0;class#Clustering#0" expanded="false" />
             <element signature="method#removeFromCluster#0;class#Clustering#0" expanded="false" />
@@ -669,7 +659,7 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="1360" max-vertical-offset="2312">
           <caret line="80" column="28" selection-start-line="80" selection-start-column="28" selection-end-line="80" selection-end-column="28" />
           <folding>
-            <element signature="e#5551#5559#0" expanded="true" />
+            <element signature="e#5777#5785#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -679,10 +669,7 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="1103" max-vertical-offset="3859">
           <caret line="76" column="0" selection-start-line="76" selection-start-column="0" selection-end-line="76" selection-end-column="0" />
           <folding>
-            <element signature="docComment;method#findMaxSpacing#0;class#Clustering#0" expanded="false" />
             <element signature="method#findMaxSpacing#0;class#Clustering#0" expanded="false" />
-            <element signature="method#mergeClusters#0;class#Clustering#0" expanded="false" />
-            <element signature="docComment;method#addToCluster#0;class#Clustering#0" expanded="false" />
             <element signature="method#addToCluster#0;class#Clustering#0" expanded="false" />
             <element signature="docComment;method#removeFromCluster#0;class#Clustering#0" expanded="false" />
             <element signature="method#removeFromCluster#0;class#Clustering#0" expanded="false" />
@@ -733,7 +720,7 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="1360" max-vertical-offset="2312">
           <caret line="80" column="28" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#5551#5559#0" expanded="true" />
+            <element signature="e#5777#5785#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -743,10 +730,7 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="1103" max-vertical-offset="3859">
           <caret line="76" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="docComment;method#findMaxSpacing#0;class#Clustering#0" expanded="false" />
             <element signature="method#findMaxSpacing#0;class#Clustering#0" expanded="false" />
-            <element signature="method#mergeClusters#0;class#Clustering#0" expanded="false" />
-            <element signature="docComment;method#addToCluster#0;class#Clustering#0" expanded="false" />
             <element signature="method#addToCluster#0;class#Clustering#0" expanded="false" />
             <element signature="docComment;method#removeFromCluster#0;class#Clustering#0" expanded="false" />
             <element signature="method#removeFromCluster#0;class#Clustering#0" expanded="false" />
@@ -797,7 +781,7 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="952" max-vertical-offset="2312">
           <caret line="56" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#5551#5559#0" expanded="true" />
+            <element signature="e#5777#5785#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -807,10 +791,7 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="1103" max-vertical-offset="3859">
           <caret line="76" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="docComment;method#findMaxSpacing#0;class#Clustering#0" expanded="false" />
             <element signature="method#findMaxSpacing#0;class#Clustering#0" expanded="false" />
-            <element signature="method#mergeClusters#0;class#Clustering#0" expanded="false" />
-            <element signature="docComment;method#addToCluster#0;class#Clustering#0" expanded="false" />
             <element signature="method#addToCluster#0;class#Clustering#0" expanded="false" />
             <element signature="docComment;method#removeFromCluster#0;class#Clustering#0" expanded="false" />
             <element signature="method#removeFromCluster#0;class#Clustering#0" expanded="false" />
@@ -861,7 +842,7 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="901" max-vertical-offset="2448">
           <caret line="53" column="43" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#5551#5559#0" expanded="true" />
+            <element signature="e#5777#5785#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -871,10 +852,7 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="3444" max-vertical-offset="4148">
           <caret line="234" column="40" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="docComment;method#findMaxSpacing#0;class#Clustering#0" expanded="false" />
             <element signature="method#findMaxSpacing#0;class#Clustering#0" expanded="false" />
-            <element signature="method#mergeClusters#0;class#Clustering#0" expanded="false" />
-            <element signature="docComment;method#addToCluster#0;class#Clustering#0" expanded="false" />
             <element signature="method#addToCluster#0;class#Clustering#0" expanded="false" />
             <element signature="docComment;method#removeFromCluster#0;class#Clustering#0" expanded="false" />
             <element signature="method#removeFromCluster#0;class#Clustering#0" expanded="false" />
@@ -917,7 +895,7 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="170" max-vertical-offset="2448">
           <caret line="10" column="30" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#5551#5559#0" expanded="true" />
+            <element signature="e#5777#5785#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -927,10 +905,7 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="326" max-vertical-offset="952">
           <caret line="41" column="54" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="docComment;method#findMaxSpacing#0;class#Clustering#0" expanded="false" />
             <element signature="method#findMaxSpacing#0;class#Clustering#0" expanded="false" />
-            <element signature="method#mergeClusters#0;class#Clustering#0" expanded="false" />
-            <element signature="docComment;method#addToCluster#0;class#Clustering#0" expanded="false" />
             <element signature="method#addToCluster#0;class#Clustering#0" expanded="false" />
             <element signature="docComment;method#removeFromCluster#0;class#Clustering#0" expanded="false" />
             <element signature="method#removeFromCluster#0;class#Clustering#0" expanded="false" />
@@ -966,7 +941,7 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="166" max-vertical-offset="1853">
           <caret line="16" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#5551#5559#0" expanded="true" />
+            <element signature="e#5777#5785#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1016,14 +991,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/data/clustering_big.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="17" max-vertical-offset="3400119">
-          <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Graph.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="1751" max-vertical-offset="4743">
@@ -1040,28 +1007,41 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Solver.java">
+    <entry file="file://$PROJECT_DIR$/data/clustering2_6_7_2.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="974" max-vertical-offset="3570">
-          <caret line="80" column="0" selection-start-line="80" selection-start-column="0" selection-end-line="80" selection-end-column="0" />
-          <folding>
-            <element signature="e#5551#5559#0" expanded="true" />
-          </folding>
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="598">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data/clustering_big.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="3400119">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Clustering.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33277592" vertical-offset="1093" max-vertical-offset="4760">
-          <caret line="85" column="0" selection-start-line="85" selection-start-column="0" selection-end-line="85" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="1387" max-vertical-offset="6086">
+          <caret line="117" column="13" selection-start-line="117" selection-start-column="13" selection-end-line="117" selection-end-column="13" />
           <folding>
-            <element signature="docComment;method#findMaxSpacing#0;class#Clustering#0" expanded="false" />
             <element signature="method#findMaxSpacing#0;class#Clustering#0" expanded="false" />
-            <element signature="method#mergeClusters#0;class#Clustering#0" expanded="false" />
-            <element signature="docComment;method#addToCluster#0;class#Clustering#0" expanded="false" />
             <element signature="method#addToCluster#0;class#Clustering#0" expanded="false" />
             <element signature="docComment;method#removeFromCluster#0;class#Clustering#0" expanded="false" />
             <element signature="method#removeFromCluster#0;class#Clustering#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Solver.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.8160535" vertical-offset="753" max-vertical-offset="3672">
+          <caret line="84" column="0" selection-start-line="84" selection-start-column="0" selection-end-line="84" selection-end-column="0" />
+          <folding>
+            <element signature="e#5777#5785#0" expanded="true" />
           </folding>
         </state>
       </provider>

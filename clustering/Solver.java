@@ -71,14 +71,20 @@ public class Solver
         // Gets an array with the associated bits for each node
         List<Integer>[] nodes = (ArrayList<Integer>[])new ArrayList[n];
         int i = 0;
+        System.out.println("Initializing nodes...");
         for(String line : lines)
         {
             List<Integer> nodeBits = Solver.getNodeBits(line, bits);
             nodes[i++] = new ArrayList<Integer>(nodeBits);
+            if( i % 5000 == 0)
+            {
+                System.out.println("-- " + i + " nodes so far." );
+            }
         }
+        System.out.println("...nodes initialized.");
 
         // Finds the largest value of k to get an spacing of at least s
-        int maxK = Clustering.findMaxClustering(nodes, bits, s);
+        int maxK = Clustering.findMaxClustering(nodes, s);
 
         // Prints solution in standard output
         System.out.println("The largest value of k for a min-spacing of " + s +

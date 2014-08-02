@@ -58,12 +58,10 @@ public class Clustering
      * spacing at least s taking into account the hamming distance between each
      * of the nodes.
      * @param nodes Array of lists with the associated bits for each node.
-     * @param bits Number of bits associated with each node.
      * @param spacing Minimum spacing to look for.
      * @return Largest value of k for a k-clustering with spacing at least s.
      */
-    public static int findMaxClustering(List<Integer>[] nodes,
-                                        int bits, int spacing)
+    public static int findMaxClustering(List<Integer>[] nodes, int spacing)
     {
         // Initializes data structures
         int n = nodes.length;
@@ -72,33 +70,57 @@ public class Clustering
         Clustering.merged = new ArrayList<Edge>(n / 2);
 
         // Initializes points putting each of them on a separate cluster
+        System.out.println("Initializing clusters...");
         Clustering.clustersNumber = 1;
         for(int i = 0; i < n; i++)
         {
             Clustering.addToCluster(i+1, Clustering.clustersNumber++);
+
+            // Message in standard output for logging purposes
+            if((i + 1) % 5000 == 0)
+            {
+                System.out.println("-- " + (i + 1) + " clusters so far.");
+            }
         }
         Clustering.clustersNumber--;
+        System.out.println("...clusters initialized.");
 
         // Finds the largest value of k such that there is a k-clustering with
         // spacing at least s
         Clustering.closestPairSpacing = 0;
         int [] pAndQ;
-        while(Clustering.closestPairSpacing <= spacing)
+        System.out.println("Finding largest value of k with spacing at least " +
+                spacing + "...");
+        while((Clustering.closestPairSpacing < spacing) &&
+                (Clustering.clustersNumber > 1))
         {
             // Gets the closest pair of points, guaranteeing that they belong
             // to different clusters
             pAndQ = Clustering.updateClosestHammingDistance(nodes, n, spacing);
 
-            // Merges the clusters that contain p and q into a single one
-            Integer p = Integer.valueOf(pAndQ[0]);
-            Integer q = Integer.valueOf(pAndQ[1]);
-            int clusterOfP = Clustering.vertexCluster.get(p);
-            int clusterOfQ = Clustering.vertexCluster.get(q);
-            Clustering.mergeClusters(clusterOfP, clusterOfQ);
+            // If it has found a pair of nodes with closestPairSpacing distance
+            // between them
+            if(pAndQ[0] != -1)
+            {
+                // Merges the clusters that contain p and q into a single one
+                Integer p = Integer.valueOf(pAndQ[0]);
+                Integer q = Integer.valueOf(pAndQ[1]);
+                int clusterOfP = Clustering.vertexCluster.get(p);
+                int clusterOfQ = Clustering.vertexCluster.get(q);
+                Clustering.mergeClusters(clusterOfP, clusterOfQ);
+            }
+
+            // Prints message in standard output for logging purposes
+            if((Clustering.clustersNumber % 10) == 0)
+            {
+                System.out.println("-- " + Clustering.clustersNumber +
+                        " clusters remaining so far.");
+            }
         }
+        System.out.println("...k found.");
 
         // Returns the largest value of k
-        return --Clustering.clustersNumber;
+        return Clustering.clustersNumber;
     }
 
     /**
@@ -171,14 +193,20 @@ public class Clustering
         // Gets the closest pair of points guaranteeing that they belong to
         // different clusters
         Edge edge = Clustering.getClosestPairHammingDistance(nodes, n, spacing);
-        Integer p = Integer.valueOf(edge.getTail());
-        Integer q = Integer.valueOf(edge.getHead());
-        while(Clustering.vertexCluster.get(p)
-                == Clustering.vertexCluster.get(q))
+        Integer p = -1;
+        Integer q = -1;
+        // If it has found a pair of nodes with closestPairSpacing distance
+        if(edge.getId() != -1)
         {
-            edge = Clustering.getClosestPairHammingDistance(nodes, n, spacing);
-            p = edge.getTail();
-            q = edge.getHead();
+            p = Integer.valueOf(edge.getTail());
+            q = Integer.valueOf(edge.getHead());
+            while((Clustering.clustersNumber>1) && (Clustering.vertexCluster.get(p)
+                    == Clustering.vertexCluster.get(q)))
+            {
+                edge = Clustering.getClosestPairHammingDistance(nodes, n, spacing);
+                p = edge.getTail();
+                q = edge.getHead();
+            }
         }
         // Stores p and q in an array of integers and returns it
         int [] pAndQ = new int[2];
@@ -201,7 +229,7 @@ public class Clustering
         // closestPairSpacing
         Edge edge = new Edge(-1, -1, -1, -1);
         boolean pairFound = false;
-        while(Clustering.closestPairSpacing <= spacing)
+        while(Clustering.closestPairSpacing < spacing)
         {
             for(int i = 0; i < n - 1; i++)
             {
@@ -209,8 +237,8 @@ public class Clustering
                 {
                     // Break if points haven't been merged before and posses the
                     // minimum distance closestPairSpacing
-                    if(!Clustering.pairAlreadyMerged(i, j) &&
-                            Clustering.closestPair(nodes, i, j))
+                    if(!Clustering.pairAlreadyMerged(i+1, j+1) &&
+                            Clustering.closestPairHammingDistance(nodes, i, j))
                     {
                         // Updates the flag
                         pairFound = true;
@@ -260,7 +288,8 @@ public class Clustering
      * @param j Position of the second node in the nodes array to compare.
      * @return Whether the given nodes differ by closestPairSpacing bits.
      */
-    private static boolean closestPair(List<Integer>[] nodes, int i, int j)
+    private static boolean closestPairHammingDistance(List<Integer>[] nodes,
+                                                      int i, int j)
     {
         List<Integer> nodeI = nodes[i];
         List<Integer> nodeJ = nodes[j];
@@ -353,7 +382,10 @@ public class Clustering
         }
 
         // Updates clustersNumber
-        Clustering.clustersNumber--;
+        if(Clustering.clustersNumber > 1)
+        {
+            Clustering.clustersNumber--;
+        }
     }
 
     /**
