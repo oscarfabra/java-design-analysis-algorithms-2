@@ -40,11 +40,21 @@ public class Clustering
     // Stores the index of the distances array that is being considered
     private static int currentDistanceIndex;
 
-    // Stores the sum of bits for each node
-    private static int [] bitsSum;
+    // Stores those pair of nodes (edges) with distances between them less than
+    // the given distance
+    private static Map<Integer, Edge> pairs;
 
-    // Stores the pairs of points already merged into a cluster
-    private static List<Edge> merged;
+    // Heap to store the absolute difference of each pair of nodes whose
+    // distance is less than the given distance
+    private static PriorityQueue<Integer> heap;
+
+    // Maps an edge's id with its key in the heap. Uses chaining given
+    // that many edges may contain the same key (distance between points)
+    private static Map<Integer,List<Integer>> heapKeyPairs;
+
+    // Maps heap keys with their respective edge. In this case there's no need
+    // for chaining since each key contains one single edge
+    private static Map<Integer,Integer> pairHeapKey;
 
     //-------------------------------------------------------------------------
     // CONSTRUCTOR
@@ -70,41 +80,18 @@ public class Clustering
         int n = nodes.length;
         Clustering.clusterVertices = new HashMap<Integer, List<Integer>>(n);
         Clustering.vertexCluster = new HashMap<Integer, Integer>(n);
-        Clustering.merged = new ArrayList<Edge>(n / 2);
-        Clustering.bitsSum = new int[n];
+        Clustering.pairs = new HashMap<Integer, Edge>(n * 2);
 
         // Stores the sum of bits of each node for faster search of hamming
         // distances
-        System.out.println("Finding sum of bits for each node...");
-        for(int i = 0; i < n; i++)
-        {
-            // Finds the sum of bits for node in position i
-            int sum = 0;
-            for(Integer bit : nodes[i]){ sum += bit; }
-            Clustering.bitsSum[i] = sum;
-            // Message in standard output for logging purposes
-            if((i + 1) % 5000 == 0)
-            {
-                System.out.println("-- " + (i + 1) + " sums so far.");
-            }
-        }
-        System.out.println("...sums of bits found.");
+        int [] bitsSum = Clustering.findSumOfBits(nodes, n);
+
+        // Initializes the pairs map and the heap only with those pair whose
+        // distance in between is strictly less than the given spacing
+        Clustering.initPairsAndHeap(bitsSum, n, spacing);
 
         // Initializes points putting each of them on a separate cluster
-        System.out.println("Initializing clusters...");
-        Clustering.clustersNumber = 1;
-        for(int i = 0; i < n; i++)
-        {
-            Clustering.addToCluster(i+1, Clustering.clustersNumber++);
-
-            // Message in standard output for logging purposes
-            if((i + 1) % 5000 == 0)
-            {
-                System.out.println("-- " + (i + 1) + " clusters so far.");
-            }
-        }
-        Clustering.clustersNumber--;
-        System.out.println("...clusters initialized.");
+        Clustering.initClusters(n);
 
         // Finds the largest value of k such that there is a k-clustering with
         // spacing at least s
@@ -132,11 +119,8 @@ public class Clustering
             }
 
             // Prints message in standard output for logging purposes
-            if((Clustering.clustersNumber % 10) == 0)
-            {
-                System.out.println("-- " + Clustering.clustersNumber +
+            System.out.println("-- " + Clustering.clustersNumber +
                         " clusters remaining so far.");
-            }
         }
         System.out.println("...k found.");
 
@@ -199,6 +183,89 @@ public class Clustering
     // PRIVATE HELPER METHODS
     //-------------------------------------------------------------------------
 
+
+    /**
+     * Stores the sum of bits of each node for faster search of hamming
+     * distances.
+     * @param nodes Array of lists with the associated bits for each node.
+     * @param n Number of nodes.
+     * @return Array with the sum of the bits of each node.
+     */
+    private static int[] findSumOfBits(List<Integer>[] nodes, int n)
+    {
+        System.out.println("Finding sum of bits for each node...");
+        int [] bitsSum = new int[n];
+        for(int i = 0; i < n; i++)
+        {
+            // Finds the sum of bits for node in position i
+            int sum = 0;
+            for(Integer bit : nodes[i]){ sum += bit; }
+            bitsSum[i] = sum;
+            // Message in standard output for logging purposes
+            if((i + 1) % 5000 == 0)
+            {
+                System.out.println("-- " + (i + 1) + " sums so far.");
+            }
+        }
+        System.out.println("...sums of bits found.");
+        return bitsSum;
+    }
+
+    /**
+     * Initializes the pairs map and the heap only with those pair whose
+     * distance in between is strictly less than the given spacing
+     * @param bitsSum Sum of the bits of each node.
+     * @param n Number of nodes.
+     * @param spacing Minimum spacing to look for.
+     */
+    private static void initPairsAndHeap(int[] bitsSum, int n, int spacing)
+    {
+        System.out.println("Initializing pairs of points with distance < " +
+                "given spacing and the heap...");
+        int newEdgeId = 1;
+        for(int i = 0; i < n - 1; i++)
+        {
+            for(int j = i + 1; j < n; j++)
+            {
+                int distance = Math.abs(bitsSum[i] - bitsSum[j]);
+                if(distance < spacing)
+                {
+                    Edge edge = new Edge(newEdgeId, i + 1, j + 1, distance);
+                    Clustering.pairs.put(newEdgeId, edge);
+                    Clustering.addToHeap(distance, newEdgeId++);
+                    // Message in standard output for logging purposes
+                    if(newEdgeId % 100 == 0)
+                    {
+                        System.out.println("-- " + (i + 1) + " pairs " +
+                                "w/distance < spacing so far.");
+                    }
+                }
+            }
+        }
+        System.out.println("...pairs and heap initialized.");
+    }
+
+    /**
+     * Initializes points putting each of them on a separate cluster.
+     * @param n Number of nodes.
+     */
+    private static void initClusters(int n)
+    {
+        System.out.println("Initializing clusters...");
+        Clustering.clustersNumber = 1;
+        for(int i = 0; i < n; i++)
+        {
+            Clustering.addToCluster(i+1, Clustering.clustersNumber++);
+            // Message in standard output for logging purposes
+            if((i + 1) % 5000 == 0)
+            {
+                System.out.println("-- " + (i + 1) + " clusters so far.");
+            }
+        }
+        Clustering.clustersNumber--;
+        System.out.println("...clusters initialized.");
+    }
+
     /**
      * Finds the pair of nodes with the smallest hamming distance between them.
      * @param nodes Array of lists with the associated bits for each node.
@@ -211,8 +278,10 @@ public class Clustering
     {
         // Walks through the nodes array finding a pair of nodes with spacing
         // closestPairSpacing
-        Edge edge = new Edge(-1, -1, -1, -1);
         boolean pairFound = false;
+        int [] pAndQ = new int[2];
+        pAndQ[0] = -1;
+        pAndQ[1] = -1;
         while(Clustering.closestPairSpacing < spacing)
         {
             for(int i = 0; i < n - 1; i++)
@@ -227,10 +296,9 @@ public class Clustering
                     {
                         // Updates the flag
                         pairFound = true;
-
-                        // Saves the corresponding pairs and spacing to return
-                        edge = new Edge(0, i + 1, j + 1, Clustering.closestPairSpacing);
-                        Clustering.merged.add(edge);
+                        // Stores p and q in an array of integers and returns it
+                        pAndQ[0] = Integer.valueOf(i + 1);
+                        pAndQ[1] = Integer.valueOf(j + 1);
                         break;
                     }
                 }
@@ -241,12 +309,7 @@ public class Clustering
             if(pairFound){ break; }
             Clustering.closestPairSpacing++;
         }
-
-        // Stores p and q in an array of integers and returns it
-        int [] pAndQ = new int[2];
-        pAndQ[0] = Integer.valueOf(edge.getTail());
-        pAndQ[1] = Integer.valueOf(edge.getHead());
-
+        // Returns the corresponding pair of points
         return pAndQ;
     }
 
@@ -265,23 +328,14 @@ public class Clustering
         List<Integer> nodeJ = nodes[j];
         int distance = 0;
 
-        // If sum of bits differ in more than closestPairSpacing, then they're
-        // not the closest pair
-        if(Math.abs(Clustering.bitsSum[i] - Clustering.bitsSum[j]) >
-                Clustering.closestPairSpacing)
+        // Walks through the bits of each node comparing them
+        for(int bit = 0; bit < nodeI.size(); bit++)
         {
-            return false;
-        }
-        else
-        {   // Walks through the bits of each node comparing them
-            for(int bit = 0; bit < nodeI.size(); bit++)
+            if(nodeI.get(bit) != nodeJ.get(bit))
             {
-                if(nodeI.get(bit) != nodeJ.get(bit))
+                if (++distance > Clustering.closestPairSpacing)
                 {
-                    if (++distance > Clustering.closestPairSpacing)
-                    {
-                        return false;
-                    }
+                    return false;
                 }
             }
         }
@@ -364,6 +418,25 @@ public class Clustering
 
         // Updates clustersNumber
         Clustering.clustersNumber = Clustering.clusterVertices.size();
+    }
+
+    /**
+     * Adds the edge with the given id to the heap, putting its respective
+     * score in the heap and mapping its edgeId as appropriate.
+     * @param distance Key to add to the heap.
+     * @param edgeId Id of the edge to map with the given distance.
+     */
+    private static void addToHeap(int distance, int edgeId)
+    {
+        Clustering.heap.add(distance);
+        List<Integer> edgeIds = Clustering.heapKeyPairs.remove(distance);
+        if(edgeIds == null)
+        {
+            edgeIds = new ArrayList<Integer>();
+        }
+        edgeIds.add(edgeId);
+        Clustering.heapKeyPairs.put(distance, edgeIds);
+        Clustering.pairHeapKey.put(edgeId, distance);
     }
 
     /**
