@@ -183,7 +183,6 @@ public class Clustering
     // PRIVATE HELPER METHODS
     //-------------------------------------------------------------------------
 
-
     /**
      * Stores the sum of bits of each node for faster search of hamming
      * distances.
@@ -282,6 +281,10 @@ public class Clustering
         int [] pAndQ = new int[2];
         pAndQ[0] = -1;
         pAndQ[1] = -1;
+
+        // TODO: Use heap to improve performance...
+
+        /*
         while(Clustering.closestPairSpacing < spacing)
         {
             for(int i = 0; i < n - 1; i++)
@@ -309,6 +312,8 @@ public class Clustering
             if(pairFound){ break; }
             Clustering.closestPairSpacing++;
         }
+        */
+
         // Returns the corresponding pair of points
         return pAndQ;
     }
