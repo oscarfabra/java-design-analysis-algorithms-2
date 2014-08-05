@@ -81,6 +81,9 @@ public class Clustering
         Clustering.clusterVertices = new HashMap<Integer, List<Integer>>(n);
         Clustering.vertexCluster = new HashMap<Integer, Integer>(n);
         Clustering.pairs = new HashMap<Integer, Edge>(n * 2);
+        Clustering.heap = new PriorityQueue<Integer>(n * 2);
+        Clustering.heapKeyPairs = new HashMap<Integer, List<Integer>>(n * 2);
+        Clustering.pairHeapKey = new HashMap<Integer, Integer>(n * 2);
 
         // Stores the sum of bits of each node for faster search of hamming
         // distances
@@ -102,22 +105,19 @@ public class Clustering
                 (Clustering.clustersNumber > 1))
         {
             // Gets the closest pair of separated points from the heap
-            Integer key = Clustering.heap.peek();
-            Edge closestPair = Clustering.removeFromHeap(key);
+            Edge closestPair = Clustering.extractFromHeap();
 
-            // If it has found a closest pair of separated points
-            if(closestPair.getTail() != -1)
-            {
-                // Merges the clusters that contain p and q into a single one
-                Integer p = Integer.valueOf(closestPair.getTail());
-                Integer q = Integer.valueOf(closestPair.getHead());
-                int clusterOfP = Clustering.vertexCluster.get(p);
-                int clusterOfQ = Clustering.vertexCluster.get(q);
-                Clustering.mergeClusters(clusterOfP, clusterOfQ);
+            // Merges the clusters that contain p and q into a single one
+            Integer p = Integer.valueOf(closestPair.getTail());
+            Integer q = Integer.valueOf(closestPair.getHead());
+            int clusterOfP = Clustering.vertexCluster.get(p);
+            int clusterOfQ = Clustering.vertexCluster.get(q);
+            int newCluster =
+                    Clustering.mergeClusters(clusterOfP, clusterOfQ);
 
-                // Removes from heap pair of points that belong to the same cluster
-                Clustering.removeFromHeapPointsOfSameCluster();
-            }
+            // Removes from heap pair of points that belong to the same
+            // cluster
+            Clustering.updateHeap(newCluster);
 
             // Prints message in standard output for logging purposes
             if(Clustering.clustersNumber % 100 == 0)
@@ -270,6 +270,215 @@ public class Clustering
     }
 
     /**
+     * Updates the heap removing from it the edges whose both points belong to
+     * the same new cluster.
+     * <b>Pre:</b> Given cluster has just been expanded with new points.
+     * @param newCluster Id of the new (big) cluster that was just merged.
+     */
+    private static void updateHeap(int newCluster)
+    {
+        // Initializes auxiliary data structures
+        int m = Clustering.pairs.size();
+        Map<Integer, Edge> auxPairs = new HashMap<Integer, Edge>(m / 2);
+        PriorityQueue<Integer> auxHeap = new PriorityQueue<Integer>(m / 2);
+        Map<Integer, List<Integer>> auxHeapKeyPairs =
+                new HashMap<Integer, List<Integer>>(m / 2);
+        Map<Integer, Integer> auxPairHeapKey =
+                new HashMap<Integer, Integer>(m / 2);
+
+        // Given that pairs collection contains the edges whose ids are in the
+        // heap, we can walk through it to add only the corresponding pairs
+        for(Integer edgeId : Clustering.pairs.keySet())
+        {
+            Edge edge = Clustering.pairs.get(edgeId);
+            Integer p = edge.getTail();
+            Integer q = edge.getHead();
+            if(!(Clustering.vertexCluster.get(p) == newCluster &&
+                    Clustering.vertexCluster.get(q) == newCluster))
+            {
+                // Adds value to auxPairs
+                auxPairs.put(edgeId, edge);
+
+                // Adds value to auxHeap updating the corresponding hashmaps
+                auxHeap.add(edgeId);
+                int auxDistance = edge.getCost();
+                List<Integer> auxEdgeIds = auxHeapKeyPairs.remove(auxDistance);
+                if(auxEdgeIds == null)
+                {
+                    auxEdgeIds = new ArrayList<Integer>();
+                }
+                auxEdgeIds.add(edgeId);
+                auxHeapKeyPairs.put(auxDistance, auxEdgeIds);
+                auxPairHeapKey.put(edgeId, auxDistance);
+            }
+        }
+
+        // Updates data structures' references
+        Clustering.pairs = auxPairs;
+        Clustering.heap = auxHeap;
+        Clustering.heapKeyPairs = auxHeapKeyPairs;
+        Clustering.pairHeapKey = auxPairHeapKey;
+    }
+
+    /**
+     * Finds and updates the distance between the two vertices that belong to
+     * different clusters and are the closest to each other.
+     * @param graph Graph with the distance function to examine.
+     * @param distances Array of int with the ids of the edges or pair of points.
+     * @return Array of size 2 with p and q in positions 0 and 1 respectively.
+     */
+    private static int [] updateClosestPairSpacing(Graph graph, int[] distances)
+    {
+        // Gets the closest pair of points guaranteeing that they belong to
+        // different clusters
+        int closestPair = distances[Clustering.currentDistanceIndex++];
+        Edge edge = graph.getEdge(Integer.valueOf(closestPair));
+        Integer p = Integer.valueOf(edge.getTail());
+        Integer q = Integer.valueOf(edge.getHead());
+        while(Clustering.vertexCluster.get(p)
+                == Clustering.vertexCluster.get(q))
+        {
+            closestPair = distances[Clustering.currentDistanceIndex++];
+            edge = graph.getEdge(Integer.valueOf(closestPair));
+            p = edge.getTail();
+            q = edge.getHead();
+        }
+        Clustering.closestPairSpacing = edge.getCost();
+        // Stores p and q in an array of integers and returns it
+        int [] pAndQ = new int[2];
+        pAndQ[0] = p;
+        pAndQ[1] = q;
+        return pAndQ;
+    }
+
+    /**
+     * Merges the clusters with the given ids into a single one. <br/>
+     * <b>Pre:</b> clusterOfP != clusterOfQ.
+     * @param clusterOfP Id of the first cluster to merge.
+     * @param clusterOfQ Id of the second cluster to merge.
+     * @return Id of the new (big) cluster (could be clusterOfP or clusterOfQ).
+     */
+    private static int mergeClusters(int clusterOfP, int clusterOfQ)
+    {
+        // Moves vertices from the smaller cluster to the bigger one
+        int sizeOfClusterOfP
+                = Clustering.clusterVertices.get(Integer.valueOf(clusterOfP))
+                .size();
+        int sizeOfClusterOfQ
+                = Clustering.clusterVertices.get(Integer.valueOf(clusterOfQ))
+                .size();
+        List<Integer> verticesIds = null;
+        int originCluster = 0;
+        int destinationCluster = 0;
+        if(sizeOfClusterOfP >= sizeOfClusterOfQ)
+        {
+            originCluster = clusterOfQ;
+            destinationCluster = clusterOfP;
+        }
+        else
+        {
+            originCluster = clusterOfP;
+            destinationCluster = clusterOfQ;
+        }
+
+        // Removes each vertex from originCluster and adds it to
+        // destinationCluster
+        verticesIds =
+                Clustering.clusterVertices.get(Integer.valueOf(originCluster));
+        List<Integer> verticesAux = new Vector<Integer>(verticesIds);
+        for(Integer vertexId : verticesAux)
+        {
+            // Removes vertex from one cluster and adds it to the other
+            Clustering.removeFromCluster(originCluster, vertexId);
+            Clustering.addToCluster(destinationCluster, vertexId);
+        }
+
+        // Updates clustersNumber
+        Clustering.clustersNumber = Clustering.clusterVertices.size();
+
+        // Returns the id of the new (big) cluster
+        return destinationCluster;
+    }
+
+    /**
+     * Adds the edge with the given id to the heap, putting its respective
+     * distance in the heap and mapping its edgeId as appropriate.
+     * @param distance Key to add to the heap.
+     * @param edgeId Id of the edge to map with the given distance.
+     */
+    private static void addToHeap(int distance, int edgeId)
+    {
+        Clustering.heap.add(distance);
+        List<Integer> edgeIds = Clustering.heapKeyPairs.remove(distance);
+        if(edgeIds == null)
+        {
+            edgeIds = new ArrayList<Integer>();
+        }
+        edgeIds.add(edgeId);
+        Clustering.heapKeyPairs.put(distance, edgeIds);
+        Clustering.pairHeapKey.put(edgeId, distance);
+    }
+
+    /**
+     * Extracts a value from the heap updating collections as appropriate. If
+     * there is more than one edge with the same score (distance), gets the
+     * first one from the chained list.
+     * @return The edge that has been removed from the heap.
+     */
+    private static Edge extractFromHeap()
+    {
+        // Removes the smallest distance from the heap
+        int distance = Clustering.heap.poll();
+
+        // Updates hashmaps accordingly
+        List<Integer> edgeIds = Clustering.heapKeyPairs.remove(distance);
+        int edgeId = edgeIds.remove(0);
+        Clustering.heapKeyPairs.put(distance, edgeIds);
+        Clustering.pairHeapKey.remove(edgeId);
+
+        // Removes the edge from its set and returns it
+        Edge edge = Clustering.pairs.remove(Integer.valueOf(edgeId));
+        return edge;
+    }
+
+    /**
+     * Adds the given vertex to the given cluster. Updates maps as appropriate.
+     * @param clusterId Id of the cluster to which the vertex will be assigned.
+     * @param vertexId Id of the vertex to assign to the given cluster.
+     */
+    private static void addToCluster(int clusterId, Integer vertexId)
+    {
+        List<Integer> verticesIds =
+                Clustering.clusterVertices.remove(Integer.valueOf(clusterId));
+        if(verticesIds == null)
+        {
+            verticesIds = new Vector<Integer>();
+        }
+        verticesIds.add(vertexId);
+        Clustering.clusterVertices.put(clusterId, verticesIds);
+        Clustering.vertexCluster.put(vertexId, clusterId);
+    }
+
+    /**
+     * Removes the given vertex from the given cluster. Updates maps as
+     * appropriate. <br/>
+     * <b>Pre:</b> The given vertex is found in the given cluster.
+     * @param clusterId Id of the cluster from which the vertex will be removed.
+     * @param vertexId Id of the vertex to be removed.
+     */
+    private static void removeFromCluster(int clusterId, Integer vertexId)
+    {
+        List<Integer> verticesIds =
+                Clustering.clusterVertices.remove(Integer.valueOf(clusterId));
+        verticesIds.remove(vertexId);
+        if(verticesIds.size() > 0)
+        {
+            Clustering.clusterVertices.put(clusterId, verticesIds);
+        }
+        Clustering.vertexCluster.remove(vertexId);
+    }
+
+    /**
      * Finds the pair of nodes with the smallest hamming distance between them.
      * @param nodes Array of lists with the associated bits for each node.
      * @param n Number of nodes.
@@ -325,7 +534,7 @@ public class Clustering
      * @param j Position of the second node in the nodes array to compare.
      * @return Whether the given nodes differ by closestPairSpacing bits.
      */
-    private static boolean closestPairHammingDistance(List<Integer>[] nodes,
+    /*private static boolean closestPairHammingDistance(List<Integer>[] nodes,
                                                       int i, int j)
     {
         List<Integer> nodeI = nodes[i];
@@ -346,137 +555,5 @@ public class Clustering
 
         // Returns true if distance wasn't surpassed
         return true;
-    }
-
-    /**
-     * Finds and updates the distance between the two vertices that belong to
-     * different clusters and are the closest to each other.
-     * @param graph Graph with the distance function to examine.
-     * @param distances Array of int with the ids of the edges or pair of points.
-     * @return Array of size 2 with p and q in positions 0 and 1 respectively.
-     */
-    private static int [] updateClosestPairSpacing(Graph graph, int[] distances)
-    {
-        // Gets the closest pair of points guaranteeing that they belong to
-        // different clusters
-        int closestPair = distances[Clustering.currentDistanceIndex++];
-        Edge edge = graph.getEdge(Integer.valueOf(closestPair));
-        Integer p = Integer.valueOf(edge.getTail());
-        Integer q = Integer.valueOf(edge.getHead());
-        while(Clustering.vertexCluster.get(p)
-                == Clustering.vertexCluster.get(q))
-        {
-            closestPair = distances[Clustering.currentDistanceIndex++];
-            edge = graph.getEdge(Integer.valueOf(closestPair));
-            p = edge.getTail();
-            q = edge.getHead();
-        }
-        Clustering.closestPairSpacing = edge.getCost();
-        // Stores p and q in an array of integers and returns it
-        int [] pAndQ = new int[2];
-        pAndQ[0] = p;
-        pAndQ[1] = q;
-        return pAndQ;
-    }
-
-    /**
-     * Merges the clusters with the given ids into a single one. <br/>
-     * <b>Pre:</b> clusterOfP != clusterOfQ.
-     * @param clusterOfP Id of the first cluster to merge.
-     * @param clusterOfQ Id of the second cluster to merge.
-     */
-    private static void mergeClusters(int clusterOfP, int clusterOfQ)
-    {
-        // Moves vertices from the smaller cluster to the bigger one
-        int sizeOfClusterOfP
-                = Clustering.clusterVertices.get(Integer.valueOf(clusterOfP))
-                .size();
-        int sizeOfClusterOfQ
-                = Clustering.clusterVertices.get(Integer.valueOf(clusterOfQ))
-                .size();
-        List<Integer> verticesIds = null;
-        int originCluster = 0;
-        int destinationCluster = 0;
-        if(sizeOfClusterOfP >= sizeOfClusterOfQ)
-        {
-            originCluster = clusterOfQ;
-            destinationCluster = clusterOfP;
-        }
-        else
-        {
-            originCluster = clusterOfP;
-            destinationCluster = clusterOfQ;
-        }
-
-        // Removes each vertex from originCluster and adds it to
-        // destinationCluster
-        verticesIds =
-                Clustering.clusterVertices.get(Integer.valueOf(originCluster));
-        List<Integer> verticesAux = new Vector<Integer>(verticesIds);
-        for(Integer vertexId : verticesAux)
-        {
-            // Removes vertex from one cluster and adds it to the other
-            Clustering.removeFromCluster(originCluster, vertexId);
-            Clustering.addToCluster(destinationCluster, vertexId);
-        }
-
-        // Updates clustersNumber
-        Clustering.clustersNumber = Clustering.clusterVertices.size();
-    }
-
-    /**
-     * Adds the edge with the given id to the heap, putting its respective
-     * score in the heap and mapping its edgeId as appropriate.
-     * @param distance Key to add to the heap.
-     * @param edgeId Id of the edge to map with the given distance.
-     */
-    private static void addToHeap(int distance, int edgeId)
-    {
-        Clustering.heap.add(distance);
-        List<Integer> edgeIds = Clustering.heapKeyPairs.remove(distance);
-        if(edgeIds == null)
-        {
-            edgeIds = new ArrayList<Integer>();
-        }
-        edgeIds.add(edgeId);
-        Clustering.heapKeyPairs.put(distance, edgeIds);
-        Clustering.pairHeapKey.put(edgeId, distance);
-    }
-
-    /**
-     * Adds the given vertex to the given cluster. Updates maps as appropriate.
-     * @param clusterId Id of the cluster to which the vertex will be assigned.
-     * @param vertexId Id of the vertex to assign to the given cluster.
-     */
-    private static void addToCluster(int clusterId, Integer vertexId)
-    {
-        List<Integer> verticesIds =
-                Clustering.clusterVertices.remove(Integer.valueOf(clusterId));
-        if(verticesIds == null)
-        {
-            verticesIds = new Vector<Integer>();
-        }
-        verticesIds.add(vertexId);
-        Clustering.clusterVertices.put(clusterId, verticesIds);
-        Clustering.vertexCluster.put(vertexId, clusterId);
-    }
-
-    /**
-     * Removes the given vertex from the given cluster. Updates maps as
-     * appropriate. <br/>
-     * <b>Pre:</b> The given vertex is found in the given cluster.
-     * @param clusterId Id of the cluster from which the vertex will be removed.
-     * @param vertexId Id of the vertex to be removed.
-     */
-    private static void removeFromCluster(int clusterId, Integer vertexId)
-    {
-        List<Integer> verticesIds =
-                Clustering.clusterVertices.remove(Integer.valueOf(clusterId));
-        verticesIds.remove(vertexId);
-        if(verticesIds.size() > 0)
-        {
-            Clustering.clusterVertices.put(clusterId, verticesIds);
-        }
-        Clustering.vertexCluster.remove(vertexId);
-    }
+    }*/
 }
