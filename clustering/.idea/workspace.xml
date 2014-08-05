@@ -101,8 +101,8 @@
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
     </breakpoint_any>
-    <breakpoint_rules converted="true" />
     <ui_properties converted="true" />
+    <breakpoint_rules converted="true" />
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FavoritesManager">
@@ -123,23 +123,19 @@
       <file leaf-file-name="Clustering.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Clustering.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.03197158" vertical-offset="1656" max-vertical-offset="7596">
-              <caret line="93" column="12" selection-start-line="93" selection-start-column="12" selection-end-line="93" selection-end-column="12" />
+            <state vertical-scroll-proportion="0.03272727" vertical-offset="2628" max-vertical-offset="6174">
+              <caret line="217" column="41" selection-start-line="217" selection-start-column="41" selection-end-line="217" selection-end-column="41" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
                 <element signature="docComment;method#findMaxSpacing#0;class#Clustering#0" expanded="false" />
                 <element signature="method#findMaxSpacing#0;class#Clustering#0" expanded="false" />
                 <element signature="docComment;method#findSumOfBits#0;class#Clustering#0" expanded="false" />
                 <element signature="method#findSumOfBits#0;class#Clustering#0" expanded="false" />
-                <element signature="docComment;method#initPairsAndHeap#0;class#Clustering#0" expanded="false" />
-                <element signature="docComment;method#initClusters#0;class#Clustering#0" expanded="false" />
                 <element signature="method#initClusters#0;class#Clustering#0" expanded="false" />
-                <element signature="e#11448#11463#0" expanded="true" />
-                <element signature="e#11530#11539#0" expanded="true" />
-                <element signature="e#11629#11653#0" expanded="true" />
-                <element signature="e#11736#11754#0" expanded="true" />
+                <element signature="docComment;method#updateClosestPairSpacing#0;class#Clustering#0" expanded="false" />
                 <element signature="method#updateClosestPairSpacing#0;class#Clustering#0" expanded="false" />
-                <element signature="e#15870#15879#0" expanded="true" />
+                <element signature="docComment;method#mergeClusters#0;class#Clustering#0" expanded="false" />
+                <element signature="method#mergeClusters#0;class#Clustering#0" expanded="false" />
                 <element signature="docComment;method#addToCluster#0;class#Clustering#0" expanded="false" />
                 <element signature="method#addToCluster#0;class#Clustering#0" expanded="false" />
                 <element signature="docComment;method#removeFromCluster#0;class#Clustering#0" expanded="false" />
@@ -188,9 +184,9 @@
   </component>
   <component name="ProjectFrameBounds">
     <option name="x" value="581" />
-    <option name="y" value="52" />
-    <option name="width" value="785" />
-    <option name="height" value="716" />
+    <option name="y" value="24" />
+    <option name="width" value="775" />
+    <option name="height" value="744" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -526,15 +522,16 @@
       <workItem from="1406907335916" duration="23949000" />
       <workItem from="1406998046454" duration="24151000" />
       <workItem from="1407185240097" duration="216000" />
-      <workItem from="1407185835887" duration="12103000" />
+      <workItem from="1407185835887" duration="12309000" />
+      <workItem from="1407252398851" duration="4600000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="117429000" />
+    <option name="totallyTimeSpent" value="122235000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="581" y="52" width="785" height="716" extended-state="4" />
+    <frame x="581" y="24" width="775" height="744" extended-state="4" />
     <editor active="true" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -561,8 +558,8 @@
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33546326" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -622,15 +619,11 @@
             <element signature="method#findMaxSpacing#0;class#Clustering#0" expanded="false" />
             <element signature="docComment;method#findSumOfBits#0;class#Clustering#0" expanded="false" />
             <element signature="method#findSumOfBits#0;class#Clustering#0" expanded="false" />
-            <element signature="docComment;method#initPairsAndHeap#0;class#Clustering#0" expanded="false" />
-            <element signature="docComment;method#initClusters#0;class#Clustering#0" expanded="false" />
             <element signature="method#initClusters#0;class#Clustering#0" expanded="false" />
-            <element signature="e#11448#11463#0" expanded="true" />
-            <element signature="e#11530#11539#0" expanded="true" />
-            <element signature="e#11629#11653#0" expanded="true" />
-            <element signature="e#11736#11754#0" expanded="true" />
+            <element signature="docComment;method#updateClosestPairSpacing#0;class#Clustering#0" expanded="false" />
             <element signature="method#updateClosestPairSpacing#0;class#Clustering#0" expanded="false" />
-            <element signature="e#15870#15879#0" expanded="true" />
+            <element signature="docComment;method#mergeClusters#0;class#Clustering#0" expanded="false" />
+            <element signature="method#mergeClusters#0;class#Clustering#0" expanded="false" />
             <element signature="docComment;method#addToCluster#0;class#Clustering#0" expanded="false" />
             <element signature="method#addToCluster#0;class#Clustering#0" expanded="false" />
             <element signature="docComment;method#removeFromCluster#0;class#Clustering#0" expanded="false" />
@@ -687,15 +680,11 @@
             <element signature="method#findMaxSpacing#0;class#Clustering#0" expanded="false" />
             <element signature="docComment;method#findSumOfBits#0;class#Clustering#0" expanded="false" />
             <element signature="method#findSumOfBits#0;class#Clustering#0" expanded="false" />
-            <element signature="docComment;method#initPairsAndHeap#0;class#Clustering#0" expanded="false" />
-            <element signature="docComment;method#initClusters#0;class#Clustering#0" expanded="false" />
             <element signature="method#initClusters#0;class#Clustering#0" expanded="false" />
-            <element signature="e#11448#11463#0" expanded="true" />
-            <element signature="e#11530#11539#0" expanded="true" />
-            <element signature="e#11629#11653#0" expanded="true" />
-            <element signature="e#11736#11754#0" expanded="true" />
+            <element signature="docComment;method#updateClosestPairSpacing#0;class#Clustering#0" expanded="false" />
             <element signature="method#updateClosestPairSpacing#0;class#Clustering#0" expanded="false" />
-            <element signature="e#15870#15879#0" expanded="true" />
+            <element signature="docComment;method#mergeClusters#0;class#Clustering#0" expanded="false" />
+            <element signature="method#mergeClusters#0;class#Clustering#0" expanded="false" />
             <element signature="docComment;method#addToCluster#0;class#Clustering#0" expanded="false" />
             <element signature="method#addToCluster#0;class#Clustering#0" expanded="false" />
             <element signature="docComment;method#removeFromCluster#0;class#Clustering#0" expanded="false" />
@@ -758,15 +747,11 @@
             <element signature="method#findMaxSpacing#0;class#Clustering#0" expanded="false" />
             <element signature="docComment;method#findSumOfBits#0;class#Clustering#0" expanded="false" />
             <element signature="method#findSumOfBits#0;class#Clustering#0" expanded="false" />
-            <element signature="docComment;method#initPairsAndHeap#0;class#Clustering#0" expanded="false" />
-            <element signature="docComment;method#initClusters#0;class#Clustering#0" expanded="false" />
             <element signature="method#initClusters#0;class#Clustering#0" expanded="false" />
-            <element signature="e#11448#11463#0" expanded="true" />
-            <element signature="e#11530#11539#0" expanded="true" />
-            <element signature="e#11629#11653#0" expanded="true" />
-            <element signature="e#11736#11754#0" expanded="true" />
+            <element signature="docComment;method#updateClosestPairSpacing#0;class#Clustering#0" expanded="false" />
             <element signature="method#updateClosestPairSpacing#0;class#Clustering#0" expanded="false" />
-            <element signature="e#15870#15879#0" expanded="true" />
+            <element signature="docComment;method#mergeClusters#0;class#Clustering#0" expanded="false" />
+            <element signature="method#mergeClusters#0;class#Clustering#0" expanded="false" />
             <element signature="docComment;method#addToCluster#0;class#Clustering#0" expanded="false" />
             <element signature="method#addToCluster#0;class#Clustering#0" expanded="false" />
             <element signature="docComment;method#removeFromCluster#0;class#Clustering#0" expanded="false" />
@@ -829,15 +814,11 @@
             <element signature="method#findMaxSpacing#0;class#Clustering#0" expanded="false" />
             <element signature="docComment;method#findSumOfBits#0;class#Clustering#0" expanded="false" />
             <element signature="method#findSumOfBits#0;class#Clustering#0" expanded="false" />
-            <element signature="docComment;method#initPairsAndHeap#0;class#Clustering#0" expanded="false" />
-            <element signature="docComment;method#initClusters#0;class#Clustering#0" expanded="false" />
             <element signature="method#initClusters#0;class#Clustering#0" expanded="false" />
-            <element signature="e#11448#11463#0" expanded="true" />
-            <element signature="e#11530#11539#0" expanded="true" />
-            <element signature="e#11629#11653#0" expanded="true" />
-            <element signature="e#11736#11754#0" expanded="true" />
+            <element signature="docComment;method#updateClosestPairSpacing#0;class#Clustering#0" expanded="false" />
             <element signature="method#updateClosestPairSpacing#0;class#Clustering#0" expanded="false" />
-            <element signature="e#15870#15879#0" expanded="true" />
+            <element signature="docComment;method#mergeClusters#0;class#Clustering#0" expanded="false" />
+            <element signature="method#mergeClusters#0;class#Clustering#0" expanded="false" />
             <element signature="docComment;method#addToCluster#0;class#Clustering#0" expanded="false" />
             <element signature="method#addToCluster#0;class#Clustering#0" expanded="false" />
             <element signature="docComment;method#removeFromCluster#0;class#Clustering#0" expanded="false" />
@@ -900,15 +881,11 @@
             <element signature="method#findMaxSpacing#0;class#Clustering#0" expanded="false" />
             <element signature="docComment;method#findSumOfBits#0;class#Clustering#0" expanded="false" />
             <element signature="method#findSumOfBits#0;class#Clustering#0" expanded="false" />
-            <element signature="docComment;method#initPairsAndHeap#0;class#Clustering#0" expanded="false" />
-            <element signature="docComment;method#initClusters#0;class#Clustering#0" expanded="false" />
             <element signature="method#initClusters#0;class#Clustering#0" expanded="false" />
-            <element signature="e#11448#11463#0" expanded="true" />
-            <element signature="e#11530#11539#0" expanded="true" />
-            <element signature="e#11629#11653#0" expanded="true" />
-            <element signature="e#11736#11754#0" expanded="true" />
+            <element signature="docComment;method#updateClosestPairSpacing#0;class#Clustering#0" expanded="false" />
             <element signature="method#updateClosestPairSpacing#0;class#Clustering#0" expanded="false" />
-            <element signature="e#15870#15879#0" expanded="true" />
+            <element signature="docComment;method#mergeClusters#0;class#Clustering#0" expanded="false" />
+            <element signature="method#mergeClusters#0;class#Clustering#0" expanded="false" />
             <element signature="docComment;method#addToCluster#0;class#Clustering#0" expanded="false" />
             <element signature="method#addToCluster#0;class#Clustering#0" expanded="false" />
             <element signature="docComment;method#removeFromCluster#0;class#Clustering#0" expanded="false" />
@@ -964,15 +941,11 @@
             <element signature="method#findMaxSpacing#0;class#Clustering#0" expanded="false" />
             <element signature="docComment;method#findSumOfBits#0;class#Clustering#0" expanded="false" />
             <element signature="method#findSumOfBits#0;class#Clustering#0" expanded="false" />
-            <element signature="docComment;method#initPairsAndHeap#0;class#Clustering#0" expanded="false" />
-            <element signature="docComment;method#initClusters#0;class#Clustering#0" expanded="false" />
             <element signature="method#initClusters#0;class#Clustering#0" expanded="false" />
-            <element signature="e#11448#11463#0" expanded="true" />
-            <element signature="e#11530#11539#0" expanded="true" />
-            <element signature="e#11629#11653#0" expanded="true" />
-            <element signature="e#11736#11754#0" expanded="true" />
+            <element signature="docComment;method#updateClosestPairSpacing#0;class#Clustering#0" expanded="false" />
             <element signature="method#updateClosestPairSpacing#0;class#Clustering#0" expanded="false" />
-            <element signature="e#15870#15879#0" expanded="true" />
+            <element signature="docComment;method#mergeClusters#0;class#Clustering#0" expanded="false" />
+            <element signature="method#mergeClusters#0;class#Clustering#0" expanded="false" />
             <element signature="docComment;method#addToCluster#0;class#Clustering#0" expanded="false" />
             <element signature="method#addToCluster#0;class#Clustering#0" expanded="false" />
             <element signature="docComment;method#removeFromCluster#0;class#Clustering#0" expanded="false" />
@@ -1053,14 +1026,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Graph.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1751" max-vertical-offset="4743">
-          <caret line="121" column="49" selection-start-line="121" selection-start-column="49" selection-end-line="121" selection-end-column="49" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/data/clustering2_6_7_1.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="370">
@@ -1091,25 +1056,29 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Graph.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="1751" max-vertical-offset="4743">
+          <caret line="121" column="49" selection-start-line="121" selection-start-column="49" selection-end-line="121" selection-end-column="49" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Clustering.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.03197158" vertical-offset="1656" max-vertical-offset="7596">
-          <caret line="93" column="12" selection-start-line="93" selection-start-column="12" selection-end-line="93" selection-end-column="12" />
+        <state vertical-scroll-proportion="0.03272727" vertical-offset="2628" max-vertical-offset="6174">
+          <caret line="217" column="41" selection-start-line="217" selection-start-column="41" selection-end-line="217" selection-end-column="41" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
             <element signature="docComment;method#findMaxSpacing#0;class#Clustering#0" expanded="false" />
             <element signature="method#findMaxSpacing#0;class#Clustering#0" expanded="false" />
             <element signature="docComment;method#findSumOfBits#0;class#Clustering#0" expanded="false" />
             <element signature="method#findSumOfBits#0;class#Clustering#0" expanded="false" />
-            <element signature="docComment;method#initPairsAndHeap#0;class#Clustering#0" expanded="false" />
-            <element signature="docComment;method#initClusters#0;class#Clustering#0" expanded="false" />
             <element signature="method#initClusters#0;class#Clustering#0" expanded="false" />
-            <element signature="e#11448#11463#0" expanded="true" />
-            <element signature="e#11530#11539#0" expanded="true" />
-            <element signature="e#11629#11653#0" expanded="true" />
-            <element signature="e#11736#11754#0" expanded="true" />
+            <element signature="docComment;method#updateClosestPairSpacing#0;class#Clustering#0" expanded="false" />
             <element signature="method#updateClosestPairSpacing#0;class#Clustering#0" expanded="false" />
-            <element signature="e#15870#15879#0" expanded="true" />
+            <element signature="docComment;method#mergeClusters#0;class#Clustering#0" expanded="false" />
+            <element signature="method#mergeClusters#0;class#Clustering#0" expanded="false" />
             <element signature="docComment;method#addToCluster#0;class#Clustering#0" expanded="false" />
             <element signature="method#addToCluster#0;class#Clustering#0" expanded="false" />
             <element signature="docComment;method#removeFromCluster#0;class#Clustering#0" expanded="false" />
