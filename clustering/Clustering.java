@@ -86,7 +86,7 @@ public class Clustering
         // distances
         int [] bitsSum = Clustering.findSumOfBits(nodes, n);
 
-        // Initializes the pairs map and the heap only with those pair whose
+        // Initializes the pairs map and the heap only with those pairs whose
         // distance in between is strictly less than the given spacing
         Clustering.initPairsAndHeap(bitsSum, n, spacing);
 
@@ -96,31 +96,35 @@ public class Clustering
         // Finds the largest value of k such that there is a k-clustering with
         // spacing at least s
         Clustering.closestPairSpacing = 0;
-        int [] pAndQ;
         System.out.println("Finding largest value of k with spacing at least " +
                 spacing + "...");
         while((Clustering.closestPairSpacing < spacing) &&
                 (Clustering.clustersNumber > 1))
         {
-            // Gets the closest pair of points, guaranteeing that they belong
-            // to different clusters
-            pAndQ = Clustering.getClosestPairHammingDistance(nodes, n, spacing);
+            // Gets the closest pair of separated points from the heap
+            Integer key = Clustering.heap.peek();
+            Edge closestPair = Clustering.removeFromHeap(key);
 
-            // If it has found a pair of nodes with closestPairSpacing distance
-            // between them
-            if(pAndQ[0] != -1)
+            // If it has found a closest pair of separated points
+            if(closestPair.getTail() != -1)
             {
                 // Merges the clusters that contain p and q into a single one
-                Integer p = Integer.valueOf(pAndQ[0]);
-                Integer q = Integer.valueOf(pAndQ[1]);
+                Integer p = Integer.valueOf(closestPair.getTail());
+                Integer q = Integer.valueOf(closestPair.getHead());
                 int clusterOfP = Clustering.vertexCluster.get(p);
                 int clusterOfQ = Clustering.vertexCluster.get(q);
                 Clustering.mergeClusters(clusterOfP, clusterOfQ);
+
+                // Removes from heap pair of points that belong to the same cluster
+                Clustering.removeFromHeapPointsOfSameCluster();
             }
 
             // Prints message in standard output for logging purposes
-            System.out.println("-- " + Clustering.clustersNumber +
+            if(Clustering.clustersNumber % 100 == 0)
+            {
+                System.out.println("-- " + Clustering.clustersNumber +
                         " clusters remaining so far.");
+            }
         }
         System.out.println("...k found.");
 
@@ -212,7 +216,7 @@ public class Clustering
 
     /**
      * Initializes the pairs map and the heap only with those pair whose
-     * distance in between is strictly less than the given spacing
+     * distance in between is strictly less than the given spacing.
      * @param bitsSum Sum of the bits of each node.
      * @param n Number of nodes.
      * @param spacing Minimum spacing to look for.
@@ -220,7 +224,7 @@ public class Clustering
     private static void initPairsAndHeap(int[] bitsSum, int n, int spacing)
     {
         System.out.println("Initializing pairs of points with distance < " +
-                "given spacing and the heap...");
+                "given spacing, and the heap...");
         int newEdgeId = 1;
         for(int i = 0; i < n - 1; i++)
         {
@@ -228,7 +232,7 @@ public class Clustering
             {
                 int distance = Math.abs(bitsSum[i] - bitsSum[j]);
                 if(distance < spacing)
-                {
+                {   // Creates new edge and adds it to the heap
                     Edge edge = new Edge(newEdgeId, i + 1, j + 1, distance);
                     Clustering.pairs.put(newEdgeId, edge);
                     Clustering.addToHeap(distance, newEdgeId++);
@@ -236,7 +240,7 @@ public class Clustering
                     if(newEdgeId % 100 == 0)
                     {
                         System.out.println("-- " + (i + 1) + " pairs " +
-                                "w/distance < spacing so far.");
+                                "w/distance < spacing, so far.");
                     }
                 }
             }
@@ -272,7 +276,7 @@ public class Clustering
      * @param spacing Minimum spacing to look for.
      * @return Array of size 2 with p and q in positions 0 and 1 respectively.
      */
-    private static int [] getClosestPairHammingDistance(List<Integer>[] nodes,
+    /*private static int [] getClosestPairHammingDistance(List<Integer>[] nodes,
                                                       int n, int spacing)
     {
         // Walks through the nodes array finding a pair of nodes with spacing
@@ -281,10 +285,6 @@ public class Clustering
         int [] pAndQ = new int[2];
         pAndQ[0] = -1;
         pAndQ[1] = -1;
-
-        // TODO: Use heap to improve performance...
-
-        /*
         while(Clustering.closestPairSpacing < spacing)
         {
             for(int i = 0; i < n - 1; i++)
@@ -312,11 +312,10 @@ public class Clustering
             if(pairFound){ break; }
             Clustering.closestPairSpacing++;
         }
-        */
 
         // Returns the corresponding pair of points
         return pAndQ;
-    }
+    }*/
 
     /**
      * Determines whether nodes at positions i and j of the given array differ
