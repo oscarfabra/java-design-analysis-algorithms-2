@@ -243,10 +243,10 @@ public class Clustering
                         Clustering.addToHeap(distance, newEdgeId++);
 
                         // Message in standard output for logging purposes
-                        if(newEdgeId % 500 == 0)
+                        if(newEdgeId % 100 == 0)
                         {
                             System.out.println("-- " + newEdgeId + " pairs " +
-                                    "w/ hamming distance <= spacing, so far.");
+                                    "w/ hamming distance < spacing, so far.");
                         }
                     }
                 }

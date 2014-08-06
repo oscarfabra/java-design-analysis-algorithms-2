@@ -110,28 +110,28 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="Solver.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="Solver.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Solver.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.7721519" vertical-offset="3335" max-vertical-offset="3888">
-              <caret line="220" column="0" selection-start-line="220" selection-start-column="0" selection-end-line="220" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="3310" max-vertical-offset="3888">
+              <caret line="219" column="0" selection-start-line="219" selection-start-column="0" selection-end-line="219" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Clustering.java" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="Clustering.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Clustering.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="4370" max-vertical-offset="7560">
-              <caret line="289" column="77" selection-start-line="289" selection-start-column="77" selection-end-line="289" selection-end-column="77" />
+            <state vertical-scroll-proportion="0.46712804" vertical-offset="1944" max-vertical-offset="7560">
+              <caret line="123" column="9" selection-start-line="123" selection-start-column="9" selection-end-line="123" selection-end-column="9" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
                 <element signature="docComment;method#findSumOfBits#0;class#Clustering#0" expanded="false" />
                 <element signature="method#findSumOfBits#0;class#Clustering#0" expanded="false" />
                 <element signature="method#initClusters#0;class#Clustering#0" expanded="false" />
-                <element signature="e#11915#11930#0" expanded="true" />
-                <element signature="e#12002#12011#0" expanded="true" />
+                <element signature="e#11914#11929#0" expanded="true" />
+                <element signature="e#12001#12010#0" expanded="true" />
                 <element signature="docComment;method#updateClosestPairSpacing#0;class#Clustering#0" expanded="false" />
                 <element signature="docComment;method#mergeClusters#0;class#Clustering#0" expanded="false" />
                 <element signature="method#mergeClusters#0;class#Clustering#0" expanded="false" />
@@ -139,18 +139,6 @@
                 <element signature="method#addToCluster#0;class#Clustering#0" expanded="false" />
                 <element signature="docComment;method#removeFromCluster#0;class#Clustering#0" expanded="false" />
                 <element signature="method#removeFromCluster#0;class#Clustering#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="PriorityQueue.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="jar:///usr/local/java/jdk1.7.0_65/src.zip!/java/util/PriorityQueue.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="1742" max-vertical-offset="13392">
-              <caret line="132" column="0" selection-start-line="132" selection-start-column="0" selection-end-line="132" selection-end-column="0" />
-              <folding>
-                <element signature="e#4675#4676#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -485,7 +473,7 @@
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <option name="MAIN_CLASS_NAME" value="Solver" />
       <option name="VM_PARAMETERS" value="" />
-      <option name="PROGRAM_PARAMETERS" value="-file=./data/clustering2_15_9_1.txt 3" />
+      <option name="PROGRAM_PARAMETERS" value="-file=./data/clustering_big.txt 3" />
       <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" value="" />
@@ -533,15 +521,15 @@
       <workItem from="1406998046454" duration="24151000" />
       <workItem from="1407185240097" duration="216000" />
       <workItem from="1407185835887" duration="12309000" />
-      <workItem from="1407252398851" duration="14079000" />
+      <workItem from="1407252398851" duration="21252000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="131714000" />
+    <option name="totallyTimeSpent" value="138887000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="-4" width="1366" height="772" extended-state="6" />
+    <frame x="0" y="-4" width="1366" height="772" extended-state="7" />
     <editor active="false" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -620,8 +608,8 @@
             <element signature="docComment;method#findSumOfBits#0;class#Clustering#0" expanded="false" />
             <element signature="method#findSumOfBits#0;class#Clustering#0" expanded="false" />
             <element signature="method#initClusters#0;class#Clustering#0" expanded="false" />
-            <element signature="e#11915#11930#0" expanded="true" />
-            <element signature="e#12002#12011#0" expanded="true" />
+            <element signature="e#11914#11929#0" expanded="true" />
+            <element signature="e#12001#12010#0" expanded="true" />
             <element signature="docComment;method#updateClosestPairSpacing#0;class#Clustering#0" expanded="false" />
             <element signature="docComment;method#mergeClusters#0;class#Clustering#0" expanded="false" />
             <element signature="method#mergeClusters#0;class#Clustering#0" expanded="false" />
@@ -680,8 +668,8 @@
             <element signature="docComment;method#findSumOfBits#0;class#Clustering#0" expanded="false" />
             <element signature="method#findSumOfBits#0;class#Clustering#0" expanded="false" />
             <element signature="method#initClusters#0;class#Clustering#0" expanded="false" />
-            <element signature="e#11915#11930#0" expanded="true" />
-            <element signature="e#12002#12011#0" expanded="true" />
+            <element signature="e#11914#11929#0" expanded="true" />
+            <element signature="e#12001#12010#0" expanded="true" />
             <element signature="docComment;method#updateClosestPairSpacing#0;class#Clustering#0" expanded="false" />
             <element signature="docComment;method#mergeClusters#0;class#Clustering#0" expanded="false" />
             <element signature="method#mergeClusters#0;class#Clustering#0" expanded="false" />
@@ -746,8 +734,8 @@
             <element signature="docComment;method#findSumOfBits#0;class#Clustering#0" expanded="false" />
             <element signature="method#findSumOfBits#0;class#Clustering#0" expanded="false" />
             <element signature="method#initClusters#0;class#Clustering#0" expanded="false" />
-            <element signature="e#11915#11930#0" expanded="true" />
-            <element signature="e#12002#12011#0" expanded="true" />
+            <element signature="e#11914#11929#0" expanded="true" />
+            <element signature="e#12001#12010#0" expanded="true" />
             <element signature="docComment;method#updateClosestPairSpacing#0;class#Clustering#0" expanded="false" />
             <element signature="docComment;method#mergeClusters#0;class#Clustering#0" expanded="false" />
             <element signature="method#mergeClusters#0;class#Clustering#0" expanded="false" />
@@ -812,8 +800,8 @@
             <element signature="docComment;method#findSumOfBits#0;class#Clustering#0" expanded="false" />
             <element signature="method#findSumOfBits#0;class#Clustering#0" expanded="false" />
             <element signature="method#initClusters#0;class#Clustering#0" expanded="false" />
-            <element signature="e#11915#11930#0" expanded="true" />
-            <element signature="e#12002#12011#0" expanded="true" />
+            <element signature="e#11914#11929#0" expanded="true" />
+            <element signature="e#12001#12010#0" expanded="true" />
             <element signature="docComment;method#updateClosestPairSpacing#0;class#Clustering#0" expanded="false" />
             <element signature="docComment;method#mergeClusters#0;class#Clustering#0" expanded="false" />
             <element signature="method#mergeClusters#0;class#Clustering#0" expanded="false" />
@@ -878,8 +866,8 @@
             <element signature="docComment;method#findSumOfBits#0;class#Clustering#0" expanded="false" />
             <element signature="method#findSumOfBits#0;class#Clustering#0" expanded="false" />
             <element signature="method#initClusters#0;class#Clustering#0" expanded="false" />
-            <element signature="e#11915#11930#0" expanded="true" />
-            <element signature="e#12002#12011#0" expanded="true" />
+            <element signature="e#11914#11929#0" expanded="true" />
+            <element signature="e#12001#12010#0" expanded="true" />
             <element signature="docComment;method#updateClosestPairSpacing#0;class#Clustering#0" expanded="false" />
             <element signature="docComment;method#mergeClusters#0;class#Clustering#0" expanded="false" />
             <element signature="method#mergeClusters#0;class#Clustering#0" expanded="false" />
@@ -937,8 +925,8 @@
             <element signature="docComment;method#findSumOfBits#0;class#Clustering#0" expanded="false" />
             <element signature="method#findSumOfBits#0;class#Clustering#0" expanded="false" />
             <element signature="method#initClusters#0;class#Clustering#0" expanded="false" />
-            <element signature="e#11915#11930#0" expanded="true" />
-            <element signature="e#12002#12011#0" expanded="true" />
+            <element signature="e#11914#11929#0" expanded="true" />
+            <element signature="e#12001#12010#0" expanded="true" />
             <element signature="docComment;method#updateClosestPairSpacing#0;class#Clustering#0" expanded="false" />
             <element signature="docComment;method#mergeClusters#0;class#Clustering#0" expanded="false" />
             <element signature="method#mergeClusters#0;class#Clustering#0" expanded="false" />
@@ -1062,17 +1050,25 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Solver.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="3310" max-vertical-offset="3888">
+          <caret line="219" column="0" selection-start-line="219" selection-start-column="0" selection-end-line="219" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Clustering.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="4370" max-vertical-offset="7560">
-          <caret line="289" column="77" selection-start-line="289" selection-start-column="77" selection-end-line="289" selection-end-column="77" />
+        <state vertical-scroll-proportion="0.46712804" vertical-offset="1944" max-vertical-offset="7560">
+          <caret line="123" column="9" selection-start-line="123" selection-start-column="9" selection-end-line="123" selection-end-column="9" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
             <element signature="docComment;method#findSumOfBits#0;class#Clustering#0" expanded="false" />
             <element signature="method#findSumOfBits#0;class#Clustering#0" expanded="false" />
             <element signature="method#initClusters#0;class#Clustering#0" expanded="false" />
-            <element signature="e#11915#11930#0" expanded="true" />
-            <element signature="e#12002#12011#0" expanded="true" />
+            <element signature="e#11914#11929#0" expanded="true" />
+            <element signature="e#12001#12010#0" expanded="true" />
             <element signature="docComment;method#updateClosestPairSpacing#0;class#Clustering#0" expanded="false" />
             <element signature="docComment;method#mergeClusters#0;class#Clustering#0" expanded="false" />
             <element signature="method#mergeClusters#0;class#Clustering#0" expanded="false" />
@@ -1081,14 +1077,6 @@
             <element signature="docComment;method#removeFromCluster#0;class#Clustering#0" expanded="false" />
             <element signature="method#removeFromCluster#0;class#Clustering#0" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Solver.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7721519" vertical-offset="3335" max-vertical-offset="3888">
-          <caret line="220" column="0" selection-start-line="220" selection-start-column="0" selection-end-line="220" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
