@@ -113,9 +113,11 @@
       <file leaf-file-name="Solver.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Solver.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="3310" max-vertical-offset="3888">
-              <caret line="219" column="0" selection-start-line="219" selection-start-column="0" selection-end-line="219" selection-end-column="0" />
-              <folding />
+            <state vertical-scroll-proportion="0.0" vertical-offset="3382" max-vertical-offset="4032">
+              <caret line="204" column="45" selection-start-line="204" selection-start-column="45" selection-end-line="204" selection-end-column="45" />
+              <folding>
+                <element signature="n#!!doc" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -123,18 +125,16 @@
       <file leaf-file-name="Clustering.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Clustering.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.46712804" vertical-offset="1944" max-vertical-offset="7560">
-              <caret line="123" column="9" selection-start-line="123" selection-start-column="9" selection-end-line="123" selection-end-column="9" />
+            <state vertical-scroll-proportion="0.14532872" vertical-offset="5820" max-vertical-offset="8550">
+              <caret line="351" column="23" selection-start-line="351" selection-start-column="23" selection-end-line="351" selection-end-column="23" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
                 <element signature="docComment;method#findSumOfBits#0;class#Clustering#0" expanded="false" />
                 <element signature="method#findSumOfBits#0;class#Clustering#0" expanded="false" />
-                <element signature="method#initClusters#0;class#Clustering#0" expanded="false" />
-                <element signature="e#11914#11929#0" expanded="true" />
-                <element signature="e#12001#12010#0" expanded="true" />
+                <element signature="e#11915#11930#0" expanded="true" />
+                <element signature="e#12002#12011#0" expanded="true" />
                 <element signature="docComment;method#updateClosestPairSpacing#0;class#Clustering#0" expanded="false" />
                 <element signature="docComment;method#mergeClusters#0;class#Clustering#0" expanded="false" />
-                <element signature="method#mergeClusters#0;class#Clustering#0" expanded="false" />
                 <element signature="docComment;method#addToCluster#0;class#Clustering#0" expanded="false" />
                 <element signature="method#addToCluster#0;class#Clustering#0" expanded="false" />
                 <element signature="docComment;method#removeFromCluster#0;class#Clustering#0" expanded="false" />
@@ -147,7 +147,7 @@
       <file leaf-file-name="clustering_big.txt" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/data/clustering_big.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3600126">
+            <state vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="3600126">
               <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
@@ -202,7 +202,7 @@
     <option name="STATE" value="0" />
   </component>
   <component name="ProjectView">
-    <navigator currentView="ProjectPane" proportions="" version="1">
+    <navigator proportions="" version="1">
       <flattenPackages />
       <showMembers />
       <showModules />
@@ -213,30 +213,7 @@
       <autoscrollFromSource />
       <sortByType />
     </navigator>
-    <panes>
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
-      <pane id="ProjectPane">
-        <subPane>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="clustering" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="clustering" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="clustering" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-      </pane>
-    </panes>
+    <panes />
   </component>
   <component name="PropertiesComponent">
     <property name="GoToClass.includeLibraries" value="false" />
@@ -521,16 +498,16 @@
       <workItem from="1406998046454" duration="24151000" />
       <workItem from="1407185240097" duration="216000" />
       <workItem from="1407185835887" duration="12309000" />
-      <workItem from="1407252398851" duration="21252000" />
+      <workItem from="1407252398851" duration="28649000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="138887000" />
+    <option name="totallyTimeSpent" value="146284000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="-4" width="1366" height="772" extended-state="7" />
-    <editor active="false" />
+    <frame x="0" y="-4" width="1366" height="772" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -539,10 +516,10 @@
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="true" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.47121212" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.47121212" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="true" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33389544" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
@@ -607,12 +584,10 @@
             <element signature="n#!!doc" expanded="true" />
             <element signature="docComment;method#findSumOfBits#0;class#Clustering#0" expanded="false" />
             <element signature="method#findSumOfBits#0;class#Clustering#0" expanded="false" />
-            <element signature="method#initClusters#0;class#Clustering#0" expanded="false" />
-            <element signature="e#11914#11929#0" expanded="true" />
-            <element signature="e#12001#12010#0" expanded="true" />
+            <element signature="e#11915#11930#0" expanded="true" />
+            <element signature="e#12002#12011#0" expanded="true" />
             <element signature="docComment;method#updateClosestPairSpacing#0;class#Clustering#0" expanded="false" />
             <element signature="docComment;method#mergeClusters#0;class#Clustering#0" expanded="false" />
-            <element signature="method#mergeClusters#0;class#Clustering#0" expanded="false" />
             <element signature="docComment;method#addToCluster#0;class#Clustering#0" expanded="false" />
             <element signature="method#addToCluster#0;class#Clustering#0" expanded="false" />
             <element signature="docComment;method#removeFromCluster#0;class#Clustering#0" expanded="false" />
@@ -655,7 +630,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="1360" max-vertical-offset="2312">
           <caret line="80" column="28" selection-start-line="80" selection-start-column="28" selection-end-line="80" selection-end-column="28" />
-          <folding />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -667,12 +644,10 @@
             <element signature="n#!!doc" expanded="true" />
             <element signature="docComment;method#findSumOfBits#0;class#Clustering#0" expanded="false" />
             <element signature="method#findSumOfBits#0;class#Clustering#0" expanded="false" />
-            <element signature="method#initClusters#0;class#Clustering#0" expanded="false" />
-            <element signature="e#11914#11929#0" expanded="true" />
-            <element signature="e#12001#12010#0" expanded="true" />
+            <element signature="e#11915#11930#0" expanded="true" />
+            <element signature="e#12002#12011#0" expanded="true" />
             <element signature="docComment;method#updateClosestPairSpacing#0;class#Clustering#0" expanded="false" />
             <element signature="docComment;method#mergeClusters#0;class#Clustering#0" expanded="false" />
-            <element signature="method#mergeClusters#0;class#Clustering#0" expanded="false" />
             <element signature="docComment;method#addToCluster#0;class#Clustering#0" expanded="false" />
             <element signature="method#addToCluster#0;class#Clustering#0" expanded="false" />
             <element signature="docComment;method#removeFromCluster#0;class#Clustering#0" expanded="false" />
@@ -721,7 +696,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="1360" max-vertical-offset="2312">
           <caret line="80" column="28" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -733,12 +710,10 @@
             <element signature="n#!!doc" expanded="true" />
             <element signature="docComment;method#findSumOfBits#0;class#Clustering#0" expanded="false" />
             <element signature="method#findSumOfBits#0;class#Clustering#0" expanded="false" />
-            <element signature="method#initClusters#0;class#Clustering#0" expanded="false" />
-            <element signature="e#11914#11929#0" expanded="true" />
-            <element signature="e#12001#12010#0" expanded="true" />
+            <element signature="e#11915#11930#0" expanded="true" />
+            <element signature="e#12002#12011#0" expanded="true" />
             <element signature="docComment;method#updateClosestPairSpacing#0;class#Clustering#0" expanded="false" />
             <element signature="docComment;method#mergeClusters#0;class#Clustering#0" expanded="false" />
-            <element signature="method#mergeClusters#0;class#Clustering#0" expanded="false" />
             <element signature="docComment;method#addToCluster#0;class#Clustering#0" expanded="false" />
             <element signature="method#addToCluster#0;class#Clustering#0" expanded="false" />
             <element signature="docComment;method#removeFromCluster#0;class#Clustering#0" expanded="false" />
@@ -787,7 +762,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="952" max-vertical-offset="2312">
           <caret line="56" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -799,12 +776,10 @@
             <element signature="n#!!doc" expanded="true" />
             <element signature="docComment;method#findSumOfBits#0;class#Clustering#0" expanded="false" />
             <element signature="method#findSumOfBits#0;class#Clustering#0" expanded="false" />
-            <element signature="method#initClusters#0;class#Clustering#0" expanded="false" />
-            <element signature="e#11914#11929#0" expanded="true" />
-            <element signature="e#12001#12010#0" expanded="true" />
+            <element signature="e#11915#11930#0" expanded="true" />
+            <element signature="e#12002#12011#0" expanded="true" />
             <element signature="docComment;method#updateClosestPairSpacing#0;class#Clustering#0" expanded="false" />
             <element signature="docComment;method#mergeClusters#0;class#Clustering#0" expanded="false" />
-            <element signature="method#mergeClusters#0;class#Clustering#0" expanded="false" />
             <element signature="docComment;method#addToCluster#0;class#Clustering#0" expanded="false" />
             <element signature="method#addToCluster#0;class#Clustering#0" expanded="false" />
             <element signature="docComment;method#removeFromCluster#0;class#Clustering#0" expanded="false" />
@@ -853,7 +828,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="901" max-vertical-offset="2448">
           <caret line="53" column="43" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -865,12 +842,10 @@
             <element signature="n#!!doc" expanded="true" />
             <element signature="docComment;method#findSumOfBits#0;class#Clustering#0" expanded="false" />
             <element signature="method#findSumOfBits#0;class#Clustering#0" expanded="false" />
-            <element signature="method#initClusters#0;class#Clustering#0" expanded="false" />
-            <element signature="e#11914#11929#0" expanded="true" />
-            <element signature="e#12001#12010#0" expanded="true" />
+            <element signature="e#11915#11930#0" expanded="true" />
+            <element signature="e#12002#12011#0" expanded="true" />
             <element signature="docComment;method#updateClosestPairSpacing#0;class#Clustering#0" expanded="false" />
             <element signature="docComment;method#mergeClusters#0;class#Clustering#0" expanded="false" />
-            <element signature="method#mergeClusters#0;class#Clustering#0" expanded="false" />
             <element signature="docComment;method#addToCluster#0;class#Clustering#0" expanded="false" />
             <element signature="method#addToCluster#0;class#Clustering#0" expanded="false" />
             <element signature="docComment;method#removeFromCluster#0;class#Clustering#0" expanded="false" />
@@ -912,7 +887,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="170" max-vertical-offset="2448">
           <caret line="10" column="30" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -924,12 +901,10 @@
             <element signature="n#!!doc" expanded="true" />
             <element signature="docComment;method#findSumOfBits#0;class#Clustering#0" expanded="false" />
             <element signature="method#findSumOfBits#0;class#Clustering#0" expanded="false" />
-            <element signature="method#initClusters#0;class#Clustering#0" expanded="false" />
-            <element signature="e#11914#11929#0" expanded="true" />
-            <element signature="e#12001#12010#0" expanded="true" />
+            <element signature="e#11915#11930#0" expanded="true" />
+            <element signature="e#12002#12011#0" expanded="true" />
             <element signature="docComment;method#updateClosestPairSpacing#0;class#Clustering#0" expanded="false" />
             <element signature="docComment;method#mergeClusters#0;class#Clustering#0" expanded="false" />
-            <element signature="method#mergeClusters#0;class#Clustering#0" expanded="false" />
             <element signature="docComment;method#addToCluster#0;class#Clustering#0" expanded="false" />
             <element signature="method#addToCluster#0;class#Clustering#0" expanded="false" />
             <element signature="docComment;method#removeFromCluster#0;class#Clustering#0" expanded="false" />
@@ -964,7 +939,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="166" max-vertical-offset="1853">
           <caret line="16" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1024,14 +1001,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/data/clustering_big.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="3400119">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Graph.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="1751" max-vertical-offset="4743">
@@ -1052,26 +1021,34 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Solver.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="3310" max-vertical-offset="3888">
-          <caret line="219" column="0" selection-start-line="219" selection-start-column="0" selection-end-line="219" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="3382" max-vertical-offset="4032">
+          <caret line="204" column="45" selection-start-line="204" selection-start-column="45" selection-end-line="204" selection-end-column="45" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data/clustering_big.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="3400119">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Clustering.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.46712804" vertical-offset="1944" max-vertical-offset="7560">
-          <caret line="123" column="9" selection-start-line="123" selection-start-column="9" selection-end-line="123" selection-end-column="9" />
+        <state vertical-scroll-proportion="0.14532872" vertical-offset="5820" max-vertical-offset="8550">
+          <caret line="351" column="23" selection-start-line="351" selection-start-column="23" selection-end-line="351" selection-end-column="23" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
             <element signature="docComment;method#findSumOfBits#0;class#Clustering#0" expanded="false" />
             <element signature="method#findSumOfBits#0;class#Clustering#0" expanded="false" />
-            <element signature="method#initClusters#0;class#Clustering#0" expanded="false" />
-            <element signature="e#11914#11929#0" expanded="true" />
-            <element signature="e#12001#12010#0" expanded="true" />
+            <element signature="e#11915#11930#0" expanded="true" />
+            <element signature="e#12002#12011#0" expanded="true" />
             <element signature="docComment;method#updateClosestPairSpacing#0;class#Clustering#0" expanded="false" />
             <element signature="docComment;method#mergeClusters#0;class#Clustering#0" expanded="false" />
-            <element signature="method#mergeClusters#0;class#Clustering#0" expanded="false" />
             <element signature="docComment;method#addToCluster#0;class#Clustering#0" expanded="false" />
             <element signature="method#addToCluster#0;class#Clustering#0" expanded="false" />
             <element signature="docComment;method#removeFromCluster#0;class#Clustering#0" expanded="false" />

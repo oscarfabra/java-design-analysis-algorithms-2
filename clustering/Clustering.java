@@ -211,7 +211,7 @@ public class Clustering
     }
 
     /**
-     * Initializes the pairs map and the heap only with those pair whose
+     * Initializes the pairs map and the heap only with those pairs whose
      * distance in between is strictly less than the given spacing.
      * @param nodes Array of lists with the associated bits for each node.
      * @param bitsSum Sum of the bits of each node.
