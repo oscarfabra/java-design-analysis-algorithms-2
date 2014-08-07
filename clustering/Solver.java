@@ -68,14 +68,18 @@ public class Solver
     private static void solveByHammingDistances(List<String> lines, int n,
                                                 int bits, int s)
     {
-        // Gets an array with the associated bits for each node
-        List<Integer>[] nodes = (ArrayList<Integer>[])new ArrayList[n];
+        // Creates a matrix with the associated bits for each node
+        int [][] nodes = new int[n][bits];
         int i = 0;
         System.out.println("Initializing nodes...");
         for(String line : lines)
         {
-            List<Integer> nodeBits = Solver.getNodeBits(line, bits);
-            nodes[i++] = new ArrayList<Integer>(nodeBits);
+            for(int j = 0; j < bits; j++)
+            {
+                nodes[i][j] = line.charAt(j);
+            }
+            i++;
+            // Prints a message in standard output for logging purposes
             if( i % 5000 == 0)
             {
                 System.out.println("-- " + i + " nodes so far." );
@@ -84,7 +88,7 @@ public class Solver
         System.out.println("...nodes initialized.");
 
         // Finds the largest value of k to get an spacing of at least s
-        int maxK = Clustering.findMaxClustering(nodes, s);
+        int maxK = Clustering.findMaxClustering(nodes, n, bits, s);
 
         // Prints solution in standard output
         System.out.println("The largest value of k for a min-spacing of " + s +

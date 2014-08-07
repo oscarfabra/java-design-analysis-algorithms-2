@@ -70,14 +70,14 @@ public class Clustering
      * Finds the largest value of k such that there is a k-clustering with
      * spacing at least s taking into account the hamming distance between each
      * of the nodes.
-     * @param nodes Array of lists with the associated bits for each node.
+     * @param nodes Matrix with the associated bits for each node.
      * @param spacing Minimum spacing to look for.
      * @return Largest value of k for a k-clustering with spacing at least s.
      */
-    public static int findMaxClustering(List<Integer>[] nodes, int spacing)
+    public static int findMaxClustering(int [][] nodes, int n, int bits,
+                                        int spacing)
     {
         // Initializes data structures
-        int n = nodes.length;
         Clustering.clusterVertices = new HashMap<Integer, List<Integer>>(n);
         Clustering.vertexCluster = new HashMap<Integer, Integer>(n);
         Clustering.pairs = new HashMap<Integer, Edge>(n * 2);
@@ -85,16 +85,15 @@ public class Clustering
         Clustering.heapKeyPairs = new HashMap<Integer, List<Integer>>(n * 2);
         Clustering.pairHeapKey = new HashMap<Integer, Integer>(n * 2);
 
-        // Stores the sum of bits of each node for faster search of hamming
-        // distances
-        int [] bitsSum = Clustering.findSumOfBits(nodes, n);
+        // Builds and ASCII-characters encoding for faster
+        int [] bitsSum = Clustering.findSumOfBits(nodes, n, bits);
 
         // Initializes points putting each of them on a separate cluster
         Clustering.initClusters(n);
 
         // Initializes pairs map and heap only with those pairs whose hamming
         // distance in between is strictly less than the given spacing
-        Clustering.initPairsAndHeap(nodes, bitsSum, n, spacing);
+        Clustering.initPairsAndHeap(nodes, bitsSum, n, bits, spacing);
 
         // Finds the largest value of k such that there is a k-clustering with
         // spacing at least s
@@ -186,11 +185,12 @@ public class Clustering
     /**
      * Stores the sum of bits of each node for faster search of hamming
      * distances.
-     * @param nodes Array of lists with the associated bits for each node.
+     * @param nodes Matrix with the associated bits for each node.
      * @param n Number of nodes.
+     * @param bits Number of bits per node.
      * @return Array with the sum of the bits of each node.
      */
-    private static int[] findSumOfBits(List<Integer>[] nodes, int n)
+    private static int[] findSumOfBits(int[][] nodes, int n, int bits)
     {
         System.out.println("Finding sum of bits for each node...");
         int [] bitsSum = new int[n];
@@ -198,7 +198,10 @@ public class Clustering
         {
             // Finds the sum of bits for node in position i
             int sum = 0;
-            for(Integer bit : nodes[i]){ sum += bit; }
+            for(int j = 0; j < bits; j++)
+            {
+                sum += nodes[i][j];
+            }
             bitsSum[i] = sum;
             // Message in standard output for logging purposes
             if((i + 1) % 5000 == 0)
@@ -213,13 +216,14 @@ public class Clustering
     /**
      * Initializes the pairs map and the heap only with those pairs whose
      * distance in between is strictly less than the given spacing.
-     * @param nodes Array of lists with the associated bits for each node.
+     * @param nodes Matrix with the associated bits for each node.
      * @param bitsSum Sum of the bits of each node.
      * @param n Number of nodes.
+     * @param bits Number of bits per node.
      * @param spacing Minimum spacing to look for.
      */
-    private static void initPairsAndHeap(List<Integer>[] nodes, int[] bitsSum,
-                                         int n, int spacing)
+    private static void initPairsAndHeap(int[][] nodes, int[] bitsSum,
+                                         int n, int bits, int spacing)
     {
         System.out.println("Initializing pairs with hamming distance < given" +
                 " spacing, and heap...");
@@ -228,13 +232,12 @@ public class Clustering
         {
             for(int j = i + 1; j < n; j++)
             {
-                // If difference is greater than spacing, we know distance will
-                // be too
+                // If difference is > spacing, we know distance will be too
                 int difference = Math.abs(bitsSum[i] - bitsSum[j]);
                 if(difference < spacing)
                 {
                     int distance = Clustering.closestPairHammingDistance(nodes,
-                            i, j, spacing);
+                            i, j, bits, spacing);
                     if(distance < spacing)
                     {
                         // Creates new edge and adds it to the heap
@@ -342,24 +345,22 @@ public class Clustering
      * Determines whether nodes at positions i and j of the given array differ
      * by at most the given spacing bits or not. Returns hamming distance if
      * conditions met.
-     * @param nodes Array of lists with the associated bits for each node.
+     * @param nodes Matrix with the associated bits for each node.
      * @param i Position of the first node in the nodes array to compare.
      * @param j Position of the second node in the nodes array to compare.
+     * @param bits Number of bits per node.
      * @param spacing Maximum number of differing bits accepted.
      * @return Hamming distance if <= given distance, any bigger distance
      * otherwise.
      */
-    private static int closestPairHammingDistance(List<Integer>[] nodes,
-                                                      int i, int j, int spacing)
+    private static int closestPairHammingDistance(int[][] nodes, int i, int j,
+                                                  int bits, int spacing)
     {
-        List<Integer> nodeI = nodes[i];
-        List<Integer> nodeJ = nodes[j];
-        int distance = 0;
-
         // Walks through the bits of each node comparing them
-        for(int bit = 0; bit < nodeI.size(); bit++)
+        int distance = 0;
+        for(int bit = 0; bit < bits; bit++)
         {
-            if(nodeI.get(bit) != nodeJ.get(bit))
+            if(nodes[i][bit] != nodes[j][bit])
             {
                 if (++distance > spacing)
                 {   // Don't need to calculate the rest
