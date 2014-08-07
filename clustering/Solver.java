@@ -74,9 +74,10 @@ public class Solver
         System.out.println("Initializing nodes...");
         for(String line : lines)
         {
+            String [] values = line.split(" ");
             for(int j = 0; j < bits; j++)
             {
-                nodes[i][j] = line.charAt(j);
+                nodes[i][j] = Integer.parseInt(values[j]);
             }
             i++;
             // Prints a message in standard output for logging purposes
