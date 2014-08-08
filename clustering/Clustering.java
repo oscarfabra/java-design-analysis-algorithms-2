@@ -246,7 +246,7 @@ public class Clustering
                         Clustering.addToHeap(distance, newEdgeId++);
 
                         // Message in standard output for logging purposes
-                        if(newEdgeId % 100 == 0)
+                        if(newEdgeId % 200 == 0)
                         {
                             System.out.println("-- " + newEdgeId + " pairs " +
                                     "w/ hamming distance < spacing, so far.");
@@ -325,9 +325,11 @@ public class Clustering
                 auxPairHeapKey.put(edgeId, auxDistance);
 
                 // Prints message in standard output for logging purposes
-                if(m % 500 == 0)
+                if(m % 10000 == 0)
                 {
-                    System.out.println("-- " + m + " pairs updated so far.");
+                    System.out.println("-- Remaining clusters: " +
+                            Clustering.clustersNumber + ", " + m +
+                            " pairs updated so far.");
                 }
                 m++;
             }
