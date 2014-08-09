@@ -299,8 +299,7 @@ public class Clustering
 
         // Given that pairs collection contains the edges whose ids are in the
         // heap, we can walk through it to add only the corresponding pairs
-        System.out.println("Updating heap and associated collections...");
-        m = 1;
+        System.out.print("Updating heap and associated collections...");
         for(Integer edgeId : Clustering.pairs.keySet())
         {
             Edge edge = Clustering.pairs.get(edgeId);
@@ -323,15 +322,6 @@ public class Clustering
                 auxEdgeIds.add(edgeId);
                 auxHeapKeyPairs.put(auxDistance, auxEdgeIds);
                 auxPairHeapKey.put(edgeId, auxDistance);
-
-                // Prints message in standard output for logging purposes
-                if(m % 10000 == 0)
-                {
-                    System.out.println("-- Remaining clusters: " +
-                            Clustering.clustersNumber + ", " + m +
-                            " pairs updated so far.");
-                }
-                m++;
             }
         }
         // Updates data structures' references
@@ -339,7 +329,7 @@ public class Clustering
         Clustering.heap = auxHeap;
         Clustering.heapKeyPairs = auxHeapKeyPairs;
         Clustering.pairHeapKey = auxPairHeapKey;
-        System.out.println("...heap and associated collections updated.");
+        System.out.println("...done.");
     }
 
 

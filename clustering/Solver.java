@@ -97,24 +97,6 @@ public class Solver
     }
 
     /**
-     * Gets a list of integers with the bits for a node or point.
-     * <b>Pre:</b> The given line has exactly bits number of bits.
-     * @param line String with the label to get the bits from.
-     * @param bits Number of bits to get from the line.
-     * @return List of integers with the associated bits for a node.
-     */
-    private static List<Integer> getNodeBits(String line, int bits)
-    {
-        List<Integer> nodeBits = new ArrayList<Integer>(bits);
-        String [] bitsArray = line.split(" ");
-        for(int i = 0; i < bits; i++)
-        {
-            nodeBits.add(Integer.parseInt(bitsArray[i]));
-        }
-        return nodeBits;
-    }
-
-    /**
      * Solves the max-spacing k-clustering problem using the cost edges
      * approach and prints the solution in standard output.
      * @param lines List of edges containing tail and head vertices, and cost
