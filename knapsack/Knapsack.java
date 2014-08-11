@@ -26,7 +26,7 @@ public class Knapsack
 
     // Constant to determine whether to solve the problem by a straightforward
     // manner or optimized for big numbers.
-    private static final int threshold = 10000000;
+    private static final int THRESHOLD = 10000000;
 
     // Stores the selected items for later retrieval
     private static List<Item> selectedItems = null;
@@ -79,7 +79,7 @@ public class Knapsack
         // Determines whether to solve the problem using a straightforward
         // implementation or one that's optimized for big numbers
         int value;
-        if(Knapsack.threshold >= (W + 1) * (n + 1))
+        if(Knapsack.THRESHOLD >= (W + 1) * (n + 1))
         {
             value = Knapsack.solveStraightforward(items, W, n);
         }
@@ -165,7 +165,43 @@ public class Knapsack
      */
     private static int solveForBigData(List<Item> items, int W, int n)
     {
-        // TODO: Straightforward solution...
-        return 0;
+        // Initializes BigMatrix own data structure and its first column
+        BigMatrix a = new BigMatrix(W + 1, n + 1);
+        for(int x = 0; x <= W; x++)
+        {
+            a.set(x, 0, 0);
+        }
+
+        // Walks through the table filling up the corresponding values
+        for(int i = 1; i <= n; i++)
+        {
+            for(int x = 0; x <= W; x++)
+            {
+                int value = items.get(i - 1).getValue();
+                int weight = items.get(i - 1).getWeight();
+                int firstCase = a.get(x, i - 1);
+                int secondCase = (x >= weight)? a.get(x - weight, i - 1) + value:
+                        firstCase;
+                a.set(x, i, Math.max(firstCase, secondCase));
+            }
+        }
+
+        // Trace backwards to get the solution from the completed table
+        int x = W;
+        Knapsack.selectedItems = new ArrayList<Item>(n / 2);
+        for(int i = n; i > 0; i--)
+        {
+            // If conditions met, then item was selected
+            int value = items.get(i - 1).getValue();
+            int weight = items.get(i - 1).getWeight();
+            if(x >= weight && ((a.get(x, i) - value) == a.get(x - weight, i - 1)))
+            {
+                Knapsack.selectedItems.add(items.get(i - 1));
+                x -= weight;
+            }
+        }
+
+        // Returns the value of the optimal solution
+        return a.get(W, n);
     }
 }
