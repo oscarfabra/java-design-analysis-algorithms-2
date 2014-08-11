@@ -46,11 +46,13 @@ public class Solver
         // Prints the value of the optimal solution and the solution itself
         System.out.println("The value of the optimal solution is: " + value);
         System.out.println("The items to select are the following: ");
+        items = Knapsack.getSelectedItems();
         for(int i = 0; i < items.size(); i++)
         {
-            System.out.println(items.get(i).getId());
-            System.out.println((i < items.size() - 1) ? ", " : ".");
+            Item item = items.get(i);
+            System.out.println(item.getValue() + " " + item.getWeight());
         }
+        System.out.println();
     }
 
     /**

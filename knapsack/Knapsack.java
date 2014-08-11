@@ -28,6 +28,9 @@ public class Knapsack
     // manner or optimized for big numbers.
     private static final int threshold = 1000000;
 
+    // Stores the selected items for later retrieval
+    private static List<Item> selectedItems = null;
+
     // TODO: Add data structures to improve performance for BIG n...
 
     //-------------------------------------------------------------------------
@@ -69,14 +72,13 @@ public class Knapsack
      * @param items List of items.
      * @param W Knapsack size.
      * @param n Number of items.
-     * @return Value of the optimal solution, leaving the selected items in the
-     * given items list.
+     * @return Value of the optimal solution.
      */
     public static int solve(List<Item> items, int W, int n)
     {
         // Determines whether to solve the problem using a straightforward
         // implementation or one that's optimized for big numbers
-        int value = 0;
+        int value;
         if(Knapsack.threshold >= (W + 1) * (n + 1))
         {
             value = Knapsack.solveStraightforward(items, W, n);
@@ -85,8 +87,18 @@ public class Knapsack
         {
             value = Knapsack.solveForBigData(items, W, n);
         }
-        // Returns the value of the optimal solution
+
+        // Returns the value
         return value;
+    }
+
+    /**
+     * Returns the list of the selected items; null if empty.
+     * @return List of selected items.
+     */
+    public static List<Item> getSelectedItems()
+    {
+        return Knapsack.selectedItems;
     }
 
     //-------------------------------------------------------------------------
@@ -94,12 +106,12 @@ public class Knapsack
     //-------------------------------------------------------------------------
 
     /**
-     * Solves the knapsack problem using a straightforward implementation.
+     * Solves the knapsack problem using a straightforward implementation and
+     * updates the selectedItems class list for later retrieval.
      * @param items Array of items.
      * @param W Knapsack size.
      * @param n Number of items.
-     * @return Value of the optimal solution, leaving the selected items in the
-     * given items list.
+     * @return Value of the optimal solution.
      */
     private static int solveStraightforward(List<Item> items, int W, int n)
     {
@@ -126,35 +138,34 @@ public class Knapsack
 
         // Trace backwards to get the solution from the completed table
         int x = W;
-        List<Item> auxItems = new ArrayList<Item>(n);
+        Knapsack.selectedItems = new ArrayList<Item>(n / 2);
         for(int i = n; i > 0; i--)
         {
-            // If conditions are met, then the item was indeed selected
+            // If conditions met, then item was selected
             int value = items.get(i - 1).getValue();
             int weight = items.get(i - 1).getWeight();
-            if(x > weight && ((a[x][i] - value) == a[x - weight][i - 1]))
+            if(x >= weight && ((a[x][i] - value) == a[x - weight][i - 1]))
             {
-                auxItems.add(items.get(i - 1));
+                Knapsack.selectedItems.add(items.get(i - 1));
                 x -= weight;
             }
         }
 
-        // Returns the optimal value
+        // Returns the value of the optimal solution
         return a[W][n];
     }
 
     /**
-     * Solves the knapsack problem using an implementation optimized for big n.
+     * Solves the knapsack problem using an implementation optimized for big n,
+     * updating the selectedItems class list for later retrieval.
      * @param items List of items.
      * @param W Knapsack size.
      * @param n Number of items.
-     * @return Value of the optimal solution, leaving the selected items in the
-     * given items list.
+     * @return Value of the optimal solution.
      */
     private static int solveForBigData(List<Item> items, int W, int n)
     {
         // TODO: Straightforward solution...
-
         return 0;
     }
 }
