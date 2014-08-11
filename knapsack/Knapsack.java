@@ -26,7 +26,7 @@ public class Knapsack
 
     // Constant to determine whether to solve the problem by a straightforward
     // manner or optimized for big numbers.
-    private static final int threshold = 1000000;
+    private static final int threshold = 10000000;
 
     // Stores the selected items for later retrieval
     private static List<Item> selectedItems = null;
