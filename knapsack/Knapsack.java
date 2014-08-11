@@ -77,7 +77,7 @@ public class Knapsack
         // Determines whether to solve the problem using a straightforward
         // implementation or one that's optimized for big numbers
         int value = 0;
-        if(Knapsack.threshold >= W * n)
+        if(Knapsack.threshold >= (W + 1) * (n + 1))
         {
             value = Knapsack.solveStraightforward(items, W, n);
         }
@@ -95,7 +95,7 @@ public class Knapsack
 
     /**
      * Solves the knapsack problem using a straightforward implementation.
-     * @param items List of items.
+     * @param items Array of items.
      * @param W Knapsack size.
      * @param n Number of items.
      * @return Value of the optimal solution, leaving the selected items in the
@@ -103,9 +103,44 @@ public class Knapsack
      */
     private static int solveStraightforward(List<Item> items, int W, int n)
     {
-        // TODO: Straightforward solution...
+        // Initializes matrix and its first column
+        int [][] a = new int[W + 1][n + 1];
+        for(int x = 0; x <= W; x++)
+        {
+            a[x][0] = 0;
+        }
 
-        return 0;
+        // Walks through the table filling up the corresponding values
+        for(int i = 1; i <= n; i++)
+        {
+            for(int x = 0; x <= W; x++)
+            {
+                int value = items.get(i - 1).getValue();
+                int weight = items.get(i - 1).getWeight();
+                int firstCase = a[x][i - 1];
+                int secondCase = (x >= weight)? a[x - weight][i - 1] + value :
+                        firstCase;
+                a[x][i] = Math.max(firstCase, secondCase);
+            }
+        }
+
+        // Trace backwards to get the solution from the completed table
+        int x = W;
+        List<Item> auxItems = new ArrayList<Item>(n);
+        for(int i = n; i > 0; i--)
+        {
+            // If conditions are met, then the item was indeed selected
+            int value = items.get(i - 1).getValue();
+            int weight = items.get(i - 1).getWeight();
+            if(x > weight && ((a[x][i] - value) == a[x - weight][i - 1]))
+            {
+                auxItems.add(items.get(i - 1));
+                x -= weight;
+            }
+        }
+
+        // Returns the optimal value
+        return a[W][n];
     }
 
     /**
