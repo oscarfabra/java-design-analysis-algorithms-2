@@ -97,8 +97,8 @@ public class Clustering
 
         // Finds the largest value of k such that there is a k-clustering with
         // spacing at least s
-        System.out.println("Finding largest value of k with spacing at least " +
-                spacing + "...");
+        System.out.println("Merging clusters and updating heap in order to" +
+                " find k...");
         while(!Clustering.heap.isEmpty() && Clustering.clustersNumber > 1)
         {
             // Gets the closest pair of separated points from the heap
@@ -118,7 +118,8 @@ public class Clustering
             if(Clustering.clustersNumber % 100 == 0)
             {
                 System.out.println("-- [" + Clustering.clustersNumber +
-                        " clusters remaining so far.]");
+                        " clusters left, " + Clustering.heap.size() +
+                        " elements remaining in heap, so far]");
             }
         }
         System.out.println("...k found.");
@@ -299,7 +300,6 @@ public class Clustering
 
         // Given that pairs collection contains the edges whose ids are in the
         // heap, we can walk through it to add only the corresponding pairs
-        System.out.print("Updating heap and associated collections...");
         for(Integer edgeId : Clustering.pairs.keySet())
         {
             Edge edge = Clustering.pairs.get(edgeId);
@@ -329,7 +329,6 @@ public class Clustering
         Clustering.heap = auxHeap;
         Clustering.heapKeyPairs = auxHeapKeyPairs;
         Clustering.pairHeapKey = auxPairHeapKey;
-        System.out.println("...done.");
     }
 
 
@@ -427,7 +426,6 @@ public class Clustering
 
         // Removes each vertex from originCluster and adds it to
         // destinationCluster
-        System.out.print("Merging clusters...");
         verticesIds =
                 Clustering.clusterVertices.get(Integer.valueOf(originCluster));
         List<Integer> verticesAux = new Vector<Integer>(verticesIds);
@@ -437,7 +435,6 @@ public class Clustering
             Clustering.removeFromCluster(originCluster, vertexId);
             Clustering.addToCluster(destinationCluster, vertexId);
         }
-        System.out.println("done.");
 
         // Updates clustersNumber
         Clustering.clustersNumber = Clustering.clusterVertices.size();
