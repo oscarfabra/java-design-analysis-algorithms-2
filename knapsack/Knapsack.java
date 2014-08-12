@@ -166,13 +166,16 @@ public class Knapsack
     private static int solveForBigData(List<Item> items, int W, int n)
     {
         // Initializes BigMatrix own data structure and its first column
+        System.out.print("Initializing BigMatrix...");
         BigMatrix a = new BigMatrix(W + 1, n + 1);
         for(int x = 0; x <= W; x++)
         {
             a.set(x, 0, 0);
         }
+        System.out.println("done.");
 
         // Walks through the table filling up the corresponding values
+        System.out.println("Filling up the table...");
         for(int i = 1; i <= n; i++)
         {
             for(int x = 0; x <= W; x++)
@@ -184,11 +187,18 @@ public class Knapsack
                         firstCase;
                 a.set(x, i, Math.max(firstCase, secondCase));
             }
+            // Message in standard output for logging purposes
+            if(i % 10 == 0)
+            {
+                System.out.println("-- [" + i + " items filled so far.]");
+            }
         }
+        System.out.println("... table filled up.");
 
         // Trace backwards to get the solution from the completed table
         int x = W;
         Knapsack.selectedItems = new ArrayList<Item>(n / 2);
+        System.out.print("Tracing backwards to get the solution...");
         for(int i = n; i > 0; i--)
         {
             // If conditions met, then item was selected
@@ -200,6 +210,7 @@ public class Knapsack
                 x -= weight;
             }
         }
+        System.out.println("done.");
 
         // Returns the value of the optimal solution
         return a.get(W, n);

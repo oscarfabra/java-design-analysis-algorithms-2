@@ -1,7 +1,7 @@
 /**
  * $Id: BigMatrix.java, v1.0 11/08/14 01:25 PM oscarfabra Exp $
- * {@code BigMatrix} is a class that represents an 2-D matrix to use when
- * computing very large numbers of rows and columns.
+ * {@code BigMatrix} is a class that represents an 2-D matrix to use for
+ * computing 2-D arrays with very large number of rows and columns.
  *
  * @author <a href="mailto:oscarfabra@gmail.com">Oscar Fabra</a>
  * @version 1.0
@@ -12,8 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * BigMatrix represents a 2-D matrix to use when computing very large numbers
- * of rows and columns.
+ * BigMatrix represents a 2-D matrix to use for computing 2-D arrays with very
+ * large number of rows and columns.
  */
 public class BigMatrix
 {
@@ -21,7 +21,7 @@ public class BigMatrix
     // CONSTANT
     //-------------------------------------------------------------------------
 
-    // Length of a side of the table on which to divide the table
+    // Length of a side of a square partition in which to divide a BigMatrix
     public static final int PARTITION_SIDE = 100000;
 
     //-------------------------------------------------------------------------
@@ -30,6 +30,12 @@ public class BigMatrix
 
     // List of smaller partitioned tables
     private List<int[][]> bigMatrix = null;
+
+    // Number of columns' partitions of the bigMatrix
+    private int colsPartitions;
+
+    // Number of rows' partitions of the bigMatrix
+    private int rowsPartitions;
 
     //-------------------------------------------------------------------------
     // CONSTRUCTORS
@@ -43,11 +49,11 @@ public class BigMatrix
     public BigMatrix(int rows, int columns)
     {
         // Initializes the list of smaller partitioned tables
-        int colsPartitions = (columns % PARTITION_SIDE == 0) ?
-                columns / PARTITION_SIDE : (columns / PARTITION_SIDE) + 1;
-        int rowsPartitions =  (rows % PARTITION_SIDE == 0) ?
+        this.rowsPartitions =  (rows % PARTITION_SIDE == 0) ?
                 rows / PARTITION_SIDE : (rows / PARTITION_SIDE) + 1;
-        int size = rowsPartitions * colsPartitions;
+        this.colsPartitions = (columns % PARTITION_SIDE == 0) ?
+                columns / PARTITION_SIDE : (columns / PARTITION_SIDE) + 1;
+        int size = this.rowsPartitions * this.colsPartitions;
         this.bigMatrix = new ArrayList<int[][]>(size);
         for(int i = 0; i < size; i++)
         {
@@ -72,43 +78,39 @@ public class BigMatrix
     /**
      * Sets the specified element at the given indices.
      * @param row Row position, row in [0, 1, ..., rows - 1]
-     * @param column Column position, column in [0, 1, ..., n - 1]
+     * @param column Column position, column in [0, 1, ..., columns - 1]
      * @param item Integer to add to the BigMatrix.
      */
     public void set(int row, int column, int item)
     {
-        // Finds small table in which to store the item
-        int rowPartition = (row % PARTITION_SIDE == 0) ?
-                row / PARTITION_SIDE : (row / PARTITION_SIDE) + 1;
-        int colPartition = (column % PARTITION_SIDE == 0) ?
-                column / PARTITION_SIDE : (column / PARTITION_SIDE) + 1;
+        // Finds the small table in which to store the item
+        int rowPartition = row / PARTITION_SIDE;
+        int colPartition = column / PARTITION_SIDE;
         int itemRow = row % PARTITION_SIDE;
         int itemCol = column % PARTITION_SIDE;
-        int bigIndex = colPartition * rowPartition - 1;
+        int bigIndex = rowPartition * this.colsPartitions + colPartition;
 
         // Gets the table in which to store the item, stores the item and
         // updates the list
-        int [][] smallMatrix = this.bigMatrix.remove(bigIndex);
+        int [][] smallMatrix = this.bigMatrix.get(bigIndex);
         smallMatrix[itemRow][itemCol] = item;
         this.bigMatrix.set(bigIndex, smallMatrix);
     }
 
     /**
      * Returns the element of the BigMatrix at the specified position.
-     * @param row Row position, i in [0,1,...,n-1]
-     * @param column Column position, j in [0,1,...,n-1]
+     * @param row Row position, row in [0, 1, ..., rows - 1]
+     * @param column Column position, column in [0, 1, ..., columns - 1]
      * @return Integer at the given position.
      */
     public int get(int row, int column)
     {
         // Finds small table in which to store the item
-        int rowPartition = (row % PARTITION_SIDE == 0) ?
-                row / PARTITION_SIDE : (row / PARTITION_SIDE) + 1;
-        int colPartition = (column % PARTITION_SIDE == 0) ?
-                column / PARTITION_SIDE : (column / PARTITION_SIDE) + 1;
+        int rowPartition = row / PARTITION_SIDE;
+        int colPartition = column / PARTITION_SIDE;
         int itemRow = row % PARTITION_SIDE;
         int itemCol = column % PARTITION_SIDE;
-        int bigIndex = colPartition * rowPartition - 1;
+        int bigIndex = rowPartition * this.colsPartitions + colPartition;
 
         // Gets the table in which to store the item, stores the item and
         // updates the list
