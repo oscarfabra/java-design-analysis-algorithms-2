@@ -21,17 +21,19 @@ import java.util.List;
 public class Knapsack
 {
     //-------------------------------------------------------------------------
-    // ATTRIBUTES
+    // CONSTANT
     //-------------------------------------------------------------------------
 
     // Constant to determine whether to solve the problem by a straightforward
     // manner or optimized for big numbers.
-    private static final int THRESHOLD = 10000000;
+    public static final int THRESHOLD = 100000;
+
+    //-------------------------------------------------------------------------
+    // ATTRIBUTES
+    //-------------------------------------------------------------------------
 
     // Stores the selected items for later retrieval
     private static List<Item> selectedItems = null;
-
-    // TODO: Add data structures to improve performance for BIG n...
 
     //-------------------------------------------------------------------------
     // CONSTRUCTORS
@@ -79,7 +81,8 @@ public class Knapsack
         // Determines whether to solve the problem using a straightforward
         // implementation or one that's optimized for big numbers
         int value;
-        if(Knapsack.THRESHOLD >= (W + 1) * (n + 1))
+        long compare = Long.valueOf(W + 1) * Long.valueOf(n + 1);
+        if(Knapsack.THRESHOLD >= compare)
         {
             value = Knapsack.solveStraightforward(items, W, n);
         }
@@ -87,7 +90,6 @@ public class Knapsack
         {
             value = Knapsack.solveForBigData(items, W, n);
         }
-
         // Returns the value
         return value;
     }
@@ -165,54 +167,48 @@ public class Knapsack
      */
     private static int solveForBigData(List<Item> items, int W, int n)
     {
-        // Initializes BigMatrix own data structure and its first column
-        System.out.print("Initializing BigMatrix...");
-        BigMatrix a = new BigMatrix(W + 1, n + 1);
+        // Initializes appropriate data structure and its first column
+        System.out.print("Initializing 2-D array...");
+        List<Integer>[] a = (ArrayList<Integer>[])new ArrayList[W + 1];
         for(int x = 0; x <= W; x++)
         {
-            a.set(x, 0, 0);
+            a[x] = new ArrayList<Integer>(2);
+            a[x].add(0);
+            a[x].add(0);
         }
         System.out.println("done.");
 
-        // Walks through the table filling up the corresponding values
-        System.out.println("Filling up the table...");
+        // Walks through the table filling out the corresponding values, uses
+        // memoization; it only keeps the past column (at index 0) and the one
+        // that is computing (at index 1), to avoid memory issues
+        System.out.println("Filling out table...");
         for(int i = 1; i <= n; i++)
         {
             for(int x = 0; x <= W; x++)
             {
                 int value = items.get(i - 1).getValue();
                 int weight = items.get(i - 1).getWeight();
-                int firstCase = a.get(x, i - 1);
-                int secondCase = (x >= weight)? a.get(x - weight, i - 1) + value:
+                int firstCase = a[x].get(0);
+                int secondCase = (x >= weight)? a[x - weight].get(0) + value :
                         firstCase;
-                a.set(x, i, Math.max(firstCase, secondCase));
+                a[x].set(1, Math.max(firstCase, secondCase));
+            }
+            // Updates 2-D array a for better memory usage
+            for(int x = 0; x <= W; x++)
+            {
+                int aux = a[x].get(1);
+                a[x].set(0, aux);
+                a[x].set(1, 0);
             }
             // Message in standard output for logging purposes
             if(i % 10 == 0)
             {
-                System.out.println("-- [" + i + " items filled so far.]");
+                System.out.println("-- [" + i + " items filled out so far.]");
             }
         }
-        System.out.println("... table filled up.");
-
-        // Trace backwards to get the solution from the completed table
-        int x = W;
-        Knapsack.selectedItems = new ArrayList<Item>(n / 2);
-        System.out.print("Tracing backwards to get the solution...");
-        for(int i = n; i > 0; i--)
-        {
-            // If conditions met, then item was selected
-            int value = items.get(i - 1).getValue();
-            int weight = items.get(i - 1).getWeight();
-            if(x >= weight && ((a.get(x, i) - value) == a.get(x - weight, i - 1)))
-            {
-                Knapsack.selectedItems.add(items.get(i - 1));
-                x -= weight;
-            }
-        }
-        System.out.println("done.");
+        System.out.println("... table filled out.");
 
         // Returns the value of the optimal solution
-        return a.get(W, n);
+        return a[W].get(0);
     }
 }

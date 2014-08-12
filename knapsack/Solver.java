@@ -43,14 +43,22 @@ public class Solver
         // knapsack size; leaves the items to select in the items list
         int value = Knapsack.solve(items, W, n);
 
-        // Prints the value of the optimal solution and the solution itself
+        // Prints the value of the optimal solution
         System.out.println("The value of the optimal solution is: " + value);
-        System.out.println("The items to select are the following: ");
-        items = Knapsack.getSelectedItems();
-        for(int i = 0; i < items.size(); i++)
+
+        // Prints the solution only for small n (for BIG n it probably can't be
+        // stored in memory, so it is not)
+        long compare = Long.valueOf(W + 1) * Long.valueOf(n + 1);
+        if(compare <= Knapsack.THRESHOLD)
         {
-            Item item = items.get(i);
-            System.out.println(item.getValue() + " " + item.getWeight());
+            System.out.println("The items to select are the following: ");
+            items = Knapsack.getSelectedItems();
+            for(int i = 0; i < items.size(); i++)
+            {
+                Item item = items.get(i);
+                System.out.println(item.getValue() + " " + item.getWeight());
+            }
+
         }
         System.out.println();
     }
