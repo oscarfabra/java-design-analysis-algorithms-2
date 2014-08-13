@@ -25,7 +25,7 @@ public class Knapsack
     //-------------------------------------------------------------------------
 
     // Constant to determine whether to solve the problem by a straightforward
-    // manner or optimized for big numbers.
+    // manner or optimized for big numbers
     public static final int THRESHOLD = 100000;
 
     //-------------------------------------------------------------------------
@@ -158,8 +158,7 @@ public class Knapsack
     }
 
     /**
-     * Solves the knapsack problem using an implementation optimized for big n,
-     * updating the selectedItems class list for later retrieval.
+     * Solves the knapsack problem using an implementation optimized for big n.
      * @param items List of items.
      * @param W Knapsack size.
      * @param n Number of items.
