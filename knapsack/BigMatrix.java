@@ -112,8 +112,7 @@ public class BigMatrix
         int itemCol = column % PARTITION_SIDE;
         int bigIndex = rowPartition * this.colsPartitions + colPartition;
 
-        // Gets the table in which to store the item, stores the item and
-        // updates the list
+        // Gets the table from which to retrieve the item and retrieves it
         int [][] smallMatrix = this.bigMatrix.get(bigIndex);
         return smallMatrix[itemRow][itemCol];
     }
