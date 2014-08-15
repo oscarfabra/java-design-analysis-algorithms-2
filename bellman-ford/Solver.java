@@ -1,6 +1,7 @@
 /**
  * $Id: Solver.java, v1.0 14/08/14 05:59 PM oscarfabra Exp $
- * {@code Solver}
+ * {@code Solver} Is a class that reads and solves Bellman-Ford's singe-source
+ * shortest path algorithm of a given directed graph.
  *
  * @author <a href="mailto:oscarfabra@gmail.com">Oscar Fabra</a>
  * @version 1.0
@@ -12,12 +13,25 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
- * Solver
+ * Solves Bellman-Ford's single-source, shortest path algorithm defined as
+ * follows:
+ * Input: Directed graph G = (V , E), edge lengths c_e for each e in E, and
+ * source vertex s in V [assumes no parallel edges].
+ * Goal: For every destination v in V, compute the length of a shortest s - v
+ * path.
  */
 public class Solver
 {
+    //-------------------------------------------------------------------------
+    // CLASS VARIABLE
+    //-------------------------------------------------------------------------
+
+    // Stores the source vertex obtained from second program argument
+    private static int s = 0;
+
     //-------------------------------------------------------------------------
     // PRIVATE METHODS
     //-------------------------------------------------------------------------
@@ -28,7 +42,30 @@ public class Solver
      */
     private static void solve(List<String> lines)
     {
-        // TODO: Call the B-F alg over the given graph...
+        // Gets the number of vertices n and number of edges m from first line
+        String firstLine = lines.remove(0);
+        String [] nAndM = firstLine.split(" ");
+        int n = Integer.parseInt(nAndM[0]);
+        int m = Integer.parseInt(nAndM[1]);
+
+        // Builds the list of adjacent edges of each vertex
+        Map<Integer, List<Edge>> vertexEdges =
+                Graph.buildVertexEdges(m, lines);
+
+        // Creates a new graph with the given input
+        Graph graph = new Graph(n, vertexEdges);
+
+        // Computes the shortest-path using Bellman-Ford's algorithm, gets
+        // the values of the shortest paths from s to all other vertices
+        int [] lengths = BellmanFord.solve(Solver.s, graph);
+
+        // Prints the values of the shortest paths found in standard output
+        System.out.println("The lengths of the shortest paths from s to all " +
+                "other vertices are:");
+        for(int i = 0; i < n; i++)
+        {
+            System.out.println("-- To " + (i + 1) + ": " + lengths[i]);
+        }
     }
 
     /**
@@ -36,7 +73,7 @@ public class Solver
      * list.
      * @param args Array of String with the filepath of the file to read.
      * @return A list of lines with the data to solve the problem.
-     * @throws Exception If file couldn't be found or k not given.
+     * @throws Exception If file couldn't be found or s not given.
      */
     private static List<String> readLines(String[] args)
             throws Exception
@@ -72,6 +109,17 @@ public class Solver
             e.printStackTrace();
         }
 
+        // Gets the source vertex from the second argument, throws exception
+        // if invalid or not found
+        try
+        {
+            Solver.s = Integer.parseInt(args[1]);
+        }
+        catch(NumberFormatException nfe)
+        {
+            throw nfe;
+        }
+
         // Returns the lines read
         return lines;
     }
@@ -84,6 +132,7 @@ public class Solver
      * Main test method.
      * @param args filepath relative to the file with the representation of an
      *             undirected graph in the form -file=filepath
+     *             Source vertex s as second parameter, s in [1,2,...,n]
      */
     public static void main(String [] args)
     {
