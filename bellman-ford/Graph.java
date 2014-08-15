@@ -34,8 +34,11 @@ public class Graph
     // Map of edges with (edgeId, Edge) pairs
     private Map<Integer,Edge> E;
 
-    // Map of lists of vertices that indicates adjacent edges of each vertex
-    private Map<Integer,List<Integer>> vertexEdges;
+    // Each vertex points to the ids of its leaving edges
+    private Map<Integer,List<Integer>> vertexEdgesLeaving;
+
+    // Each vertex points to the ids of its arriving edges
+    private Map<Integer,List<Integer>> vertexEdgesArriving;
 
     //-------------------------------------------------------------------------
     // CONSTRUCTORS
@@ -58,9 +61,11 @@ public class Graph
         this.n = n;
         System.out.println("done.");
 
-        // Initializes the list of edges and vertexEdges, O(m) algorithm
+        // Initializes the list of edges, vertexEdgesArriving, and
+        // vertexEdgesLeaving. O(m) algorithm.
         this.E = new HashMap<Integer, Edge>(this.n * 2);
-        this.vertexEdges = new HashMap<Integer, List<Integer>>(this.n);
+        this.vertexEdgesArriving = new HashMap<Integer, List<Integer>>(this.n);
+        this.vertexEdgesLeaving = new HashMap<Integer, List<Integer>>(this.n);
         System.out.println("Initializing list of edges E...");
         int i = 1;
         for(Integer key : vertexEdges.keySet())
@@ -177,11 +182,18 @@ public class Graph
             this.E.put(key, that.E.get(key));
         }
 
-        // Initializes the vertexEndpoints HashMap
-        this.vertexEdges = new HashMap<Integer, List<Integer>>(this.n);
-        for(Integer key : that.vertexEdges.keySet())
+        // Copies the vertexEdgesLeaving HashMap
+        this.vertexEdgesLeaving = new HashMap<Integer, List<Integer>>(this.n);
+        for(Integer key : that.vertexEdgesLeaving.keySet())
         {
-            this.vertexEdges.put(key,that.vertexEdges.get(key));
+            this.vertexEdgesLeaving.put(key, that.vertexEdgesLeaving.get(key));
+        }
+
+        // Copies the vertexEdgesArriving HashMap
+        this.vertexEdgesArriving = new HashMap<Integer, List<Integer>>(this.n);
+        for(Integer key : that.vertexEdgesArriving.keySet())
+        {
+            this.vertexEdgesArriving.put(key, that.vertexEdgesArriving.get(key));
         }
     }
 
@@ -240,20 +252,35 @@ public class Graph
     }
 
     /**
-     * Returns a list with the ids of the adjacent edges of the given vertex.
+     * Returns a list of the edges that come out from the given vertex.
      * @param vertexId Id of the vertex to look for.
-     * @return List of vertices to where the vertex with the given id points
-     * at.
+     * @return List of edges coming out from the given vertex.
      */
-    public List<Edge> getAdjacentEdges(int vertexId)
+    public List<Edge> getEdgesLeaving(int vertexId)
     {
-        // Walks through the list of adjacent edges of the given vertex id
-        List<Edge> adjacentEdges = new ArrayList<Edge>();
-        for(Integer edgeId : this.vertexEdges.get(vertexId))
+        // Walks through the list of edges that come out from the given vertex
+        List<Edge> edgesLeaving = new ArrayList<Edge>();
+        for(Integer edgeId : this.vertexEdgesLeaving.get(vertexId))
         {
-            adjacentEdges.add(this.E.get(edgeId));
+            edgesLeaving.add(this.E.get(edgeId));
         }
-        return adjacentEdges;
+        return edgesLeaving;
+    }
+
+    /**
+     * Returns a list of the edges that arrive at the given vertex.
+     * @param vertexId Id of the vertex to look for.
+     * @return List of edges coming out from the given vertex.
+     */
+    public List<Edge> getEdgesArriving(int vertexId)
+    {
+        // Walks through the list of edges that arrive at the given vertex
+        List<Edge> edgesArriving = new ArrayList<Edge>();
+        for(Integer edgeId : this.vertexEdgesArriving.get(vertexId))
+        {
+            edgesArriving.add(this.E.get(edgeId));
+        }
+        return edgesArriving;
     }
 
     /**
@@ -285,25 +312,26 @@ public class Graph
      */
     private void addVertexEdge(Edge edge)
     {
-        // Removes the list of the given key, adds the value, and puts it
-        // again in the hashmap, repeats for each vertex of the edge
+        // Removes the list of the tail vertex, adds the value, and puts it
+        // again in the corresponding hashmap
         int vertexId = edge.getTail();
-        List<Integer> adjEdgesIds = vertexEdges.remove(vertexId);
+        List<Integer> adjEdgesIds = this.vertexEdgesLeaving.remove(vertexId);
         if(adjEdgesIds == null)
         {
             adjEdgesIds = new ArrayList<Integer>();
         }
         adjEdgesIds.add(edge.getId());
-        vertexEdges.put(vertexId, adjEdgesIds);
+        this.vertexEdgesLeaving.put(vertexId, adjEdgesIds);
 
-        // Does it again for the head vertex
+        // Does it again for the head vertex, storing it in the corresponding
+        // hashmap
         vertexId = edge.getHead();
-        adjEdgesIds = vertexEdges.remove(vertexId);
+        adjEdgesIds = vertexEdgesArriving.remove(vertexId);
         if(adjEdgesIds == null)
         {
             adjEdgesIds = new ArrayList<Integer>();
         }
         adjEdgesIds.add(edge.getId());
-        vertexEdges.put(vertexId, adjEdgesIds);
+        vertexEdgesArriving.put(vertexId, adjEdgesIds);
     }
 }
