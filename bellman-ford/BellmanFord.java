@@ -15,7 +15,7 @@ import java.util.List;
  * follows:
  * Input: Directed graph G=(V,E), edge lengths c_e for each e in E, and source
  * vertex s in V [assumes no parallel edges].
- * Goal: For every destination v in V, compute the length of a shortest s - v
+ * Goal: For every destination v in V, compute the length of a shortest s -> v
  * path.
  */
 public class BellmanFord
@@ -96,8 +96,8 @@ public class BellmanFord
             // Steps out of the loop if all a[v][0] were equal to all a[v][1]
             if(halt){ break; }
         }
-        // Given that it made an n iteration, if halt is not true, then we know
-        // there was a negative cycle. In that case B-F algorithm not correct.
+        // Given that last loop made n iterations, if halt is not true, then we
+        // know there was a negative cycle. In that case algorithm isn't correct.
         if(!halt)
         {
             return null;
