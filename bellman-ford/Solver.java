@@ -59,12 +59,20 @@ public class Solver
         // the values of the shortest paths from s to all other vertices
         int [] lengths = BellmanFord.solve(Solver.s, graph);
 
-        // Prints the values of the shortest paths found in standard output
-        System.out.println("The lengths of the shortest paths from s to all " +
-                "other vertices are:");
-        for(int i = 0; i < n; i++)
+        // Prints results found, if any
+        if(lengths == null)
         {
-            System.out.println("-- To " + (i + 1) + ": " + lengths[i]);
+            System.out.println("Negative cycle found; can't find shortest " +
+                    "paths.");
+        }
+        else
+        {
+            System.out.println("The lengths of the shortest paths from vertex "+
+                    Solver.s + " to all other vertices are:");
+            for(int i = 0; i < n; i++)
+            {
+                System.out.println("-- To " + (i + 1) + ": " + lengths[i]);
+            }
         }
     }
 

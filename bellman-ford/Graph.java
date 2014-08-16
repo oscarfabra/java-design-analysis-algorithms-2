@@ -258,6 +258,11 @@ public class Graph
      */
     public List<Edge> getEdgesLeaving(int vertexId)
     {
+        // Checks whether the given vertex has edges coming out from it
+        if(!this.vertexEdgesLeaving.containsKey(Integer.valueOf(vertexId)))
+        {
+            return null;
+        }
         // Walks through the list of edges that come out from the given vertex
         List<Edge> edgesLeaving = new ArrayList<Edge>();
         for(Integer edgeId : this.vertexEdgesLeaving.get(vertexId))
@@ -274,6 +279,11 @@ public class Graph
      */
     public List<Edge> getEdgesArriving(int vertexId)
     {
+        // Checks whether the given vertex has edges arriving
+        if(!this.vertexEdgesArriving.containsKey(Integer.valueOf(vertexId)))
+        {
+            return null;
+        }
         // Walks through the list of edges that arrive at the given vertex
         List<Edge> edgesArriving = new ArrayList<Edge>();
         for(Integer edgeId : this.vertexEdgesArriving.get(vertexId))
