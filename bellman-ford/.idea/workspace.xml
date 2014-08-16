@@ -46,8 +46,8 @@
       <file leaf-file-name="BellmanFord.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/BellmanFord.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.4516129" vertical-offset="1242" max-vertical-offset="1980">
-              <caret line="83" column="13" selection-start-line="83" selection-start-column="13" selection-end-line="83" selection-end-column="13" />
+            <state vertical-scroll-proportion="0.74781084" vertical-offset="1517" max-vertical-offset="2088">
+              <caret line="108" column="5" selection-start-line="108" selection-start-column="5" selection-end-line="108" selection-end-column="5" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
               </folding>
@@ -95,9 +95,9 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="641" />
+    <option name="x" value="604" />
     <option name="y" value="52" />
-    <option name="width" value="724" />
+    <option name="width" value="761" />
     <option name="height" value="716" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
@@ -410,15 +410,15 @@
       <updated>1408057110669</updated>
       <workItem from="1408057113232" duration="32000" />
       <workItem from="1408057148971" duration="7985000" />
-      <workItem from="1408128971585" duration="9750000" />
+      <workItem from="1408128971585" duration="13402000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="17767000" />
+    <option name="totallyTimeSpent" value="21419000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="641" y="52" width="724" height="716" extended-state="4" />
+    <frame x="604" y="52" width="761" height="716" extended-state="4" />
     <editor active="true" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -566,8 +566,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/BellmanFord.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.4516129" vertical-offset="1242" max-vertical-offset="1980">
-          <caret line="83" column="13" selection-start-line="83" selection-start-column="13" selection-end-line="83" selection-end-column="13" />
+        <state vertical-scroll-proportion="0.74781084" vertical-offset="1517" max-vertical-offset="2088">
+          <caret line="108" column="5" selection-start-line="108" selection-start-column="5" selection-end-line="108" selection-end-column="5" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
           </folding>

@@ -40,7 +40,7 @@ public class BellmanFord
     /**
      * Computes the shortest-path distance from vertex s to all other vertices
      * of the given graph and returns an array of integers with the shortest
-     * path distances from s to each vertex v of V.
+     * path distances from s to each of these vertices.
      * @param s Source vertex.
      * @param graph Graph to examine.
      * @return Array of integers with the length of each path s -> v, v in V.
@@ -60,24 +60,27 @@ public class BellmanFord
         // Walks through the array filling out the corresponding values, uses
         // memoization; it only keeps the past column (at index 0) and the one
         // that is computing (at index 1), for space optimization
+        boolean halt = true;
         for(int i = 1; i <= n; i++)
         {
             // Assumes vertexId's v are in [1,...,n]
             for(int v = 1; v <= n; v++)
             {
-                int firstCase = a[v][i - 1];
+                int firstCase = a[v][0];
                 List<Edge> edgesArriving = graph.getEdgesArriving(v);
                 int secondCase = BellmanFord.INFINITY * 2;
                 for(Edge edge : edgesArriving)
                 {
                     int w = edge.getTail();
-                    int candidate = a[w][i - 1] + edge.getCost();
+                    int candidate = a[w][0] + edge.getCost();
                     if(candidate <= secondCase)
                     {
                         secondCase = candidate;
                     }
                 }
-                a[v][i] = Math.min(firstCase, secondCase);
+                a[v][1] = Math.min(firstCase, secondCase);
+                // Checks whether to halt or not
+                if (a[v][0] != a[v][1]){ halt = false; }
             }
             // Updates 2-D array a for better memory usage
             for(int v = 1; v <= n; v++)
@@ -86,19 +89,22 @@ public class BellmanFord
                 a[v - 1][1] = BellmanFord.INFINITY;
             }
             a[s - 1][1] = 0;
+            // Steps out of the loop if all a[v][0] were equal to all a[v][1]
+            if(halt){ break; }
         }
-        // Stores the shortest s->v paths for all v's in graph and returns them
-        int [] lengths = new int[n];
-        for(int i = 0; i < n; i++)
+        // Given that it made an n iteration, if halt is not true, then we know
+        // there was a negative cycle. In that case B-F algorithm not correct.
+        int [] lengths = null;
+        if(halt)
         {
-            lengths[i] = a[i][0];
+            // Stores the shortest s->v paths for all v's in graph
+            lengths = new int[n];
+            for(int i = 0; i < n; i++)
+            {
+                lengths[i] = a[i][0];
+            }
         }
+        // Returns lengths (null if any negative cycle was found)
         return lengths;
     }
-
-    //-------------------------------------------------------------------------
-    // PRIVATE HELPER METHODS
-    //-------------------------------------------------------------------------
-
-    // TODO: Check for negative cycles...
 }
