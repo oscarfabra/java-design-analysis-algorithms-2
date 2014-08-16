@@ -82,7 +82,7 @@ public class Dijkstra
         Dijkstra.vertexHeapKey = new HashMap<Integer, List<Integer>>(n);
         Dijkstra.heapKeyVertex = new HashMap<Integer, Integer>(n);
 
-        // Assumes infinite distances between s and all the other vertices
+        // Assumes infinite distances between s and all other vertices
         for(int i = 0; i < n; i++)
         {
             Dijkstra.a[i] = Dijkstra.INFINITE;
@@ -92,13 +92,16 @@ public class Dijkstra
         Dijkstra.x.add(s);
         Dijkstra.a[s - 1] = 0;
 
-        // Walks through each vertex not yet explored, calculates its key and
-        // adds it to the vertexHeapKey and heapKeyVertex HashMaps
-        for(int i = 2; i <= n; i++)
+        // Walks through each vertex, calculates its key and adds it to the
+        // vertexHeapKey and heapKeyVertex HashMaps
+        for(int i = 1; i <= n; i++)
         {
-            int vertexScore = Dijkstra.minGreedyScore(i, graph);
-            Dijkstra.a[i - 1] = vertexScore;
-            Dijkstra.addToHeap(i, vertexScore);
+            if(i != s)
+            {
+                int vertexScore = Dijkstra.minGreedyScore(i, graph);
+                Dijkstra.a[i - 1] = vertexScore;
+                Dijkstra.addToHeap(i, vertexScore);
+            }
         }
 
         // Walks through each vertex in the graph assigning the shortest path
@@ -113,27 +116,30 @@ public class Dijkstra
             Dijkstra.a[wId - 1] = wScore;
             Dijkstra.x.add(wId);
 
-            // Updates key to the implicated edges (those whose tail is in X,
-            // but their heads are in V - X)
-            List<Edge> edgesLeaving = graph.getVertexEdgesLeaving(wId);
-            for(Edge edge : edgesLeaving)
+            // Updates keys of the implicated edges (those with tails in X, and
+            // heads in V - X)
+            List<Edge> edgesLeaving = graph.getEdgesLeaving(wId);
+            if(edgesLeaving != null)
             {
-                int vId = edge.getHead();
-                if(!Dijkstra.x.contains(vId))
+                for(Edge edge : edgesLeaving)
                 {
-                    // If vId is not in X, then it is in the heap
-                    int vKey = Dijkstra.heapKeyVertex.get(vId);
+                    int vId = edge.getHead();
+                    if(!Dijkstra.x.contains(vId))
+                    {
+                        // If vId is not in X, then it is in the heap
+                        int vKey = Dijkstra.heapKeyVertex.get(vId);
 
-                    // Removes head vertex with id vId from the heap, updates
-                    // HashMaps accordingly
-                    Dijkstra.deleteFromHeap(vKey, vId);
+                        // Removes head vertex with id vId from the heap, updates
+                        // HashMaps accordingly
+                        Dijkstra.deleteFromHeap(vKey, vId);
 
-                    // Recomputes the smalles greedy score for this vertex
-                    int vScore = Math.min(vKey, a[wId - 1] + edge.getLength());
+                        // Recomputes the smallest greedy score for this vertex
+                        int vScore = Math.min(vKey, a[wId - 1] + edge.getCost());
 
-                    // Re-inserts vertex vId into the heap, updates HashMaps
-                    // accordingly
-                    Dijkstra.addToHeap(vId, vScore);
+                        // Re-inserts vertex vId into the heap, updates HashMaps
+                        // accordingly
+                        Dijkstra.addToHeap(vId, vScore);
+                    }
                 }
             }
         }
@@ -156,13 +162,18 @@ public class Dijkstra
     private static int minGreedyScore(int vertexId, Graph graph)
     {
         // Obtains the edges that point to the vertex with the given id
-        List<Edge> edgesArriving = graph.getVertexEdgesArriving(vertexId);
+        List<Edge> edgesArriving = graph.getEdgesArriving(vertexId);
+        // If the vertex doesn't have incoming edges, then score is infinite
+        if(edgesArriving == null)
+        {
+            return Dijkstra.INFINITE;
+        }
         // Finds the smallest greedy score of the given vertex
         int min = Dijkstra.INFINITE;
         for(Edge edge : edgesArriving)
         {
             min = Math.min(min,
-                    Dijkstra.a[edge.getTail() - 1] + edge.getLength());
+                    Dijkstra.a[edge.getTail() - 1] + edge.getCost());
         }
         // Returns the smallest greedy score of the given vertex
         return min;

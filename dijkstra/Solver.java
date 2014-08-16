@@ -14,6 +14,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Class that reads and solves Dijkstra's shortest path algorithm from a file
@@ -22,7 +23,14 @@ import java.util.List;
 public class Solver
 {
     //-------------------------------------------------------------------------
-    // PUBLIC METHODS
+    // CLASS VARIABLE
+    //-------------------------------------------------------------------------
+
+    // Stores the source vertex obtained from second program argument
+    private static int s = 0;
+
+    //-------------------------------------------------------------------------
+    // PRIVATE METHODS
     //-------------------------------------------------------------------------
 
     /**
@@ -31,29 +39,28 @@ public class Solver
      */
     private static void solve(List<String> lines)
     {
-        // Gets an array of lists of edges from the given lines. edgesArray[i]
-        // contains the list of edges whose tail is vertex with id i + 1, i in
-        // [0...n-1]
-        List<Edge>[] edgesArray = Graph.readEdgesArray(lines);
+        // Gets the number of vertices n and number of edges m from first line
+        String firstLine = lines.remove(0);
+        String [] nAndM = firstLine.split(" ");
+        int n = Integer.parseInt(nAndM[0]);
+        int m = Integer.parseInt(nAndM[1]);
 
-        // Gets the length of the array
-        int n = edgesArray.length;
+        // Builds the list of adjacent edges of each vertex
+        Map<Integer,List<Edge>> vertexEdges = Graph.buildVertexEdges(m, lines);
 
         // Creates a new Graph object with the given parameters
-        Graph graph = new Graph(n, edgesArray);
+        Graph graph = new Graph(n, vertexEdges);
 
-        // Computes the shortest paths from vertex 1 to all other vertices in
-        // the given graph. paths[i] contains the path from vertex 1 to vertex
-        // with id i + 1, i in [0...n-1]
-        int [] paths = Dijkstra.solve(1, graph);
+        // Computes the shortest paths from vertex s to all other vertices
+        // using Dijkstra's O(m log n) algorithm using heaps
+        int [] lengths = Dijkstra.solve(Solver.s, graph);
 
-        System.out.println("The lengths of the shortest paths from vertex 1 " +
-                "to vertices 7, 37, 59, 82, 99, 115, 133, 165, 188, 197 are:");
-        System.out.print(paths[6] + ", " + paths[36] + ", ");
-        System.out.print(paths[58] + ", " + paths[81] + ", ");
-        System.out.print(paths[98] + ", " + paths[114] + ", ");
-        System.out.print(paths[132] + ", " + paths[164] + ", ");
-        System.out.print(paths[187] + ", " + paths[196] + ".");
+        System.out.println("The lengths of the shortest paths from vertex "+
+                Solver.s + " to all other vertices are:");
+        for(int i = 0; i < n; i++)
+        {
+            System.out.println("-- To " + (i + 1) + ": " + lengths[i]);
+        }
     }
 
     /**
@@ -77,12 +84,10 @@ public class Solver
                 filename = arg.substring(6);
             }
         }
-
         if(filename == null)
         {
             return null;
         }
-
         // Reads the lines out of the file
         FileReader fileReader = new FileReader(filename);
         BufferedReader input = new BufferedReader(fileReader);
@@ -98,7 +103,17 @@ public class Solver
         {
             e.printStackTrace();
         }
-
+        // Gets the source vertex from the second argument, throws exception
+        // if invalid or not found
+        try
+        {
+            Solver.s = Integer.parseInt(args[1]);
+        }
+        catch(NumberFormatException nfe)
+        {
+            throw nfe;
+        }
+        // Returns the lines read
         return lines;
     }
 
@@ -110,6 +125,7 @@ public class Solver
      * Main test method.
      * @param args filepath relative to the file with the representation of a
      *             directed graph in the form -file=filepath
+     *             Source vertex s as second parameter, s in [1,2,...,n]
      */
     public static void main(String [] args)
     {
