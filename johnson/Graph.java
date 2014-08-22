@@ -53,17 +53,18 @@ public class Graph
     {
         // Initializes the map of vertices, O(n) algorithm
         this.V = new HashMap<Integer, Vertex>(n);
+        this.n = 0;
         System.out.print("Initializing list of vertices V...");
         for(int i = 0; i < n; i++)
         {
-            this.V.put(i + 1, new Vertex(i + 1));
+            this.putVertex(new Vertex(i + 1));
         }
-        this.n = n;
         System.out.println("done.");
 
         // Initializes the list of edges, vertexEdgesArriving, and
         // vertexEdgesLeaving. O(m) algorithm.
         this.E = new HashMap<Integer, Edge>(this.n * 2);
+        this.m = 0;
         this.vertexEdgesArriving = new HashMap<Integer, List<Integer>>(this.n);
         this.vertexEdgesLeaving = new HashMap<Integer, List<Integer>>(this.n);
         System.out.println("Initializing list of edges E...");
@@ -73,8 +74,7 @@ public class Graph
             List<Edge> adjacentEdges = vertexEdges.get(key);
             for(Edge edge : adjacentEdges)
             {
-                this.E.put(edge.getId(), edge);
-                this.addVertexEdge(edge);
+                this.putEdge(edge);
             }
             // Prints a message in standard output for logging purposes
             if(i++ % 2000 == 0)
@@ -82,7 +82,6 @@ public class Graph
                 System.out.println("-- [" + i + " edges initialized so far.]");
             }
         }
-        this.m = this.E.size();
         System.out.println("...list of edges E initialized.");
     }
 
@@ -312,16 +311,29 @@ public class Graph
         return this.E.get(edgeId);
     }
 
-    //-------------------------------------------------------------------------
-    // PRIVATE HELPER METHODS
-    //-------------------------------------------------------------------------
+    /**
+     * Adds a the given vertex to set V of this graph.
+     * <b>Pre:</b> Set V has been initialized.
+     * @param vertex Vertex to add to this graph.
+     */
+    public void putVertex(Vertex vertex)
+    {
+        this.V.put(vertex.getId(), vertex);
+        this.n = this.V.size();
+    }
 
     /**
-     * Adds a new adjacent edge Id to the vertexEdges hashmap.
+     * Adds a new edge to the edges set E and to the vertexEdges hashmap.
+     * <b>Pre:</b> Collections E, vertexEdgesLeaving, and vertexEdgesArriving
+     * have been initialized.
      * @param edge Adjacent edge to assign to both of its vertices.
      */
-    private void addVertexEdge(Edge edge)
+    public void putEdge(Edge edge)
     {
+        // Adds the edge to the E set
+        this.E.put(edge.getId(), edge);
+        this.m = this.E.size();
+
         // Removes the list of the tail vertex, adds the value, and puts it
         // again in the corresponding hashmap
         int vertexId = edge.getTail();
