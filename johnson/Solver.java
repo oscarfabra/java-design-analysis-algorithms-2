@@ -52,12 +52,13 @@ public class Solver
         if(lengths == null)
         {
             System.out.println("Given graph has negative cycles; shortest " +
-                    "paths couldn't be found.");
+                    "paths can't be found.");
         }
         else
         {
             System.out.println("The lengths of the shortest shortest paths " +
                     "from each vertex to any other vertex are the following:");
+            int shortestShortest = BellmanFord.INFINITY;
             for(int i = 0; i < n; i++)
             {
                 int shortest = BellmanFord.INFINITY;
@@ -66,7 +67,10 @@ public class Solver
                     if(lengths[i][j] < shortest) { shortest = lengths[i][j]; }
                 }
                 System.out.println("-- From " + (i + 1) + " : " + shortest);
+                if(shortest < shortestShortest) { shortestShortest = shortest; }
             }
+            System.out.println("The shortest shortest path from one node to " +
+                    "any other node is: " + shortestShortest);
         }
     }
 

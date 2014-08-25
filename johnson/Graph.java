@@ -52,9 +52,10 @@ public class Graph
     public Graph(int n, Map<Integer, List<Edge>> vertexEdges)
     {
         // Initializes the map of vertices, O(n) algorithm
+        System.out.println("-- Creating new graph...");
         this.V = new HashMap<Integer, Vertex>(n);
         this.n = 0;
-        System.out.print("Initializing list of vertices V...");
+        System.out.print("-- Initializing list of vertices V...");
         for(int i = 0; i < n; i++)
         {
             this.putVertex(new Vertex(i + 1));
@@ -67,7 +68,7 @@ public class Graph
         this.m = 0;
         this.vertexEdgesArriving = new HashMap<Integer, List<Integer>>(this.n);
         this.vertexEdgesLeaving = new HashMap<Integer, List<Integer>>(this.n);
-        System.out.println("Initializing list of edges E...");
+        System.out.println("-- Initializing list of edges E...");
         int i = 1;
         for(Integer key : vertexEdges.keySet())
         {
@@ -77,12 +78,14 @@ public class Graph
                 this.putEdge(edge);
             }
             // Prints a message in standard output for logging purposes
-            if(i++ % 2000 == 0)
+            if(i % 2000 == 0)
             {
                 System.out.println("-- [" + i + " edges initialized so far.]");
+                i++;
             }
         }
         System.out.println("...list of edges E initialized.");
+        System.out.println("-- ...finished creating new graph.");
     }
 
     /**
@@ -166,34 +169,41 @@ public class Graph
     public void copy(Graph that)
     {
         // Copies the list of vertices
+        System.out.println("-- Copying graph...");
+        System.out.print("-- Initializing list of vertices V...");
         this.n = that.n;
         this.V = new HashMap<Integer, Vertex>(this.n);
         for(Integer key : that.V.keySet())
         {
             this.V.put(key, that.V.get(key));
         }
+        System.out.println("done.");
 
         // Copies the list of edges
+        System.out.print("-- Initializing list of edges E...");
         this.m = that.m;
         this.E = new HashMap<Integer, Edge>(this.m);
         for(Integer key : that.E.keySet())
         {
             this.E.put(key, that.E.get(key));
         }
+        System.out.println("done.");
 
         // Copies the vertexEdgesLeaving HashMap
+        System.out.print("-- Initializing adjacency lists...");
         this.vertexEdgesLeaving = new HashMap<Integer, List<Integer>>(this.n);
         for(Integer key : that.vertexEdgesLeaving.keySet())
         {
             this.vertexEdgesLeaving.put(key, that.vertexEdgesLeaving.get(key));
         }
-
         // Copies the vertexEdgesArriving HashMap
         this.vertexEdgesArriving = new HashMap<Integer, List<Integer>>(this.n);
         for(Integer key : that.vertexEdgesArriving.keySet())
         {
             this.vertexEdgesArriving.put(key, that.vertexEdgesArriving.get(key));
         }
+        System.out.println("done.");
+        System.out.println("-- ...finished copying graph.");
     }
 
     /**

@@ -42,6 +42,7 @@ public class Johnson
         // Forms gPrime graph by adding a new vertex s and a new edge (s, v)
         // with length 0 for each v in set V of graph.
         Graph gPrime = new Graph(graph);
+        System.out.print("-- Forming gPrime by adding new vertex s and edges...");
         int sId = gPrime.getN() + 1;
         Vertex s = new Vertex(sId);
         int newEdgeId = gPrime.getM() + 1;
@@ -51,10 +52,13 @@ public class Johnson
             Edge edge = new Edge(newEdgeId++, sId, headId, 0);
             gPrime.putEdge(edge);
         }
+        System.out.println("done.");
 
         // Runs B-F alg on GPrime with source vertex s, returns null if a
         // negative-cost cycle found
+        System.out.println("-- Running Bellman-Ford Algorithm...");
         int [] paths = BellmanFord.solve(sId, gPrime);
+        System.out.println("-- ...finished running Bellman-Ford Algorithm.");
         if(paths == null)
         {
             return null;
@@ -69,6 +73,7 @@ public class Johnson
         }
 
         // Sets the costs for each edge in gPrime
+        System.out.print("-- Setting edge costs for gPrime...");
         for(Integer edgeId : graph.getEdgeKeys())
         {
             Edge e = graph.getEdge(edgeId);
@@ -77,9 +82,12 @@ public class Johnson
             Edge ePrime = new Edge(edgeId, e.getTail(), e.getHead(), cPrime);
             gPrime.putEdge(ePrime); // Replaces any previous edge with same id
         }
+        System.out.println("done.");
 
         // Walks through each vertex in gPrime computing shortest-paths and
         // storing them in the allPairs 2-D array
+        System.out.println("-- Computing shortest paths from each vertex in " +
+                "gPrime...");
         int [][] allPairs = new int[n][n];
         for(Integer vId : graph.getVertexKeys())
         {
@@ -88,9 +96,16 @@ public class Johnson
             {
                 allPairs[vId - 1][i] = paths[i];
             }
+            // Prints a message in standard output for logging purposes
+            if(vId % 50 == 0)
+            {
+                System.out.println("-- [" + vId + " vertices solved so far.]");
+            }
         }
+        System.out.println("-- ...finished computing shortest paths.");
 
         // Updates allPairs array to its appropriate values and returns it
+        System.out.print("-- Getting actual shortest paths' lengths...");
         for(int i = 0; i < n; i++)
         {
             for(int j = 0; j < n; j++)
@@ -101,6 +116,7 @@ public class Johnson
                 }
             }
         }
+        System.out.println("done.");
         return allPairs;
     }
 }
