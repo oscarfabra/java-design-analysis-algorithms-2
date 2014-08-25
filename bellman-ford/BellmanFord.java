@@ -49,6 +49,7 @@ public class BellmanFord
     {
         // Initializes appropriate data structure and its first column,
         // assumes vertexId's v are in [1,...,n]
+        System.out.print("-- Initializing 2-D array...");
         int n = graph.getN();
         int [][] a = new int[n][2];
         for(int v = 1; v <= n; v++)
@@ -56,10 +57,12 @@ public class BellmanFord
             a[v - 1][0] = BellmanFord.INFINITY;
         }
         a[s - 1][0] = 0;
+        System.out.println("done.");
 
         // Walks through the array filling out the corresponding values, uses
         // memoization; it only keeps the past column (at index 0) and the one
         // that is computing (at index 1), for space optimization
+        System.out.println("-- Solving 2-D array using dynamic programming...");
         boolean halt = true;
         for(int i = 1; i <= n; i++)
         {
@@ -96,7 +99,14 @@ public class BellmanFord
             a[s - 1][1] = 0;
             // Steps out of the loop if all a[v][0] were equal to all a[v][1]
             if(halt){ break; }
+
+            // Prints a message in standard output for logging purposes
+            if(i % 200 == 0)
+            {
+                System.out.println("-- [" + i + " vertices solved so far.]");
+            }
         }
+        System.out.println("-- ...Finished solving 2-D array.");
         // Given that last loop made n iterations, if halt is not true, then we
         // know there was a negative cycle. In that case algorithm isn't correct.
         if(!halt)
