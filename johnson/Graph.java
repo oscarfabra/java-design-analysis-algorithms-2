@@ -312,7 +312,8 @@ public class Graph
     }
 
     /**
-     * Adds a the given vertex to set V of this graph.
+     * Adds a the given vertex to set V of this graph. Replaces any vertex
+     * with the same id.
      * <b>Pre:</b> Set V has been initialized.
      * @param vertex Vertex to add to this graph.
      */
@@ -324,6 +325,7 @@ public class Graph
 
     /**
      * Adds a new edge to the edges set E and to the vertexEdges hashmap.
+     * Replaces any edge with the same id.
      * <b>Pre:</b> Collections E, vertexEdgesLeaving, and vertexEdgesArriving
      * have been initialized.
      * @param edge Adjacent edge to assign to both of its vertices.

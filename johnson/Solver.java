@@ -46,7 +46,7 @@ public class Solver
 
         // Computes the shortest shortest paths from each vertex to any other
         // vertex in the graph
-        int [] lengths = Johnson.solve(graph);
+        int [][] lengths = Johnson.solve(graph);
 
         // Prints results in standard output
         if(lengths == null)
@@ -60,7 +60,12 @@ public class Solver
                     "from each vertex to any other vertex are the following:");
             for(int i = 0; i < n; i++)
             {
-                System.out.println("-- From " + (i + 1) + ": " + lengths[i]);
+                int shortest = BellmanFord.INFINITY;
+                for(int j = 0; j < n; j++)
+                {
+                    if(lengths[i][j] < shortest) { shortest = lengths[i][j]; }
+                }
+                System.out.println("-- From " + (i + 1) + " : " + shortest);
             }
         }
     }

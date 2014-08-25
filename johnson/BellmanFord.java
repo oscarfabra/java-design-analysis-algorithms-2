@@ -75,7 +75,8 @@ public class BellmanFord
                     for(Edge edge : edgesArriving)
                     {
                         int w = edge.getTail();
-                        int candidate = a[w - 1][0] + edge.getCost();
+                        int candidate = (a[w - 1][0] == BellmanFord.INFINITY) ?
+                                edge.getCost() : a[w - 1][0] + edge.getCost();
                         if(candidate <= secondCase)
                         {
                             secondCase = candidate;
@@ -84,7 +85,7 @@ public class BellmanFord
                 }
                 a[v - 1][1] = Math.min(firstCase, secondCase);
                 // Checks whether to halt or not
-                if (a[v - 1][0] != a[v - 1][1]){ halt = false; }
+                if (halt && a[v - 1][0] != a[v - 1][1]){ halt = false; }
             }
             // Updates 2-D array a for better memory usage
             for(int v = 1; v <= n; v++)

@@ -43,10 +43,10 @@ public class Johnson
         // with length 0 for each v in set V of graph.
         Graph gPrime = new Graph(graph);
         int sId = gPrime.getN() + 1;
-        int newEdgeId = gPrime.getM() + 1;
         Vertex s = new Vertex(sId);
+        int newEdgeId = gPrime.getM() + 1;
         gPrime.putVertex(s);
-        for(Integer headId : gPrime.getVertexKeys())
+        for(Integer headId : graph.getVertexKeys())
         {
             Edge edge = new Edge(newEdgeId++, sId, headId, 0);
             gPrime.putEdge(edge);
@@ -95,7 +95,10 @@ public class Johnson
         {
             for(int j = 0; j < n; j++)
             {
-                allPairs[i][j] = allPairs[i][j] - weights[i] + weights[j];
+                if(allPairs[i][j] != BellmanFord.INFINITY)
+                {
+                    allPairs[i][j] = allPairs[i][j] - weights[i] + weights[j];
+                }
             }
         }
         return allPairs;

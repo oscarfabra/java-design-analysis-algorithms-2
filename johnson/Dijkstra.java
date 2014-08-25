@@ -25,7 +25,7 @@ public class Dijkstra
     //-------------------------------------------------------------------------
 
     // Value to assign to an theoretical infinite value
-    private static final int INFINITE = 1000000;
+    private static final int INFINITY = 1000000;
 
     //-------------------------------------------------------------------------
     // CLASS ATTRIBUTES
@@ -84,7 +84,7 @@ public class Dijkstra
         // Assumes infinite distances between s and all other vertices
         for(int i = 0; i < n; i++)
         {
-            Dijkstra.a[i] = Dijkstra.INFINITE;
+            Dijkstra.a[i] = Dijkstra.INFINITY;
         }
 
         // Mark vertex s as processed and the distance to itself as 0
@@ -165,10 +165,10 @@ public class Dijkstra
         // If the vertex doesn't have incoming edges, then score is infinite
         if(edgesArriving == null)
         {
-            return Dijkstra.INFINITE;
+            return Dijkstra.INFINITY;
         }
         // Finds the smallest greedy score of the given vertex
-        int min = Dijkstra.INFINITE;
+        int min = Dijkstra.INFINITY;
         for(Edge edge : edgesArriving)
         {
             min = Math.min(min,
