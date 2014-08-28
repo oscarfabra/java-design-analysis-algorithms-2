@@ -9,11 +9,7 @@
  * @since 26/08/14
  */
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * TSP is a class that solves the popular NP-Complete Algorithm "Traveling
@@ -43,6 +39,12 @@ public class TSP
 
     // Maps subsets with their corresponding ids, each id in {1,2,...,n}
     private static Map<Integer, Set<Integer>> subsets;
+
+    // Stores the next subset to create
+    private static Set<Integer> nextSubset;
+
+    // Defines the id of the next subset to create
+    private static int nextSubsetId;
 
     // Maps sizes of subsets with their corresponding ids. Uses list-chaining
     // given that a particular size could have several possible subsets
@@ -76,11 +78,17 @@ public class TSP
         TSP.a = new int[n][n];
         TSP.sizeSubsets = new HashMap<Integer, List<Integer>>(n);
         TSP.subsetSize = new HashMap<Integer, Integer>(n);
+        TSP.nextSubsetId = 1;
 
-        // Initializes data structures according to possible subset sizes
-        for(int size = 1; size <= n; size++)
+        // Fills base case according to possible subset sizes
+        TSP.nextSubset = new TreeSet<Integer>();
+        TSP.nextSubset.add(1);
+        TSP.putSubset(TSP.nextSubsetId, TSP.nextSubset);
+        TSP.a[TSP.nextSubsetId - 1][0] = 0;
+        TSP.nextSubsetId++;
+        for(int size = 2; size <= n; size++)
         {
-            TSP.addDestinationSubsets(graph, size);
+            TSP.initDestinationSubsets(size);
         }
 
         // Walks through each possible subset S of {1,2,...,n} looking for all
@@ -113,32 +121,51 @@ public class TSP
         return TSP.getLengthAfterFinalHop(n);
     }
 
-    /**
-     * Finds and returns the minimum-length path from 1 to itself after
-     * visiting every vertex once.
-     * @param n Number of vertices of the graph.
-     * @return Minimum-length of a path from 1 to itself that visits every
-     * vertex once.
-     */
-    private static int getLengthAfterFinalHop(int n)
-    {
-        // TODO: Get length after final hop...
-        return 0;
-    }
-
     //-------------------------------------------------------------------------
     // PRIVATE HELPER METHODS
     //-------------------------------------------------------------------------
 
     /**
-     * Finds and stores all possible subsets S of {1,2,...,n} that contain 1
-     * for every destination j in {1,2,...,n}.
-     * @param graph Complete graph with non-negative edge costs.
+     * Puts the given subset and its id in the subsets hashmap, and adds the
+     * corresponding values of the sizeSubsets and subsetSize hashmaps for
+     * faster retrieval.
+     * @param subsetId Id of the subset to add.
+     * @param subset Subset of vertices ids to add.
+     */
+    private static void putSubset(int subsetId, Set<Integer> subset)
+    {
+        TSP.subsets.put(subsetId, subset);
+        int size = subset.size();
+        List<Integer> subsetIds = TSP.sizeSubsets.remove(size);
+        if(subsetIds == null)
+        {
+            subsetIds = new ArrayList<Integer>();
+        }
+        subsetIds.add(subsetId);
+        TSP.sizeSubsets.put(size, subsetIds);
+        TSP.subsetSize.put(subsetId, size);
+    }
+
+    /**
+     * Finds and stores all possible subsets S of {1,2,...,n} of the given
+     * size that contain 1 for every destination j in {1,2,...,n}.
+     * <b>Pre:</b> size <= 2
      * @param size Size of the subsets to create.
      */
-    private static void addDestinationSubsets(Graph graph, int size)
+    private static void initDestinationSubsets(int size)
     {
-        // TODO: Add destination subsets...
+        // Initializes next subset to add
+        TSP.nextSubset = new TreeSet<Integer>();
+        for(int vertexId = 1; vertexId <= size; vertexId++)
+        {
+            TSP.nextSubset.add(vertexId);
+        }
+
+        // Puts next subset in its corresponding collections and initializes
+        // its corresponding path lengths
+        TSP.putSubset(TSP.nextSubsetId, TSP.nextSubset);
+        TSP.a[TSP.nextSubsetId - 1][0] = TSP.INFINITY;
+        TSP.nextSubsetId++;
     }
 
     /**
@@ -152,6 +179,19 @@ public class TSP
     private static int getMinimumLengthPath(Set<Integer> set, int j)
     {
         // TODO: Get minimum length...
+        return 0;
+    }
+
+    /**
+     * Finds and returns the minimum-length path from 1 to itself after
+     * visiting every vertex once.
+     * @param n Number of vertices of the graph.
+     * @return Minimum-length of a path from 1 to itself that visits every
+     * vertex once.
+     */
+    private static int getLengthAfterFinalHop(int n)
+    {
+        // TODO: Get length after final hop...
         return 0;
     }
 }
