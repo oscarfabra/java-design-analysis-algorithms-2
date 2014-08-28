@@ -34,7 +34,7 @@ public class QuickEdges
 
     /**
      * Sorts the edges of the given graph according to their respective costs
-     * and stores their ids in the edges array.
+     * and stores their ids in the given edges array.
      * @param graph Graph to examine.
      * @param edges Array of integers on which to store the ids of edges in
      *              increasing order of their costs.
