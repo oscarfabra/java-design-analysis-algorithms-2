@@ -43,15 +43,11 @@ public class Solver
         Graph graph = new Graph(n, vertexEdges);
 
         // Computes the minimum-cost cycle that visits every vertex only once
-        int [] tour = TSP.solve(graph);
+        int length = TSP.solve(graph);
 
         // Prints results in standard output
-        System.out.println("The minimum-cost cycle that visits every vertex " +
-                "exactly once is:");
-        for(int i = 0; i < n; i++)
-        {
-            System.out.println(tour[i]);
-        }
+        System.out.println("The cost of a minimum-length cycle that visits " +
+                "every vertex exactly once is:" + length);
     }
 
     /**

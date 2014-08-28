@@ -88,7 +88,7 @@ public class TSP
         TSP.nextSubsetId++;
         for(int size = 2; size <= n; size++)
         {
-            TSP.initDestinationSubsets(size);
+            TSP.initDestinationSubset(size);
         }
 
         // Walks through each possible subset S of {1,2,...,n} looking for all
@@ -110,7 +110,7 @@ public class TSP
                     if(j != 1)
                     {
                         TSP.a[setId - 1][j - 1] =
-                                TSP.getMinimumLengthPath(set, j);
+                                TSP.getMinimumLengthPath(graph, setId, j);
                     }
                 }
             }
@@ -118,12 +118,34 @@ public class TSP
 
         // Finds and returns the minimum-length path from 1 to itself visiting
         // every vertex once
-        return TSP.getLengthAfterFinalHop(n);
+        return TSP.getLengthAfterFinalHop(graph, n);
     }
 
     //-------------------------------------------------------------------------
     // PRIVATE HELPER METHODS
     //-------------------------------------------------------------------------
+
+    /**
+     * Finds and stores all possible subsets S of {1,2,...,n} of the given
+     * size that contain 1 for every destination j in {1,2,...,n}.
+     * <b>Pre:</b> size >= 2
+     * @param size Size of the subsets to create.
+     */
+    private static void initDestinationSubset(int size)
+    {
+        // Initializes next subset to add
+        TSP.nextSubset = new TreeSet<Integer>();
+        for(int vertexId = 1; vertexId <= size; vertexId++)
+        {
+            TSP.nextSubset.add(vertexId);
+        }
+
+        // Puts next subset in its corresponding collections and initializes
+        // its corresponding path length
+        TSP.putSubset(TSP.nextSubsetId, TSP.nextSubset);
+        TSP.a[TSP.nextSubsetId - 1][0] = TSP.INFINITY;
+        TSP.nextSubsetId++;
+    }
 
     /**
      * Puts the given subset and its id in the subsets hashmap, and adds the
@@ -147,51 +169,52 @@ public class TSP
     }
 
     /**
-     * Finds and stores all possible subsets S of {1,2,...,n} of the given
-     * size that contain 1 for every destination j in {1,2,...,n}.
-     * <b>Pre:</b> size <= 2
-     * @param size Size of the subsets to create.
-     */
-    private static void initDestinationSubsets(int size)
-    {
-        // Initializes next subset to add
-        TSP.nextSubset = new TreeSet<Integer>();
-        for(int vertexId = 1; vertexId <= size; vertexId++)
-        {
-            TSP.nextSubset.add(vertexId);
-        }
-
-        // Puts next subset in its corresponding collections and initializes
-        // its corresponding path lengths
-        TSP.putSubset(TSP.nextSubsetId, TSP.nextSubset);
-        TSP.a[TSP.nextSubsetId - 1][0] = TSP.INFINITY;
-        TSP.nextSubsetId++;
-    }
-
-    /**
      * Gets the minimum length path from 1 to j that contains precisely the
      * vertices of the given set.
-     * @param set Set of ids of vertices that contains 1 and j.
+     * @param graph Graph to select edge costs from.
+     * @param setId Set of id of set to traverse.
      * @param j Destination vertex id.
      * @return Minimum length of a path from 1 to j that visits precisely the
      * vertices of the given set.
      */
-    private static int getMinimumLengthPath(Set<Integer> set, int j)
+    private static int getMinimumLengthPath(Graph graph, Integer setId, int j)
     {
-        // TODO: Get minimum length...
-        return 0;
+        int min = TSP.INFINITY;
+        for(Integer k : TSP.subsets.get(setId))
+        {
+            if(k != j)
+            {
+                List<Edge> edges = graph.getEdgesLeaving(j);
+                for(Edge e : edges)
+                {
+                    min = Math.min(TSP.a[setId - 1][k - 1] + e.getCost(), min);
+                }
+            }
+        }
+        return min;
     }
 
     /**
      * Finds and returns the minimum-length path from 1 to itself after
      * visiting every vertex once.
+     * <b>Pre:</b> 2-D array a has been filled out for all destinations j
+     * in {1,2,...,n}
+     * @param graph Graph to select edge costs from.
      * @param n Number of vertices of the graph.
      * @return Minimum-length of a path from 1 to itself that visits every
      * vertex once.
      */
-    private static int getLengthAfterFinalHop(int n)
+    private static int getLengthAfterFinalHop(Graph graph, int n)
     {
-        // TODO: Get length after final hop...
-        return 0;
+        int min = TSP.INFINITY;
+        for(int j = 1; j < n; j++)
+        {
+            List<Edge> edges = graph.getEdgesLeaving(j);
+            for(Edge e : edges)
+            {
+                min = Math.min(TSP.a[n - 1][j - 1] + e.getCost(), min);
+            }
+        }
+        return min;
     }
 }
