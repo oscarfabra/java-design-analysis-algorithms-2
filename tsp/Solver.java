@@ -1,6 +1,7 @@
 /**
  * $Id: Solver.java, v 1.0 26/08/14 23:49 oscarfabra Exp $
- * {@code Solver}
+ * {@code Solver} Is a class that reads and solves an instance of the popular
+ * NP-Complete problem "Traveling Salesman Problem".
  *
  * @author <a href="mailto:oscarfabra@gmail.com">Oscar Fabra</a>
  * @version 1.0
@@ -16,7 +17,9 @@ import java.util.List;
 import java.util.Map;
 
 /**
- *
+ * Solver is a class that reads and solves an instance of the popular
+ * NP-Complete problem "Traveling Salesman Problem" given a file with a
+ * representation of an undirected graph with non-negative edge costs.
  */
 public class Solver
 {
@@ -30,11 +33,43 @@ public class Solver
      */
     private static void solve(List<String> lines)
     {
-        // Gets the number of vertices n and number of edges m from first line
+        // Gets the number of cities n
         String firstLine = lines.remove(0);
-        String [] nAndM = firstLine.split(" ");
-        int n = Integer.parseInt(nAndM[0]);
-        int m = Integer.parseInt(nAndM[1]);
+        int n = Integer.parseInt(firstLine);
+
+        // Reads the coordinates (x,y) of each city from the lines list
+        int [][] coord = new int[n][2];
+        for(int i = 0; i < n; i++)
+        {
+            String [] xAndY = lines.get(i).split(" ");
+            coord[i][0] = Integer.parseInt(xAndY[0]);
+            coord[i][1] = Integer.parseInt(xAndY[1]);
+        }
+
+        // Finds the euclidean distance between cities, forming the edges list
+        int m = 0;
+        List<String> edges = new ArrayList<String>(n);
+        for(int i = 0; i < n; i++)
+        {
+            for(int j = i + 1; j < n; j++)
+            {
+                // Finds euclidean distance, creates edges Strings, and adds
+                // them to edges list
+                double d = Math.sqrt(Math.pow(coord[i][0] - coord[j][0], 2) +
+                        Math.pow(coord[i][1] - coord[j][1], 2));
+                StringBuilder sb = new StringBuilder();
+                sb.append(i + 1).append(" ");
+                sb.append(j + 1).append(" ").append(d);
+                String edge1 = sb.toString();
+                sb = new StringBuilder();
+                sb.append(j + 1).append(" ");
+                sb.append(i + 1).append(" ").append(d);
+                String edge2 = sb.toString();
+                edges.add(edge1);
+                edges.add(edge2);
+                m+=2;
+            }
+        }
 
         // Builds the list of adjacent edges of each vertex
         Map<Integer,List<Edge>> vertexEdges = Graph.buildVertexEdges(m, lines);
