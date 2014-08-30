@@ -72,7 +72,7 @@ public class Solver
         }
 
         // Builds the list of adjacent edges of each vertex
-        Map<Integer,List<Edge>> vertexEdges = Graph.buildVertexEdges(m, lines);
+        Map<Integer,List<Edge>> vertexEdges = Graph.buildVertexEdges(m, edges);
 
         // Creates a new Graph object with the given parameters
         Graph graph = new Graph(n, vertexEdges);

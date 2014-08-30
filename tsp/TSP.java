@@ -82,9 +82,10 @@ public class TSP
         // Initializes corresponding data structures
         int n = graph.getN();
         TSP.a = new double[n][n];
+        TSP.subsets = new HashMap<Integer, Set<Integer>>(n);
+        TSP.nextSubsetId = 1;
         TSP.sizeSubsets = new HashMap<Integer, List<Integer>>(n);
         TSP.subsetSize = new HashMap<Integer, Integer>(n);
-        TSP.nextSubsetId = 1;
 
         // Fills base case according to possible subset sizes
         TSP.nextSubset = new TreeSet<Integer>();
