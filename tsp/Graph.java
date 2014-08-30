@@ -1,9 +1,9 @@
 /**
- * $Id: Graph.java, v 1.1 14/08/14 20:42 oscarfabra Exp $
+ * $Id: Graph.java, v 1.4 14/08/14 20:42 oscarfabra Exp $
  * {@code Graph} Represents a directed graph with n vertices and m edges.
  *
  * @author <a href="mailto:oscarfabra@gmail.com">Oscar Fabra</a>
- * @version 1.3
+ * @version 1.4
  * @since 14/08/14
  */
 
@@ -129,7 +129,7 @@ public class Graph
             String[] values = line.split(" ");
             int key = Integer.parseInt(values[0]);
             int value = Integer.parseInt(values[1]);
-            int cost = Integer.parseInt(values[2]);
+            double cost = Double.parseDouble(values[2]);
             Edge edge = new Edge(newEdgeId++, key, value, cost);
             Graph.addVertexEdge(vertexEdges, key, edge);
         }

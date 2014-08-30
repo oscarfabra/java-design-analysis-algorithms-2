@@ -30,7 +30,7 @@ public class Edge
     private int head;
 
     // Cost of the edge
-    private int cost;
+    private double cost;
 
     //-------------------------------------------------------------------------
     // CONSTRUCTORS
@@ -42,9 +42,9 @@ public class Edge
      * @param id Id to assign to this edge.
      * @param tail Id of the tail vertex.
      * @param head Id of the head vertex.
-     * @param cost Cost of the edge
+     * @param cost Cost of the edge.
      */
-    public Edge(int id, int tail, int head, int cost)
+    public Edge(int id, int tail, int head, double cost)
     {
         this.id = id;
         this.tail = tail;
@@ -99,7 +99,7 @@ public class Edge
      * Gets the cost of this edge.
      * @return The cost of this edge.
      */
-    public int getCost() {
+    public double getCost() {
         return this.cost;
     }
 }

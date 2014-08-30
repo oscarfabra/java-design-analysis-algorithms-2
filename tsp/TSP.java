@@ -41,7 +41,7 @@ public class TSP
     // j in {1,2,...,n}. a[size][j] stores the minimum length of a path from 1
     // to j that visits precisely the vertices of S; S being the minimum-cost
     // subset that contains 1 and j
-    private static int [][] a;
+    private static double [][] a;
 
     // Maps subsets with their corresponding ids, each id in {1,2,...,n}
     private static Map<Integer, Set<Integer>> subsets;
@@ -77,11 +77,11 @@ public class TSP
      * @param graph Complete graph with non-negative edge costs.
      * @return Minimum-cost cycle that visits every vertex exactly once.
      */
-    public static int solve(Graph graph)
+    public static double solve(Graph graph)
     {
         // Initializes corresponding data structures
         int n = graph.getN();
-        TSP.a = new int[n][n];
+        TSP.a = new double[n][n];
         TSP.sizeSubsets = new HashMap<Integer, List<Integer>>(n);
         TSP.subsetSize = new HashMap<Integer, Integer>(n);
         TSP.nextSubsetId = 1;
@@ -183,9 +183,9 @@ public class TSP
      * @return Minimum length of a path from 1 to j that visits precisely the
      * vertices of the given set.
      */
-    private static int getMinimumLengthPath(Graph graph, Integer setId, int j)
+    private static double getMinimumLengthPath(Graph graph, Integer setId, int j)
     {
-        int min = TSP.INFINITY;
+        double min = TSP.INFINITY;
         for(Integer k : TSP.subsets.get(setId))
         {
             if(k != j)
@@ -210,9 +210,9 @@ public class TSP
      * @return Minimum-length of a path from 1 to itself that visits every
      * vertex once.
      */
-    private static int getLengthAfterFinalHop(Graph graph, int n)
+    private static double getLengthAfterFinalHop(Graph graph, int n)
     {
-        int min = TSP.INFINITY;
+        double min = TSP.INFINITY;
         for(int j = 1; j < n; j++)
         {
             List<Edge> edges = graph.getEdgesLeaving(j);
