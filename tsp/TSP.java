@@ -41,7 +41,7 @@ public class TSP
     // j in {1,2,...,n}. a[size][j] stores the minimum length of a path from 1
     // to j that visits precisely the vertices of S; S being the minimum-cost
     // subset that contains 1 and j
-    private static double [][] a;
+    private static BigMatrix a;
 
     // Maps subsets with their corresponding ids, each id in {1,2,...,n}
     private static Map<Integer, Set<Integer>> subsets;
@@ -75,7 +75,7 @@ public class TSP
     {
         // Initializes corresponding data structures
         int n = graph.getN();
-        TSP.a = new double[n][n];
+        TSP.a = new BigMatrix((int) Math.pow(2, n), 2);
         TSP.subsets = new HashMap<Integer, Set<Integer>>(n);
         int nextSubsetId = 1;
         TSP.sizeSubsets = new HashMap<Integer, List<Integer>>(n);
@@ -85,7 +85,7 @@ public class TSP
         Set<Integer> tempSubset = new TreeSet<Integer>();
         tempSubset.add(1);
         TSP.putSubset(nextSubsetId, tempSubset);
-        TSP.a[nextSubsetId - 1][0] = 0;
+        TSP.a.set(nextSubsetId - 1, 0, 0);
         nextSubsetId++;
 
         // Creates the subset List to find the combinations for, and an
@@ -112,7 +112,7 @@ public class TSP
                 if(subset.contains(1))
                 {
                     TSP.putSubset(nextSubsetId, subset);
-                    TSP.a[nextSubsetId - 1][0] = TSP.INFINITY;
+                    TSP.a.set(nextSubsetId - 1, 0, TSP.INFINITY);
                     nextSubsetId++;
                 }
             }
@@ -139,8 +139,8 @@ public class TSP
                     int j = iterator.next();
                     if(j != 1)
                     {
-                        TSP.a[setId - 1][j - 1] =
-                                TSP.getMinimumLengthPath(graph, setId, j);
+                        TSP.a.set(setId - 1, j - 1,
+                                TSP.getMinimumLengthPath(graph, setId, j));
                     }
                 }
             }
@@ -195,7 +195,8 @@ public class TSP
                 List<Edge> edges = graph.getEdgesLeaving(j);
                 for(Edge e : edges)
                 {
-                    min = Math.min(TSP.a[setId - 1][k - 1] + e.getCost(), min);
+                    min = Math.min(TSP.a.get(setId - 1, k - 1) + e.getCost(),
+                            min);
                 }
             }
         }
@@ -220,7 +221,7 @@ public class TSP
             List<Edge> edges = graph.getEdgesLeaving(j);
             for(Edge e : edges)
             {
-                min = Math.min(TSP.a[n - 1][j - 1] + e.getCost(), min);
+                min = Math.min(TSP.a.get(n - 1, j - 1) + e.getCost(), min);
             }
         }
         return min;
