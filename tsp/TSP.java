@@ -46,12 +46,6 @@ public class TSP
     // Maps subsets with their corresponding ids, each id in {1,2,...,n}
     private static Map<Integer, Set<Integer>> subsets;
 
-    // Stores the next subset to create
-    private static Set<Integer> nextSubset;
-
-    // Defines the id of the next subset to create
-    private static int nextSubsetId;
-
     // Maps sizes of subsets with their corresponding ids. Uses list-chaining
     // given that a particular size could have several possible subsets
     private static Map<Integer, List<Integer>> sizeSubsets;
@@ -83,30 +77,59 @@ public class TSP
         int n = graph.getN();
         TSP.a = new double[n][n];
         TSP.subsets = new HashMap<Integer, Set<Integer>>(n);
-        TSP.nextSubsetId = 1;
+        int nextSubsetId = 1;
         TSP.sizeSubsets = new HashMap<Integer, List<Integer>>(n);
         TSP.subsetSize = new HashMap<Integer, Integer>(n);
 
-        // Fills base case according to possible subset sizes
-        TSP.nextSubset = new TreeSet<Integer>();
-        TSP.nextSubset.add(1);
-        TSP.putSubset(TSP.nextSubsetId, TSP.nextSubset);
-        TSP.a[TSP.nextSubsetId - 1][0] = 0;
-        TSP.nextSubsetId++;
-        for(int size = 2; size <= n; size++)
+        // Fills first base case according to possible subset sizes
+        Set<Integer> tempSubset = new TreeSet<Integer>();
+        tempSubset.add(1);
+        TSP.putSubset(nextSubsetId, tempSubset);
+        TSP.a[nextSubsetId - 1][0] = 0;
+        nextSubsetId++;
+
+        // Creates the subset List to find the combinations for, and an
+        // auxiliary subset for later retrieval
+        List<Integer> subsetList = new ArrayList<Integer>(n);
+        List<Integer> auxSubsetList = new ArrayList<Integer>(n);
+        for(int i = 1; i <= n; i++)
         {
-            TSP.initDestinationSubset(size);
+            subsetList.add(i);
+            auxSubsetList.add(i);
+        }
+
+        // Walks through the 2-D array a initializing base cases
+        for(int k = 2; k <= n; k++)
+        {
+            // Gets all possible subsets of size k
+            List<Set<Integer>> subsets = Combinations.solve(subsetList, k);
+
+            // Puts each subset in its corresponding collections and initializes
+            // its corresponding path length
+            for(Set subset : subsets)
+            {
+                // Adds only those subsets that contain 1
+                if(subset.contains(1))
+                {
+                    TSP.putSubset(nextSubsetId, subset);
+                    TSP.a[nextSubsetId - 1][0] = TSP.INFINITY;
+                    nextSubsetId++;
+                }
+            }
+
+            // Re-initializes subsetList for later re-use
+            subsetList = new ArrayList<Integer>(auxSubsetList);
         }
 
         // Walks through each possible subset S of {1,2,...,n} looking for all
         // possible destinations j in {1,2,...,n}
         for(int m = 2; m < n; m++)
         {
-            // For each subset of size m that contains 1
+            // For each subset of size m that contains 1...
             List<Integer> setIds = TSP.sizeSubsets.get(m);
             for(Integer setId : setIds)
             {
-                // Walks through each vertex j of the set looking for the
+                // ...walks through each vertex j of the set looking for the
                 // minimum length of a path from 1 to j that visits
                 // precisely the vertices of the set with id setId
                 Set<Integer> set = TSP.subsets.get(setId);
@@ -131,28 +154,6 @@ public class TSP
     //-------------------------------------------------------------------------
     // PRIVATE HELPER METHODS
     //-------------------------------------------------------------------------
-
-    /**
-     * Finds and stores all possible subsets S of {1,2,...,n} of the given
-     * size that contain 1 for every destination j in {1,2,...,n}.
-     * <b>Pre:</b> size >= 2
-     * @param size Size of the subsets to create.
-     */
-    private static void initDestinationSubset(int size)
-    {
-        // Initializes next subset to add
-        TSP.nextSubset = new TreeSet<Integer>();
-        for(int vertexId = 1; vertexId <= size; vertexId++)
-        {
-            TSP.nextSubset.add(vertexId);
-        }
-
-        // Puts next subset in its corresponding collections and initializes
-        // its corresponding path length
-        TSP.putSubset(TSP.nextSubsetId, TSP.nextSubset);
-        TSP.a[TSP.nextSubsetId - 1][0] = TSP.INFINITY;
-        TSP.nextSubsetId++;
-    }
 
     /**
      * Puts the given subset and its id in the subsets hashmap, and adds the

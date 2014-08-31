@@ -30,14 +30,16 @@ public class Combinations
     //-------------------------------------------------------------------------
 
     /**
-     *
-     * @param subset
-     * @param k
-     * @return
+     * Finds and returns all possible subset combinations of a given Set of
+     * numbers and subsets size k.
+     * @param subsetList List of numbers to find combinations for, subsets in
+     *               {1,2,...,n}, n = subset.size()
+     * @param k Size of permutations to find, 2 <= k <= subset.size()
+     * @return List of subsets of the given list of integers.
      */
-    public static List<Set<Integer>> solve(List<Integer> subset, int k)
+    public static List<Set<Integer>> solve(List<Integer> subsetList, int k)
     {
-        // base cases for recursion
+        // Returns result depending on base cases.
         List<Set<Integer>> allSubsets = new ArrayList<Set<Integer>> ();
         if (k == 0)
         {
@@ -45,18 +47,18 @@ public class Combinations
             allSubsets.add(new TreeSet<Integer>());
             return allSubsets;
         }
-        if(k > subset.size())
+        if(k > subsetList.size())
         {
             // Nothing to add. Base case needed in order to keep items ordered.
             return allSubsets;
         }
 
-        // Creates a copy of the subset with last item removed
-        List<Integer> subsetWithoutX = new ArrayList<Integer>(subset);
+        // Creates a copy of the subset with last item removed.
+        List<Integer> subsetWithoutX = new ArrayList<Integer>(subsetList);
         int size = subsetWithoutX.size();
         Integer x = subsetWithoutX.remove(size - 1);
 
-        // Recursively adds groups with last item and groups without last item
+        // Recursively adds subsets with last item and subsets without last item
         // included. Then adds x to each subset of subsetsWithX.
         List<Set<Integer>> subsetsWithoutX = solve(subsetWithoutX, k);
         List<Set<Integer>> subsetsWithX = solve(subsetWithoutX, k - 1);
@@ -64,6 +66,7 @@ public class Combinations
         {
             auxSubset.add(x);
         }
+
         // Adds subsets to the allSubsets list of sets and returns it
         allSubsets.addAll(subsetsWithoutX);
         allSubsets.addAll(subsetsWithX);
