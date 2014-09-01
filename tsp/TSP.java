@@ -71,11 +71,11 @@ public class TSP
      * @param graph Complete graph with non-negative edge costs.
      * @return Minimum-cost cycle that visits every vertex exactly once.
      */
-    public static double solve(Graph graph)
+    public static float solve(Graph graph)
     {
         // Initializes corresponding data structures
         int n = graph.getN();
-        TSP.a = new BigMatrix((int) Math.pow(2, n), 2);
+        TSP.a = new BigMatrix((int) Math.pow(2, n), n);
         TSP.subsets = new HashMap<Integer, Set<Integer>>(n);
         int nextSubsetId = 1;
         TSP.sizeSubsets = new HashMap<Integer, List<Integer>>(n);
@@ -185,9 +185,9 @@ public class TSP
      * @return Minimum length of a path from 1 to j that visits precisely the
      * vertices of the given set.
      */
-    private static double getMinimumLengthPath(Graph graph, Integer setId, int j)
+    private static float getMinimumLengthPath(Graph graph, Integer setId, int j)
     {
-        double min = TSP.INFINITY;
+        float min = TSP.INFINITY;
         for(Integer k : TSP.subsets.get(setId))
         {
             if(k != j)
@@ -213,9 +213,9 @@ public class TSP
      * @return Minimum-length of a path from 1 to itself that visits every
      * vertex once.
      */
-    private static double getLengthAfterFinalHop(Graph graph, int n)
+    private static float getLengthAfterFinalHop(Graph graph, int n)
     {
-        double min = TSP.INFINITY;
+        float min = TSP.INFINITY;
         for(int j = 1; j < n; j++)
         {
             List<Edge> edges = graph.getEdgesLeaving(j);

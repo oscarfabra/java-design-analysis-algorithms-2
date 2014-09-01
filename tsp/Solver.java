@@ -38,12 +38,12 @@ public class Solver
         int n = Integer.parseInt(firstLine);
 
         // Reads the coordinates (x,y) of each city from the lines list
-        double [][] coord = new double[n][2];
+        float [][] coord = new float[n][2];
         for(int i = 0; i < n; i++)
         {
             String [] xAndY = lines.get(i).split(" ");
-            coord[i][0] = Double.parseDouble(xAndY[0]);
-            coord[i][1] = Double.parseDouble(xAndY[1]);
+            coord[i][0] = Float.parseFloat(xAndY[0]);
+            coord[i][1] = Float.parseFloat(xAndY[1]);
         }
 
         // Finds the euclidean distance between cities, forming the edges list
@@ -55,7 +55,7 @@ public class Solver
             {
                 // Finds euclidean distance, creates edges Strings, and adds
                 // them to edges list
-                double d = Math.sqrt(Math.pow(coord[i][0] - coord[j][0], 2) +
+                float d = (float)Math.sqrt(Math.pow(coord[i][0] - coord[j][0], 2) +
                         Math.pow(coord[i][1] - coord[j][1], 2));
                 StringBuilder sb = new StringBuilder();
                 sb.append(i + 1).append(" ");
@@ -78,7 +78,7 @@ public class Solver
         Graph graph = new Graph(n, vertexEdges);
 
         // Computes the minimum-cost cycle that visits every vertex only once
-        double length = TSP.solve(graph);
+        float length = TSP.solve(graph);
 
         // Prints results in standard output
         System.out.println("The cost of a minimum-length cycle that visits " +

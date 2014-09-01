@@ -129,7 +129,7 @@ public class Graph
             String[] values = line.split(" ");
             int key = Integer.parseInt(values[0]);
             int value = Integer.parseInt(values[1]);
-            double cost = Double.parseDouble(values[2]);
+            float cost = Float.parseFloat(values[2]);
             Edge edge = new Edge(newEdgeId++, key, value, cost);
             Graph.addVertexEdge(vertexEdges, key, edge);
         }
