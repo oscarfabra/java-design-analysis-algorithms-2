@@ -74,8 +74,9 @@ public class TSP
     public static float solve(Graph graph)
     {
         // Initializes corresponding data structures
+        System.out.print("-- Initializing data structures for solving TSP...");
         int n = graph.getN();
-        TSP.a = new BigMatrix((int) Math.pow(2, n), n);
+        TSP.a = new BigMatrix((int) Math.pow(2, n), 2);
         TSP.subsets = new HashMap<Integer, Set<Integer>>(n);
         int nextSubsetId = 1;
         TSP.sizeSubsets = new HashMap<Integer, List<Integer>>(n);
@@ -97,32 +98,38 @@ public class TSP
             subsetList.add(i);
             auxSubsetList.add(i);
         }
+        System.out.println("done.");
 
         // Walks through the 2-D array a initializing base cases
+        System.out.println("-- Finding and setting up base cases for all " +
+                "subsets that contain 1...");
         for(int k = 2; k <= n; k++)
         {
-            // Gets all possible subsets of size k
-            List<Set<Integer>> subsets = Combinations.solve(subsetList, k);
+            // Gets all possible subsets of size k that contain 1
+            List<Set<Integer>> subsets =
+                    Combinations.solveWithV(subsetList, k, 1);
 
-            // Puts each subset in its corresponding collections and initializes
-            // its corresponding path length
+            // Puts each subset that contains 1 in its corresponding collection
+            // and initializes its corresponding path length
             for(Set subset : subsets)
             {
-                // Adds only those subsets that contain 1
-                if(subset.contains(1))
-                {
-                    TSP.putSubset(nextSubsetId, subset);
-                    TSP.a.set(nextSubsetId - 1, 0, TSP.INFINITY);
-                    nextSubsetId++;
-                }
+                TSP.putSubset(nextSubsetId, subset);
+                TSP.a.set(nextSubsetId - 1, 0, TSP.INFINITY);
+                nextSubsetId++;
             }
 
             // Re-initializes subsetList for later re-use
             subsetList = new ArrayList<Integer>(auxSubsetList);
+
+            // Message in standard output for logging purposes
+            System.out.println("-- [Subsets of size " + k + " set up.]");
         }
+        System.out.println("-- ...finished setting up base cases.");
 
         // Walks through each possible subset S of {1,2,...,n} looking for all
         // possible destinations j in {1,2,...,n}
+        System.out.println("-- Looking for minimum-cost cycle that visits each " +
+                "vertex exactly once...");
         for(int m = 2; m < n; m++)
         {
             // For each subset of size m that contains 1...
@@ -144,7 +151,11 @@ public class TSP
                     }
                 }
             }
+            // Message in standard output for logging purposes
+            System.out.println("-- [Minimum-path of size " + m + " found.]");
         }
+        System.out.println("-- ...minimum-cost cycle that visits each vertex " +
+                "exactly once found.");
 
         // Finds and returns the minimum-length path from 1 to itself visiting
         // every vertex once
