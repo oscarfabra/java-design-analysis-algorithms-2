@@ -76,7 +76,7 @@ public class TSP
         // Initializes corresponding data structures
         System.out.print("-- Initializing data structures for solving TSP...");
         int n = graph.getN();
-        TSP.a = new BigMatrix((int) Math.pow(2, n), 2);
+        TSP.a = new BigMatrix((int) Math.pow(2, n - 1), n);
         TSP.subsets = new HashMap<Integer, Set<Integer>>(n);
         int nextSubsetId = 1;
         TSP.sizeSubsets = new HashMap<Integer, List<Integer>>(n);
@@ -222,12 +222,13 @@ public class TSP
     private static float getLengthAfterFinalHop(Graph graph, int n)
     {
         float min = TSP.INFINITY;
-        for(int j = 1; j < n; j++)
+        int last = TSP.subsets.size();
+        for(int j = 1; j <= n; j++)
         {
             List<Edge> edges = graph.getEdgesLeaving(j);
             for(Edge e : edges)
             {
-                min = Math.min(TSP.a.get(n - 1, j - 1) + e.getCost(), min);
+                min = Math.min(TSP.a.get(last - 1, j - 1) + e.getCost(), min);
             }
         }
         return min;
