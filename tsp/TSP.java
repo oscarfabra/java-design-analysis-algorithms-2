@@ -92,11 +92,9 @@ public class TSP
         // Creates the subset List to find the combinations for, and an
         // auxiliary subset for later retrieval
         List<Integer> subsetList = new ArrayList<Integer>(n);
-        List<Integer> auxSubsetList = new ArrayList<Integer>(n);
         for(int i = 1; i <= n; i++)
         {
             subsetList.add(i);
-            auxSubsetList.add(i);
         }
         System.out.println("done.");
 
@@ -118,9 +116,6 @@ public class TSP
                 nextSubsetId++;
             }
 
-            // Re-initializes subsetList for later re-use
-            subsetList = new ArrayList<Integer>(auxSubsetList);
-
             // Message in standard output for logging purposes
             System.out.println("-- [Subsets of size " + k + " set up.]");
         }
@@ -128,9 +123,9 @@ public class TSP
 
         // Walks through each possible subset S of {1,2,...,n} looking for all
         // possible destinations j in {1,2,...,n}
-        System.out.println("-- Looking for minimum-cost cycle that visits each " +
-                "vertex exactly once...");
-        for(int m = 2; m < n; m++)
+        System.out.println("-- Looking for minimum-cost cycle that visits " +
+                "each vertex exactly once...");
+        for(int m = 2; m <= n; m++)
         {
             // For each subset of size m that contains 1...
             List<Integer> setIds = TSP.sizeSubsets.get(m);

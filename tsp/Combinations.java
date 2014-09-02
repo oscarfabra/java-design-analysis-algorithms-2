@@ -76,14 +76,14 @@ public class Combinations
     /**
      * Finds and returns all possible subset combinations of a given Set of
      * numbers and subsets size k that contain element v.
-     * @param subsetList List of numbers to find combinations for, subsets of
+     * @param list List of numbers to find combinations for, subsets of
      *               {1,2,...,n}, n = subset.size()
      * @param k Size of permutations to find, 2 <= k <= subset.size()
      * @param v Id of the element that needs to be present in every subset,
      *          v in {1,2,...,n}
      * @return List of subsets of the given list of integers.
      */
-    public static List<Set<Integer>> solveWithV(List<Integer> subsetList, int k,
+    public static List<Set<Integer>> solveWithV(List<Integer> list, int k,
                                                 int v)
     {
         // Returns result depending on base cases.
@@ -94,30 +94,47 @@ public class Combinations
             allSubsets.add(new TreeSet<Integer>());
             return allSubsets;
         }
-        if(k > subsetList.size())
+        if(k > list.size())
         {
             // Nothing to add. Base case needed in order to keep items ordered.
             return allSubsets;
         }
 
         // Creates a copy of the subset with last item removed.
-        List<Integer> subsetWithoutX = new ArrayList<Integer>(subsetList);
-        int size = subsetWithoutX.size();
-        Integer x = subsetWithoutX.remove(size - 1);
+        List<Integer> listWithoutX = new ArrayList<Integer>(list);
+        int size = listWithoutX.size();
+        Integer x = listWithoutX.remove(size - 1);
 
-        // Recursively adds subsets with last item and subsets without last item
-        // included. Then adds x to each subset of subsetsWithX that contain v.
-        List<Set<Integer>> subsetsWithoutX = solve(subsetWithoutX, k);
-        List<Set<Integer>> subsetsWithX = solve(subsetWithoutX, k - 1);
-        if(subsetsWithX.contains(v))
+        // Recursively adds subsets with last item and subsets without last
+        // item included. Then adds x to each subset of subsetsWithX.
+        List<Set<Integer>> subsetsWithoutX = solveWithV(listWithoutX, k, v);
+        List<Set<Integer>> subsetsWithX = solveWithV(listWithoutX, k - 1, v);
+
+        // Appends x to the end of each subset, removes those that don't
+        // contain v
+        List<Set<Integer>> auxSubsetsWithX = new ArrayList<Set<Integer>>();
+        for(Set<Integer> subset : subsetsWithX)
         {
-            for(Set<Integer> auxSubset : subsetsWithX)
+            subset.add(x);
+            if(subset.contains(v))
             {
-                auxSubset.add(x);
+                auxSubsetsWithX.add(subset);
             }
         }
+        subsetsWithX = auxSubsetsWithX;
 
-        // Adds subsets to the allSubsets list of sets and returns it
+        // Repeats for subsets that don't include x
+        List<Set<Integer>> auxSubsetsWithoutX = new ArrayList<Set<Integer>>();
+        for(Set<Integer> subset : subsetsWithoutX)
+        {
+            if(subset.contains(v))
+            {
+                auxSubsetsWithoutX.add(subset);
+            }
+        }
+        subsetsWithoutX = auxSubsetsWithoutX;
+
+        // Adds to allSubsets those subsets that contain v and returns it
         allSubsets.addAll(subsetsWithoutX);
         allSubsets.addAll(subsetsWithX);
         return allSubsets;
