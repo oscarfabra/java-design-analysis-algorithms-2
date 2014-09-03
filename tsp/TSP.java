@@ -87,16 +87,8 @@ public class TSP
             }
         }
         TSP.subsets = new HashMap<Integer, Set<Integer>>(n);
-        int nextSubsetId = 1;
         TSP.sizeSubsets = new HashMap<Integer, List<Integer>>(n);
         TSP.subsetSize = new HashMap<Integer, Integer>(n);
-
-        // Fills first base case according to possible subset sizes
-        Set<Integer> tempSubset = new TreeSet<Integer>();
-        tempSubset.add(1);
-        TSP.putSubset(nextSubsetId, tempSubset);
-        TSP.setLength(nextSubsetId - 1, 0, 0);
-        nextSubsetId++;
 
         // Creates the subset List to find the combinations for, and an
         // auxiliary subset for later retrieval
@@ -107,15 +99,22 @@ public class TSP
         }
         System.out.println("done.");
 
-        // Walks through the 2-D array a initializing base cases
+        // Message in standard output for logging purposes
         System.out.println("-- Finding and setting up base cases for all " +
                 "subsets that contain 1...");
+        // Fills first base case according to possible subset sizes
+        Set<Integer> tempSubset = new TreeSet<Integer>();
+        tempSubset.add(1);
+        int nextSubsetId = 1;
+        TSP.putSubset(nextSubsetId, tempSubset);
+        TSP.setLength(nextSubsetId - 1, 0, 0);
+        nextSubsetId++;
+        // Walks through the 2-D array a initializing base cases
         for(int k = 2; k <= n; k++)
         {
             // Gets all possible subsets of size k that contain 1
             List<Set<Integer>> subsets =
                     Combinations.solveWithV(subsetList, k, 1);
-
             // Puts each subset that contains 1 in its corresponding collection
             // and initializes its corresponding path length
             for(Set subset : subsets)
@@ -124,7 +123,6 @@ public class TSP
                 TSP.setLength(nextSubsetId - 1, 0, TSP.INFINITY);
                 nextSubsetId++;
             }
-
             // Message in standard output for logging purposes
             System.out.println("-- [Subsets of size " + k + " set up.]");
         }
@@ -132,7 +130,7 @@ public class TSP
 
         // Walks through each possible subset S of {1,2,...,n} looking for all
         // possible destinations j in {1,2,...,n}
-        System.out.println("-- Looking for minimum-cost cycle that visits " +
+        System.out.println("-- Looking for the minimum-cost cycle that visits " +
                 "each vertex exactly once...");
         for(int m = 2; m <= n; m++)
         {
@@ -151,7 +149,7 @@ public class TSP
                     if(j != 1)
                     {
                         TSP.setLength(setId - 1, j - 1,
-                                TSP.getMinimumLengthPath(graph, setId, j));
+                                    TSP.getMinimumLengthPath(graph, setId, j));
                     }
                 }
             }
@@ -188,8 +186,15 @@ public class TSP
             int k = e.getTail();
             if(k != j)
             {
-                min = Math.min(TSP.getLength(setId - 1, k - 1) + e.getCost(),
-                        min);
+                float currentLength = TSP.getLength(setId - 1, k - 1);
+                if(currentLength == TSP.INFINITY)
+                {
+                    min = Math.min(TSP.INFINITY, min);
+                }
+                else
+                {
+                    min = Math.min(currentLength + e.getCost(), min);
+                }
             }
         }
         return min;
@@ -208,13 +213,14 @@ public class TSP
     private static float getLengthAfterFinalHop(Graph graph, int n)
     {
         float min = TSP.INFINITY;
+        // Last set is the one that includes exactly {1,2,...,n}
         int lastSetId = TSP.subsets.size();
         for(int j = 2; j <= n; j++)
         {
             List<Edge> edges = graph.getEdgesArriving(1);
             for(Edge e : edges)
             {
-                min = Math.min(TSP.getLength(lastSetId - 1, j - 1) + e.getCost(),
+                min = Math.min(TSP.getLength(lastSetId - 1,j - 1) + e.getCost(),
                         min);
             }
         }
@@ -254,6 +260,7 @@ public class TSP
     {
         ArrayList<Float> vertices = (ArrayList<Float>) TSP.a[rowIndex];
         vertices.set(columnIndex, value);
+        TSP.a[rowIndex] = vertices;
     }
 
     /**
