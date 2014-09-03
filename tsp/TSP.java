@@ -220,8 +220,15 @@ public class TSP
             List<Edge> edges = graph.getEdgesArriving(1);
             for(Edge e : edges)
             {
-                min = Math.min(TSP.getLength(lastSetId - 1,j - 1) + e.getCost(),
-                        min);
+                float length = TSP.getLength(lastSetId - 1, j - 1);
+                if(length == TSP.INFINITY)
+                {
+                    min = Math.min(TSP.INFINITY, min);
+                }
+                else
+                {
+                    min = Math.min(length + e.getCost(), min);
+                }
             }
         }
         return min;
