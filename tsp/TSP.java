@@ -38,10 +38,14 @@ public class TSP
     //-------------------------------------------------------------------------
 
     // 2-D array to index by subsets' sizes, size in {1,2,..,n} and destination
-    // j in {1,2,...,n}. a[size].get(j) stores the minimum length of a path from 1
+    // j in {1,2,...,n}. a[size][j] stores the minimum length of a path from 1
     // to j that visits precisely the vertices of S; S being the minimum-cost
     // subset that contains 1 and j
-    private static List<Float>[] a;
+    private static float [][] a;
+
+    // Stores the id of the minimum-cost length set for each sub-problem size,
+    // size in [1,2,...,n]
+    private static int [] x;
 
     // Maps subsets with their corresponding ids, each id in {1,2,...,n}
     private static Map<Integer, Set<Integer>> subsets;
@@ -77,15 +81,8 @@ public class TSP
         System.out.print("-- Initializing data structures for solving TSP...");
         int n = graph.getN();
         int subsetsNumber = (int)Math.pow(2, n - 1);
-        TSP.a = (ArrayList<Float>[])new ArrayList[subsetsNumber];
-        for(int i = 0; i < subsetsNumber; i++)
-        {
-            TSP.a[i] = new ArrayList<Float>(n);
-            for(int j = 0; j < n; j++)
-            {
-                TSP.a[i].add((float) 0);
-            }
-        }
+        TSP.a = new float[subsetsNumber][n];
+        TSP.x = new int[n];
         TSP.subsets = new HashMap<Integer, Set<Integer>>(n);
         TSP.sizeSubsets = new HashMap<Integer, List<Integer>>(n);
         TSP.subsetSize = new HashMap<Integer, Integer>(n);
@@ -107,7 +104,8 @@ public class TSP
         tempSubset.add(1);
         int nextSubsetId = 1;
         TSP.putSubset(nextSubsetId, tempSubset);
-        TSP.setLength(nextSubsetId - 1, 0, 0);
+        TSP.a[nextSubsetId - 1][0] = 0;
+        TSP.x[0] = nextSubsetId;
         nextSubsetId++;
         // Walks through the 2-D array a initializing base cases
         for(int k = 2; k <= n; k++)
@@ -120,7 +118,7 @@ public class TSP
             for(Set subset : subsets)
             {
                 TSP.putSubset(nextSubsetId, subset);
-                TSP.setLength(nextSubsetId - 1, 0, TSP.INFINITY);
+                TSP.a[nextSubsetId - 1][0] = TSP.INFINITY;
                 nextSubsetId++;
             }
             // Message in standard output for logging purposes
@@ -130,17 +128,20 @@ public class TSP
 
         // Walks through each possible subset S of {1,2,...,n} looking for all
         // possible destinations j in {1,2,...,n}
-        System.out.println("-- Looking for the minimum-cost cycle that visits " +
+        System.out.println("-- Looking for minimum-cost cycle that visits " +
                 "each vertex exactly once...");
         for(int m = 2; m <= n; m++)
         {
+            // Saves min length of a set without j
+            float minLengthWithoutJ = TSP.INFINITY;
+
             // For each subset of size m that contains 1...
             List<Integer> setIds = TSP.sizeSubsets.get(m);
             for(Integer setId : setIds)
             {
                 // ...walks through each vertex j of the set looking for the
-                // minimum length of a path from 1 to j that visits
-                // precisely the vertices of the set with id setId
+                // minimum length of a path from 1 to j that visits precisely
+                // the vertices of the set with id setId
                 Set<Integer> set = TSP.subsets.get(setId);
                 Iterator<Integer> iterator = set.iterator();
                 while(iterator.hasNext())
@@ -148,20 +149,26 @@ public class TSP
                     int j = iterator.next();
                     if(j != 1)
                     {
-                        TSP.setLength(setId - 1, j - 1,
-                                    TSP.getMinimumLengthPath(graph, setId, j));
+                        TSP.a[setId - 1][j - 1] =
+                            TSP.getMinimumLengthPath(graph, TSP.x[m - 2], j);
+
+                        // If length is shortest, save id of this set without j
+                        if(TSP.a[setId - 1][j - 1] < minLengthWithoutJ)
+                        {
+                            minLengthWithoutJ = TSP.a[setId - 1][j - 1];
+                            TSP.x[m - 1] = setId;
+                        }
                     }
                 }
             }
             // Message in standard output for logging purposes
             System.out.println("-- [Minimum-path of size " + m + " found.]");
         }
-        System.out.println("-- ...minimum-cost cycle that visits each vertex " +
-                "exactly once found.");
+        System.out.println("-- ...minimum-cost cycle found.");
 
         // Finds and returns the minimum-length path from 1 to itself visiting
         // every vertex once
-        return TSP.getLengthAfterFinalHop(graph, n);
+        return TSP.getLengthAfterFinalHop(graph, TSP.x[n - 1], n);
     }
 
     //-------------------------------------------------------------------------
@@ -186,15 +193,8 @@ public class TSP
             int k = e.getTail();
             if(k != j)
             {
-                float currentLength = TSP.getLength(setId - 1, k - 1);
-                if(currentLength == TSP.INFINITY)
-                {
-                    min = Math.min(TSP.INFINITY, min);
-                }
-                else
-                {
-                    min = Math.min(currentLength + e.getCost(), min);
-                }
+                float length = TSP.a[setId - 1][k - 1];
+                min = Math.min(length + e.getCost(), min);
             }
         }
         return min;
@@ -206,29 +206,23 @@ public class TSP
      * <b>Pre:</b> 2-D array a has been filled out for all destinations j
      * in {1,2,...,n}
      * @param graph Graph to select edge costs from.
+     * @param setId Id of the set that has the min-cost from 1 to j visiting
+     *              every vertex exactly once.
      * @param n Number of vertices of the graph.
      * @return Minimum-length of a path from 1 to itself that visits every
      * vertex once.
      */
-    private static float getLengthAfterFinalHop(Graph graph, int n)
+    private static float getLengthAfterFinalHop(Graph graph, Integer setId,
+                                                int n)
     {
         float min = TSP.INFINITY;
-        // Last set is the one that includes exactly {1,2,...,n}
-        int lastSetId = TSP.subsets.size();
         for(int j = 2; j <= n; j++)
         {
             List<Edge> edges = graph.getEdgesArriving(1);
             for(Edge e : edges)
             {
-                float length = TSP.getLength(lastSetId - 1, j - 1);
-                if(length == TSP.INFINITY)
-                {
-                    min = Math.min(TSP.INFINITY, min);
-                }
-                else
-                {
-                    min = Math.min(length + e.getCost(), min);
-                }
+                float length = TSP.a[setId - 1][j - 1];
+                min = Math.min(length + e.getCost(), min);
             }
         }
         return min;
@@ -253,34 +247,5 @@ public class TSP
         subsetIds.add(subsetId);
         TSP.sizeSubsets.put(size, subsetIds);
         TSP.subsetSize.put(subsetId, size);
-    }
-
-    /**
-     * Sets the given value in the specified position of 2-D array a.
-     * @param rowIndex Set to assign the value to, rowIndex in
-     *                 [0,1,...,setsNumber-1]
-     * @param columnIndex Position in the chained list to assign the value to,
-     *                    columnIndex in [0,1,...,n - 1]
-     * @param value Number to set in the given position of the 2-D array a.
-     */
-    private static void setLength(int rowIndex, int columnIndex, float value)
-    {
-        ArrayList<Float> vertices = (ArrayList<Float>) TSP.a[rowIndex];
-        vertices.set(columnIndex, value);
-        TSP.a[rowIndex] = vertices;
-    }
-
-    /**
-     * Gets the value in the specified position of 2-D array a.
-     * @param rowIndex Set to get the value from, rowIndex in
-     *                 [0,1,...,setsNumber-1]
-     * @param columnIndex Position in the chained list to get the value from,
-     *                    columnIndex in [0,1,...,n - 1]
-     * @return Number at the specified position of the 2-D array a.
-     */
-    private static float getLength(int rowIndex, int columnIndex)
-    {
-        ArrayList<Float> vertices = (ArrayList<Float>) TSP.a[rowIndex];
-        return vertices.get(columnIndex);
     }
 }
