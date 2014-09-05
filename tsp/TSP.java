@@ -142,15 +142,12 @@ public class TSP
                 // ...walks through each vertex j of the set looking for the
                 // minimum length of a path from 1 to j that visits precisely
                 // the vertices of the set with id setId
-                Set<Integer> set = TSP.subsets.get(setId);
-                Iterator<Integer> iterator = set.iterator();
-                while(iterator.hasNext())
+                for(Integer j : TSP.subsets.get(setId))
                 {
-                    int j = iterator.next();
                     if(j != 1)
                     {
                         TSP.a[setId - 1][j - 1] =
-                            TSP.getMinimumLengthPath(graph, TSP.x[m - 2], j);
+                            TSP.getMinimumLengthPath(graph, TSP.x[m - 2], setId, j);
 
                         // If length is shortest, save id of this set without j
                         if(TSP.a[setId - 1][j - 1] < minLengthWithoutJ)
@@ -179,22 +176,25 @@ public class TSP
      * Gets the minimum length path from 1 to j that contains precisely the
      * vertices of the given set.
      * @param graph Graph to select edge costs from.
-     * @param setId Set of id of set to traverse.
+     * @param setWithoutJ Id of set without J.
+     * @param setId Id of the set that needs to be traversed.
      * @param j Destination vertex id.
      * @return Minimum length of a path from 1 to j that visits precisely the
      * vertices of the given set.
      */
-    private static float getMinimumLengthPath(Graph graph, Integer setId, int j)
+    private static float getMinimumLengthPath(Graph graph, Integer setWithoutJ,
+                                              int setId, int j)
     {
         float min = TSP.INFINITY;
         List<Edge> edges = graph.getEdgesArriving(j);
         for(Edge e : edges)
         {
             int k = e.getTail();
-            if(k != j)
+            if(k != j && TSP.subsets.get(setId).contains(k))
             {
-                float length = TSP.a[setId - 1][k - 1];
-                min = Math.min(length + e.getCost(), min);
+                float candidate = (TSP.a[setWithoutJ - 1][k - 1] == TSP.INFINITY)?
+                        e.getCost() : TSP.a[setWithoutJ - 1][k - 1] + e.getCost();
+                min = Math.min(candidate, min);
             }
         }
         return min;
@@ -221,8 +221,9 @@ public class TSP
             List<Edge> edges = graph.getEdgesArriving(1);
             for(Edge e : edges)
             {
-                float length = TSP.a[setId - 1][j - 1];
-                min = Math.min(length + e.getCost(), min);
+                float candidate = (TSP.a[setId - 1][j - 1] == TSP.INFINITY)?
+                        e.getCost() : TSP.a[setId - 1][j - 1] + e.getCost();
+                min = Math.min(candidate, min);
             }
         }
         return min;
