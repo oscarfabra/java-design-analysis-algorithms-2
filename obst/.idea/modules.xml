@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/optimal-bst.iml" filepath="$PROJECT_DIR$/optimal-bst.iml" />
+      <module fileurl="file://$PROJECT_DIR$/obst.iml" filepath="$PROJECT_DIR$/obst.iml" />
     </modules>
   </component>
 </project>

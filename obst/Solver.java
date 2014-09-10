@@ -1,6 +1,7 @@
 /**
  * $Id: Solver.java, v 1.0 06/09/14 22:01 oscarfabra Exp $
- * {@code Solver}
+ * {@code Solver} Reads and computes an optimal binary tree given a file with
+ * the probabilities of search for each item.
  *
  * @author <a href="mailto:oscarfabra@gmail.com">Oscar Fabra</a>
  * @version 1.0
@@ -15,7 +16,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Solver
+ * Solver is a class that reads and computes an optimal binary search tree
+ * given a file with a list of probabilities of search for each item.
  */
 public class Solver
 {
