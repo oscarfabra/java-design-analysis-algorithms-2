@@ -41,16 +41,11 @@ public class Solver
         }
 
         // Computes the optimal binary search tree
-        Map<Integer, Integer> obst = OptimalBST.solve(p, n);
+        double obst = OptimalBST.solve(p, n);
 
         // Prints the resulting BST in standard output
-        System.out.println("The Optimal Binary Search Tree (OBST) is:");
-        Set<Integer> keys = obst.keySet();
-        for(Integer key : keys)
-        {
-            Integer item = obst.get(key);
-            System.out.println("-- Key: " + key + ", Item: " + item);
-        }
+        System.out.println("The value of the Optimal Binary Search Tree " +
+                "(OBST) is: " + obst);
     }
 
     /**
