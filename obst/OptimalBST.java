@@ -44,11 +44,13 @@ public class OptimalBST
      */
     public static double solve(double [] p, int n)
     {
+        // Initializes main table
         double [][] a = new double[n][n];
 
+        // Walks through each possible optimal BST for items in {i,...,j}
         for(int s = 0; s < n; s++)
         {
-            for(int i = 0; i < n; i++)
+            for(int i = 0; (i + s) < n; i++)
             {
                 double min = OptimalBST.INFINITY;
                 double firstTerm = 0;
@@ -56,14 +58,14 @@ public class OptimalBST
                 double thirdTerm = 0;
 
                 // Finds the first term of the recursion
-                for(int k = i; k <= (i + s); k++)
+                for(int k = i; k <= (i + s) && (i + s) < n; k++)
                 {
                     firstTerm += p[k];
                 }
 
                 // Walks through the previous diagonal of a to compute the
                 // value for a[i][i + s]
-                for(int r = i; r <= (i + s); r++)
+                for(int r = i; r <= (i + s) && (i + s) < n; r++)
                 {
                     // Finds the second and third terms of the recursion
                     secondTerm = (i > (r - 1)) ? 0 : a[i][r - 1];
