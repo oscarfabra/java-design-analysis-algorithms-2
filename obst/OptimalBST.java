@@ -20,10 +20,6 @@ import java.util.TreeMap;
 public class OptimalBST
 {
     //-------------------------------------------------------------------------
-    // ATTRIBUTES
-    //-------------------------------------------------------------------------
-
-    //-------------------------------------------------------------------------
     // CONSTRUCTORS
     //-------------------------------------------------------------------------
 
@@ -34,13 +30,15 @@ public class OptimalBST
     //-------------------------------------------------------------------------
 
     /**
-     *
-     * @param weights
-     * @param n
-     * @return
+     * Computes and returns a valid search tree that minimizes the weighted
+     * (average) search time. Assumes items in sorted order, 1 < 2 < 3 ... < n.
+     * @param p Array of frequencies for each item in {1,2,...,n}
+     * @param n Number of items to add to the tree.
+     * @return Valid search tree that minimizes the average search time.
      */
-    public TreeMap<Integer, Integer> solve(double [] weights, int n)
+    public static TreeMap<Integer, Integer> solve(double [] p, int n)
     {
+
         // TODO: Write dynamic programming O(n²) alg...
         return new TreeMap<Integer, Integer>();
     }

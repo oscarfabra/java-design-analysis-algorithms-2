@@ -12,8 +12,7 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * Solver is a class that reads and computes an optimal binary search tree
@@ -31,7 +30,27 @@ public class Solver
      */
     private static void solve(List<String> lines)
     {
-        // TODO: Solve instance of the Optimal BST problem...
+        // Reads contents of lines list
+        int n = Integer.parseInt(lines.remove(0));
+        double [] p = new double[n];
+        int i = 0;
+        Iterator<String> iterator = lines.iterator();
+        while(iterator.hasNext())
+        {
+            p[i++] = Double.parseDouble(iterator.next());
+        }
+
+        // Computes the optimal binary search tree
+        Map<Integer, Integer> obst = OptimalBST.solve(p, n);
+
+        // Prints the resulting BST in standard output
+        System.out.println("The Optimal Binary Search Tree (OBST) is:");
+        Set<Integer> keys = obst.keySet();
+        for(Integer key : keys)
+        {
+            Integer item = obst.get(key);
+            System.out.println("-- Key: " + key + ", Item: " + item);
+        }
     }
 
     /**
