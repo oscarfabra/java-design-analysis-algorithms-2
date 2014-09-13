@@ -14,6 +14,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Solver reads and solves the vertex cover problem for a given representation
@@ -31,7 +32,28 @@ public class Solver
      */
     private static void solve(List<String> lines)
     {
-        // TODO: Solve instance of the Vertex Cover problem...
+        String nAndM = lines.remove(0);
+        String [] values = nAndM.split(" ");
+        int n = Integer.valueOf(values[0]);
+        int m = Integer.valueOf(values[1]);
+
+        // Builds the adjacency lists to construct the graph
+        Map<Integer, List<Edge>> vertexEndpoints =
+                Graph.buildVertexEdges(m, lines);
+
+        // Creates a new graph with the given values
+        Graph graph = new Graph(n, vertexEndpoints);
+
+        // Finds the vertex cover
+        List<Vertex> vertices = VertexCover.solve(graph);
+
+        // Shows the ids of the corresponding vertices in standard output
+        System.out.println("The vertex cover comprises the following " +
+                "vertices: ");
+        for(Vertex vertex : vertices)
+        {
+            System.out.println("-- " + vertex.getId());
+        }
     }
 
     /**
