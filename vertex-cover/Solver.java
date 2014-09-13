@@ -48,8 +48,8 @@ public class Solver
         List<Vertex> vertices = VertexCover.solve(graph);
 
         // Shows the ids of the corresponding vertices in standard output
-        System.out.println("The vertex cover comprises the following " +
-                "vertices: ");
+        System.out.println("The minimum-cardinality vertex cover of the " +
+                "given graph comprises the following vertices: ");
         for(Vertex vertex : vertices)
         {
             System.out.println("-- " + vertex.getId());

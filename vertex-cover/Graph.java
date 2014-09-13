@@ -7,11 +7,7 @@
  * @since 14/08/14
  */
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Represents a directed graph with n vertices and m edges.
@@ -367,5 +363,40 @@ public class Graph
         }
         adjEdgesIds.add(edge.getId());
         vertexEdgesArriving.put(vertexId, adjEdgesIds);
+    }
+
+    /**
+     * Removes the vertex with the given id including its incident edges.
+     * @param vertexId Id of the vertex to remove.
+     */
+    public void removeVertex(int vertexId)
+    {
+        // Removes edges leaving of vertex with the given id
+        List<Integer> incidentEdges = null;
+        if(this.vertexEdgesLeaving.containsKey(vertexId))
+        {
+            incidentEdges = this.vertexEdgesLeaving.remove(vertexId);
+        }
+
+        // Removes edges arriving of edges with the given id
+        if(this.vertexEdgesArriving.containsKey(vertexId))
+        {
+            incidentEdges.addAll(this.vertexEdgesArriving.remove(vertexId));
+        }
+
+        // Removes the given vertex for V and updates n
+        if(this.V.containsKey(vertexId))
+        {
+            this.V.remove(vertexId);
+            this.n = this.V.size();
+        }
+
+        // Removes the incident edges and updates m
+        Iterator<Integer> iterator = incidentEdges.iterator();
+        while(iterator.hasNext())
+        {
+            this.E.remove(iterator.next());
+        }
+        this.m = this.E.size();
     }
 }
