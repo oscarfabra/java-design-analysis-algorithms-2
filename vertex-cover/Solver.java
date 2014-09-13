@@ -1,6 +1,7 @@
 /**
  * $Id: Solver.java, v 1.0 06/09/14 22:03 oscarfabra Exp $
- * {@code Solver}
+ * {@code Solver} Is a class that reads and solves the vertex cover problem for
+ * a given file with a representation of an undirected graph.
  *
  * @author <a href="mailto:oscarfabra@gmail.com">Oscar Fabra</a>
  * @version 1.0
@@ -15,7 +16,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Solver
+ * Solver reads and solves the vertex cover problem for a given representation
+ * of an undirected graph.
  */
 public class Solver
 {
