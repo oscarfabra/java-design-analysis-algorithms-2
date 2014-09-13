@@ -8,8 +8,7 @@
  * @since 6/09/14
  */
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * VertexCover solves the vertex cover for a given undirected graph. The
@@ -51,11 +50,11 @@ public class VertexCover
         while(cover == null && k <= n)
         {
             cover = VertexCover.solveForK(graph, k);
+            graph.copy(gPrime);
             k++;
         }
 
-        // Updates graph and returns the vertex cover
-        graph.copy(gPrime);
+        // Returns the vertex cover
         return cover;
     }
 
@@ -77,25 +76,30 @@ public class VertexCover
             return (graph.getM() == 0) ? new ArrayList<Vertex>() : null;
         }
 
-        // Randomly selects and edge to prune
-        int edgeId = (int) (Math.random() * graph.getM() + 1);
+        // Selects an arbitrary edge to prune
+        TreeSet<Integer> edgeIds = new TreeSet<Integer>(graph.getEdgeKeys());
+        int edgeId = edgeIds.first();
         Edge edge = graph.getEdge(edgeId);
+        Graph gPrime = new Graph(graph);
 
         // Searches for a vertex cover removing the tail of edge
+        Vertex vertex = gPrime.getVertex(edge.getTail());
         graph.removeVertex(edge.getTail());
         List<Vertex> set_u = VertexCover.solveForK(graph, k - 1);
         if(set_u != null)
         {
-            set_u.add(graph.getVertex(edge.getTail()));
+            set_u.add(vertex);
             return set_u;
         }
 
         // Searches for a vertex cover removing the head of edge
-        graph.removeVertex(edge.getTail());
+        vertex = gPrime.getVertex(edge.getHead());
+        graph = gPrime;
+        graph.removeVertex(edge.getHead());
         List<Vertex> set_v = VertexCover.solveForK(graph, k - 1);
         if(set_v != null)
         {
-            set_v.add(graph.getVertex(edge.getHead()));
+            set_v.add(vertex);
             return set_v;
         }
         else

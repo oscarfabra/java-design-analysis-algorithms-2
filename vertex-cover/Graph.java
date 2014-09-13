@@ -377,6 +377,10 @@ public class Graph
         {
             incidentEdges = this.vertexEdgesLeaving.remove(vertexId);
         }
+        else
+        {
+            incidentEdges = new ArrayList<Integer>();
+        }
 
         // Removes edges arriving of edges with the given id
         if(this.vertexEdgesArriving.containsKey(vertexId))
@@ -384,19 +388,23 @@ public class Graph
             incidentEdges.addAll(this.vertexEdgesArriving.remove(vertexId));
         }
 
-        // Removes the given vertex for V and updates n
-        if(this.V.containsKey(vertexId))
+        // If no incident edges found, there's nothing to remove
+        if(incidentEdges != null)
         {
-            this.V.remove(vertexId);
-            this.n = this.V.size();
-        }
+            // Removes the incident edges and updates m
+            Iterator<Integer> iterator = incidentEdges.iterator();
+            while(iterator.hasNext())
+            {
+                this.E.remove(iterator.next());
+            }
+            this.m = this.E.size();
 
-        // Removes the incident edges and updates m
-        Iterator<Integer> iterator = incidentEdges.iterator();
-        while(iterator.hasNext())
-        {
-            this.E.remove(iterator.next());
+            // Removes the given vertex for V and updates n
+            if(this.V.containsKey(vertexId))
+            {
+                this.V.remove(vertexId);
+                this.n = this.V.size();
+            }
         }
-        this.m = this.E.size();
     }
 }
