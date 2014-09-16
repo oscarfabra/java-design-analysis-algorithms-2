@@ -28,6 +28,9 @@ public class Knapsack
     // manner or optimized for big numbers
     public static final int THRESHOLD = 100000;
 
+    // Sets the biggest weight possible for an item
+    public static final int MAX_ITEM_WEIGHT = 1000000;
+
     //-------------------------------------------------------------------------
     // ATTRIBUTES
     //-------------------------------------------------------------------------
@@ -74,22 +77,46 @@ public class Knapsack
      * @param items List of items.
      * @param W Knapsack size.
      * @param n Number of items.
+     * @param delta Error margin acceptable for solution, delta in [0...1.0)
      * @return Value of the optimal solution.
      */
-    public static int solve(List<Item> items, int W, int n)
+    public static int solve(List<Item> items, int W, int n, float delta)
     {
-        // Determines whether to solve the problem using a straightforward
-        // implementation or one that's optimized for big numbers
-        int value;
-        long compare = Long.valueOf(W + 1) * Long.valueOf(n + 1);
-        if(Knapsack.THRESHOLD >= compare)
+        // Determines whether to use a (faster) greedy heuristic rather than
+        // the exact dynamic programming implementation based on delta value
+        // and the weight of the heaviest item
+        int i = 0;
+        int maxWeight = 0;
+        for(Item item : items)
         {
-            value = Knapsack.solveStraightforward(items, W, n);
+            if(item.getWeight() > maxWeight)
+            {
+                maxWeight = item.getWeight();
+            }
+        }
+
+        // If heaviest item is at most delta * W, then we can use the (faster)
+        // greedy heuristic implementation
+        int value;
+        if(maxWeight <= delta * W)
+        {
+            value = Knapsack.solveGreedyHeuristic(items, W, n);
         }
         else
         {
-            value = Knapsack.solveForBigData(items, W, n);
+            // Determines whether to solve the problem using a straightforward
+            // implementation or one that's optimized for big numbers
+            long compare = Long.valueOf(W + 1) * Long.valueOf(n + 1);
+            if(Knapsack.THRESHOLD >= compare)
+            {
+                value = Knapsack.solveStraightforward(items, W, n);
+            }
+            else
+            {
+                value = Knapsack.solveForBigData(items, W, n);
+            }
         }
+
         // Returns the value
         return value;
     }
@@ -108,8 +135,22 @@ public class Knapsack
     //-------------------------------------------------------------------------
 
     /**
-     * Solves the knapsack problem using a straightforward implementation and
-     * updates the selectedItems class list for later retrieval.
+     * Solves the kapsack problem using a greedy heuristic approach.
+     * @param items Array of items.
+     * @param W Knapsack size.
+     * @param n Number of items.
+     * @return Value of an acceptable solution (can be the optimal).
+     */
+    private static int solveGreedyHeuristic(List<Item> items, int W, int n)
+    {
+        // TODO: Write greedy heuristic...
+        return 0;
+    }
+
+    /**
+     * Solves the knapsack problem using a straightforward (exact) dynamic
+     * programming implementation and updates the selectedItems class list for
+     * later retrieval.
      * @param items Array of items.
      * @param W Knapsack size.
      * @param n Number of items.

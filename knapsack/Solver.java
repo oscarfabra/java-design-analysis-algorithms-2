@@ -21,6 +21,13 @@ import java.util.List;
 public class Solver
 {
     //-------------------------------------------------------------------------
+    // CLASS VARIABLE
+    //-------------------------------------------------------------------------
+
+    // Error margin that will be accepted for the solution, delta in [0...1.0)
+    private static float delta;
+
+    //-------------------------------------------------------------------------
     // PRIVATE METHODS
     //-------------------------------------------------------------------------
 
@@ -41,7 +48,7 @@ public class Solver
 
         // Finds the value of the optimal solution given the list of items and
         // knapsack size; leaves the items to select in the items list
-        int value = Knapsack.solve(items, W, n);
+        int value = Knapsack.solve(items, W, n, Solver.delta);
 
         // Prints the value of the optimal solution
         System.out.println("The value of the optimal solution is: " + value);
@@ -104,6 +111,16 @@ public class Solver
             e.printStackTrace();
         }
 
+        // Reads MPE (maximum permissible error) from args array
+        try
+        {
+            Solver.delta = Float.parseFloat(args[1]);
+        }
+        catch(NumberFormatException nfe)
+        {
+            throw nfe;
+        }
+
         // Returns the lines read
         return lines;
     }
@@ -116,6 +133,8 @@ public class Solver
      * Main test method.
      * @param args filepath relative to the file with the representation of an
      *             undirected graph in the form -file=filepath
+     *             Error margin that will be accepted for the solution in the
+     *             range [0...1.0).
      */
     public static void main(String [] args)
     {
