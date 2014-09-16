@@ -135,7 +135,7 @@ public class Knapsack
     //-------------------------------------------------------------------------
 
     /**
-     * Solves the kapsack problem using a greedy heuristic approach.
+     * Solves the knapsack problem using a greedy heuristic approach.
      * @param items Array of items.
      * @param W Knapsack size.
      * @param n Number of items.
@@ -143,8 +143,28 @@ public class Knapsack
      */
     private static int solveGreedyHeuristic(List<Item> items, int W, int n)
     {
-        // TODO: Write greedy heuristic...
-        return 0;
+        // Sorts items in decreasing order of their "bang per buck" ratios
+        QuickBuck.sort(items, n);
+
+        // Packs items in this order until one doesn't fit, then halt
+        Knapsack.selectedItems = new ArrayList<Item>(n / 2);
+        int weightSoFar = 0;
+        int value = 0;
+        for(Item item : items)
+        {
+            if(item.getWeight() <= (W - weightSoFar))
+            {
+                Knapsack.selectedItems.add(item);
+                value += item.getValue();
+                weightSoFar += item.getWeight();
+            }
+            else    // Element doesn't fit, so halt
+            {
+                break;
+            }
+        }
+        // Returns the total value of the packed items
+        return value;
     }
 
     /**
