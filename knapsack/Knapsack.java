@@ -77,32 +77,15 @@ public class Knapsack
      * @param items List of items.
      * @param W Knapsack size.
      * @param n Number of items.
-     * @param e Error margin acceptable for solution, delta in [0...1.0)
+     * @param e Error margin acceptable for solution, e in [0...1.0)
      * @return Value of the optimal solution.
      */
     public static int solve(List<Item> items, int W, int n, float e)
     {
-        // Determines whether to use a (faster) greedy heuristic rather than
-        // the exact dynamic programming implementation based on delta value
-        // and the weight of the heaviest item
-        int i = 0;
-        int maxWeight = 0;
-        for(Item item : items)
-        {
-            if(item.getWeight() > maxWeight)
-            {
-                maxWeight = item.getWeight();
-            }
-        }
-
-        // If heaviest item is at most e * W, then we can use the (faster)
-        // greedy heuristic implementation
-        int value;
-        if(maxWeight <= e * W)
-        {
-            value = Knapsack.solveGreedyHeuristic(items, W, n);
-        }
-        else
+        // If no error margin is allowed, use the (trivial) dynamic programming
+        // approach
+        int value = 0;
+        if(e == 0.0)
         {
             // Determines whether to solve the problem using a straightforward
             // implementation or one that's optimized for big numbers
@@ -115,6 +98,29 @@ public class Knapsack
             {
                 value = Knapsack.solveForBigData(items, W, n);
             }
+        }
+
+        // Determines whether to use a greedy heuristic (fastest of all) or a
+        // dynamic programming heuristic based on the given e
+
+        // Finds w_max, i.e., the weight of the heaviest item
+        int i = 0;
+        int maxWeight = 0;
+        for(Item item : items)
+        {
+            if(item.getWeight() > maxWeight)
+            {
+                maxWeight = item.getWeight();
+            }
+        }
+        // If heaviest item is at most e * W, use a greedy heuristic
+        if(maxWeight <= e * W)
+        {
+            value = Knapsack.solveGreedyHeuristic(items, W, n);
+        }
+        else    // Otherwise, use the dynamic programming heuristic
+        {
+            value = Knapsack.solveDPHeuristic(items, W, n);
         }
 
         // Returns the value
@@ -133,39 +139,6 @@ public class Knapsack
     //-------------------------------------------------------------------------
     // PRIVATE HELPER METHODS
     //-------------------------------------------------------------------------
-
-    /**
-     * Solves the knapsack problem using a greedy heuristic approach.
-     * @param items Array of items.
-     * @param W Knapsack size.
-     * @param n Number of items.
-     * @return Value of an acceptable solution (can be the optimal).
-     */
-    private static int solveGreedyHeuristic(List<Item> items, int W, int n)
-    {
-        // Sorts items in decreasing order of their "bang per buck" ratios
-        QuickBuck.sort(items, n);
-
-        // Packs items in this order until one doesn't fit, then halt
-        Knapsack.selectedItems = new ArrayList<Item>(n / 2);
-        int weightSoFar = 0;
-        int value = 0;
-        for(Item item : items)
-        {
-            if(item.getWeight() <= (W - weightSoFar))
-            {
-                Knapsack.selectedItems.add(item);
-                value += item.getValue();
-                weightSoFar += item.getWeight();
-            }
-            else    // Element doesn't fit, so halt
-            {
-                break;
-            }
-        }
-        // Returns the total value of the packed items
-        return value;
-    }
 
     /**
      * Solves the knapsack problem using a straightforward (exact) dynamic
@@ -270,5 +243,50 @@ public class Knapsack
 
         // Returns the value of the optimal solution
         return a[W].get(0);
+    }
+
+    /**
+     * Solves the knapsack problem using a greedy heuristic approach.
+     * @param items Array of items.
+     * @param W Knapsack size.
+     * @param n Number of items.
+     * @return Value of an acceptable solution (can be the optimal).
+     */
+    private static int solveGreedyHeuristic(List<Item> items, int W, int n)
+    {
+        // Sorts items in decreasing order of their "bang per buck" ratios
+        QuickBuck.sort(items, n);
+        // Packs items in this order until one doesn't fit, then halt
+        Knapsack.selectedItems = new ArrayList<Item>(n / 2);
+        int weightSoFar = 0;
+        int value = 0;
+        for(Item item : items)
+        {
+            if(item.getWeight() <= (W - weightSoFar))
+            {
+                Knapsack.selectedItems.add(item);
+                value += item.getValue();
+                weightSoFar += item.getWeight();
+            }
+            else    // Element doesn't fit, so halt
+            {
+                break;
+            }
+        }
+        // Returns the total value of the packed items
+        return value;
+    }
+
+    /**
+     *
+     * @param items
+     * @param W
+     * @param n
+     * @return
+     */
+    private static int solveDPHeuristic(List<Item> items, int W, int n)
+    {
+        // TODO: Solve dynamic programming heuristic
+        return 0;
     }
 }
