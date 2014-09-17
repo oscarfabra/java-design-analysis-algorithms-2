@@ -77,10 +77,10 @@ public class Knapsack
      * @param items List of items.
      * @param W Knapsack size.
      * @param n Number of items.
-     * @param delta Error margin acceptable for solution, delta in [0...1.0)
+     * @param e Error margin acceptable for solution, delta in [0...1.0)
      * @return Value of the optimal solution.
      */
-    public static int solve(List<Item> items, int W, int n, float delta)
+    public static int solve(List<Item> items, int W, int n, float e)
     {
         // Determines whether to use a (faster) greedy heuristic rather than
         // the exact dynamic programming implementation based on delta value
@@ -95,10 +95,10 @@ public class Knapsack
             }
         }
 
-        // If heaviest item is at most delta * W, then we can use the (faster)
+        // If heaviest item is at most e * W, then we can use the (faster)
         // greedy heuristic implementation
         int value;
-        if(maxWeight <= delta * W)
+        if(maxWeight <= e * W)
         {
             value = Knapsack.solveGreedyHeuristic(items, W, n);
         }

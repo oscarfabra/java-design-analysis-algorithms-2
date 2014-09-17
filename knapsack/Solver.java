@@ -24,8 +24,8 @@ public class Solver
     // CLASS VARIABLE
     //-------------------------------------------------------------------------
 
-    // Error margin that will be accepted for the solution, delta in [0...1.0)
-    private static float delta;
+    // Error margin that will be accepted for the solution, e in [0...1.0)
+    private static float e;
 
     //-------------------------------------------------------------------------
     // PRIVATE METHODS
@@ -48,7 +48,7 @@ public class Solver
 
         // Finds the value of the optimal solution given the list of items and
         // knapsack size; leaves the items to select in the items list
-        int value = Knapsack.solve(items, W, n, Solver.delta);
+        int value = Knapsack.solve(items, W, n, Solver.e);
 
         // Prints the value of the optimal solution
         System.out.println("The value of the optimal solution is: " + value);
@@ -114,7 +114,7 @@ public class Solver
         // Reads MPE (maximum permissible error) from args array
         try
         {
-            Solver.delta = Float.parseFloat(args[1]);
+            Solver.e = Float.parseFloat(args[1]);
         }
         catch(NumberFormatException nfe)
         {

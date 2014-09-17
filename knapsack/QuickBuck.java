@@ -1,7 +1,7 @@
 /**
  * $Id: QuickBuck.java, v1.0 16/09/14 04:23 PM oscarfabra Exp $
  * {@code QuickBuck} Is a class that uses quicksort to sort an array of items
- * based on their value/weight rates.
+ * based on their value/weight ratios.
  *
  * @author <a href="mailto:oscarfabra@gmail.com">Oscar Fabra</a>
  * @version 1.0
@@ -36,8 +36,7 @@ public class QuickBuck
 
 
     /**
-     * Sorts the given list of items in decreasing order according to their
-     * value/weight ratios.
+     * Sorts list of items in decreasing order of their value/weight ratios.
      * @param items List of items.
      * @param n Number of items.
      */
