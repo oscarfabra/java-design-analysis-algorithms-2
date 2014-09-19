@@ -28,8 +28,8 @@ public class Knapsack
     // manner or optimized for big numbers
     public static final int THRESHOLD = 100000;
 
-    // Sets the biggest weight possible for an item
-    public static final int MAX_ITEM_WEIGHT = 1000000;
+    // Sets the biggest weight possible for the knapsack
+    public static final int MAX_WEIGHT = 1000000;
 
     //-------------------------------------------------------------------------
     // ATTRIBUTES
@@ -120,7 +120,7 @@ public class Knapsack
         }
         else    // Otherwise, use the dynamic programming heuristic
         {
-            value = Knapsack.solveDPHeuristic(items, W, n);
+            value = Knapsack.solveDPHeuristic(items, W, n, e);
         }
 
         // Returns the value
@@ -278,15 +278,56 @@ public class Knapsack
     }
 
     /**
-     *
-     * @param items
-     * @param W
-     * @param n
-     * @return
+     * Solves the knapsack problem using a dynamic programming heuristic.
+     * @param items List of items.
+     * @param W Knapsack size.
+     * @param n Number of items.
+     * @param e Error margin acceptable for solution, e in [0...1.0)
+     * @return Value of an acceptable solution (can be the optimal).
      */
-    private static int solveDPHeuristic(List<Item> items, int W, int n)
+    private static int solveDPHeuristic(List<Item> items, int W, int n, float e)
     {
-        // TODO: Solve dynamic programming heuristic
-        return 0;
+        // Finds the biggest value
+        int vMax = 0;
+        for(Item item : items)
+        {
+            if(item.getValue() > vMax)
+            {
+                vMax = item.getValue();
+            }
+        }
+
+        // Initializes 2-D array
+        int [][] a = new int[n][n * vMax];
+        for(int x = 0; x < n * vMax; x++)
+        {
+            a[0][x] = Knapsack.MAX_WEIGHT;
+        }
+
+        // Walks through the 2-D array solving the corresponding subproblems.
+        // a[i][x] contains the minimum total size needed to achieve value >= x
+        // while using only the first i items
+        for(int i = 1; i < n; i++)
+        {
+            for(int x = 0; x < n * vMax; x++)
+            {
+                Item item = items.get(i);
+                int value = item.getValue();
+                int secondCase = item.getWeight();
+                secondCase += (value >= x)? a[i - 1][0]: a[i - 1][x - value];
+                a[i][x] = Math.min(a[i - 1][x], secondCase);
+            }
+        }
+
+        // Finds and returns the largest x such that a[n - 1][x] <= W
+        int largestX = 0;
+        for(int x = vMax; x < n * vMax; x++)
+        {
+            if(a[n - 1][x] <= W)
+            {
+                largestX = x;
+            }
+        }
+        return largestX;
     }
 }
