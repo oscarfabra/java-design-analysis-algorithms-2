@@ -99,28 +99,32 @@ public class Knapsack
                 value = Knapsack.solveForBigData(items, W, n);
             }
         }
-
-        // Determines whether to use a greedy heuristic (fastest of all) or a
-        // dynamic programming heuristic based on the given e
-
-        // Finds w_max, i.e., the weight of the heaviest item
-        int i = 0;
-        int maxWeight = 0;
-        for(Item item : items)
+        else
         {
-            if(item.getWeight() > maxWeight)
+            /**
+             * Determines whether to use a greedy heuristic (fastest of all) or
+             * a dynamic programming heuristic based on the given e.
+             */
+
+            // Finds w_max, i.e., the weight of the heaviest item
+            int i = 0;
+            int maxWeight = 0;
+            for(Item item : items)
             {
-                maxWeight = item.getWeight();
+                if(item.getWeight() > maxWeight)
+                {
+                    maxWeight = item.getWeight();
+                }
             }
-        }
-        // If heaviest item is at most e * W, use a greedy heuristic
-        if(maxWeight <= e * W)
-        {
-            value = Knapsack.solveGreedyHeuristic(items, W, n);
-        }
-        else    // Otherwise, use the dynamic programming heuristic
-        {
-            value = Knapsack.solveDPHeuristic(items, W, n, e);
+            // If heaviest item is at most e * W, use a greedy heuristic
+            if(maxWeight <= e * W)
+            {
+                value = Knapsack.solveGreedyHeuristic(items, W, n);
+            }
+            else    // Otherwise, use the dynamic programming heuristic
+            {
+                value = Knapsack.solveDPHeuristic(items, W, n, e);
+            }
         }
 
         // Returns the value
