@@ -58,7 +58,6 @@ public class Solver
         if(items != null)
         {
             System.out.println("The items to select are the following: ");
-            items = Knapsack.getSelectedItems();
             for(int i = 0; i < items.size(); i++)
             {
                 Item item = items.get(i);

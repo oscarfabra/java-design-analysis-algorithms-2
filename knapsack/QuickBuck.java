@@ -46,7 +46,7 @@ public class QuickBuck
         int i = 0;
         for(Item item : items)
         {
-            bangPerBuck[i++] = (float)(item.getValue() / item.getWeight());
+            bangPerBuck[i++] = (float)((item.getValue() * 1.0) / item.getWeight());
         }
 
         // Copies items list to a temporary list
@@ -86,7 +86,7 @@ public class QuickBuck
      */
     private static void sort(float[] a, int lb, int ub)
     {
-        if(ub >= lb){ return; }
+        if(ub <= lb){ return; }
         int p = partitionFirst(a, lb, ub);
         sort(a, lb, p - 1);
         sort(a, p + 1, ub);
@@ -105,7 +105,7 @@ public class QuickBuck
         int i = lb + 1;
         for(int j = lb + 1; j <= ub; j++)
         {
-            if(a[j] >= p)
+            if(a[j] > p)
             {
                 swap(a, j, i);
                 i++;

@@ -101,10 +101,8 @@ public class Knapsack
         }
         else
         {
-            /**
-             * Determines whether to use a greedy heuristic (fastest of all) or
-             * a dynamic programming heuristic based on the given e.
-             */
+            // Determines whether to use a greedy heuristic (fastest of all) or
+            // a dynamic programming heuristic based on the given e.
 
             // Finds w_max, i.e., the weight of the heaviest item
             int i = 0;
@@ -260,6 +258,7 @@ public class Knapsack
     {
         // Sorts items in decreasing order of their "bang per buck" ratios
         QuickBuck.sort(items, n);
+
         // Packs items in this order until one doesn't fit, then halt
         Knapsack.selectedItems = new ArrayList<Item>(n / 2);
         int weightSoFar = 0;
@@ -277,6 +276,7 @@ public class Knapsack
                 break;
             }
         }
+
         // Returns the total value of the packed items
         return value;
     }
