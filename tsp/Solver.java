@@ -30,8 +30,9 @@ public class Solver
     /**
      * Solves the given instance and prints the solution in standard output.
      * @param lines Input list with the variables for the problem.
+     * @throws IOException If file with a subset couldn't be read or written.
      */
-    private static void solve(List<String> lines)
+    private static void solve(List<String> lines) throws IOException
     {
         // Gets the number of cities n
         String firstLine = lines.remove(0);
@@ -125,7 +126,6 @@ public class Solver
         {
             e.printStackTrace();
         }
-
         // Returns the lines read
         return lines;
     }
@@ -150,6 +150,15 @@ public class Solver
         {
             e.printStackTrace();
         }
-        Solver.solve(lines);
+
+        try
+        {
+            Solver.solve(lines);
+        }
+        catch (IOException e)
+        {
+            System.out.println("File with a subset couldn't be read or written.");
+            e.printStackTrace();
+        }
     }
 }

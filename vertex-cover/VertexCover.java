@@ -8,7 +8,9 @@
  * @since 6/09/14
  */
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.TreeSet;
 
 /**
  * VertexCover solves the vertex cover for a given undirected graph. The

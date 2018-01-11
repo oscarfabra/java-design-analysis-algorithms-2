@@ -13,7 +13,6 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -66,8 +65,6 @@ public class Solver
         // algorithm
         // mst = new ArrayList<Integer>(graph.getN());
         // cost = MST.solveByPrims(graph, mst);
-
-
     }
 
     /**

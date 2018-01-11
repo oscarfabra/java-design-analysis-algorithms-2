@@ -175,7 +175,7 @@ public class Knapsack
         }
 
         // Trace backwards to get the solution from the completed table
-        int x = W;
+        /**int x = W;
         Knapsack.selectedItems = new ArrayList<Item>(n / 2);
         for(int i = n; i > 0; i--)
         {
@@ -187,7 +187,7 @@ public class Knapsack
                 Knapsack.selectedItems.add(items.get(i - 1));
                 x -= weight;
             }
-        }
+        }**/
 
         // Returns the value of the optimal solution
         return a[W][n];

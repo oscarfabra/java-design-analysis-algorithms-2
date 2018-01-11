@@ -9,9 +9,11 @@
  * @since 26/08/14
  */
 
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -47,8 +49,8 @@ public class TSP
     // size in [1,2,...,n]
     private static int [] x;
 
-    // Maps subsets with their corresponding ids, each id in {1,2,...,n}
-    private static Map<Integer, Set<Integer>> subsets;
+    // Used to store in memory current subset for faster retrieval
+    private static Map<Integer, Set<Integer>> currentSubset;
 
     // Maps sizes of subsets with their corresponding ids. Uses list-chaining
     // given that a particular size could have several possible subsets
@@ -74,8 +76,9 @@ public class TSP
      * computes the minimum-cost cycle that visits every vertex exactly once.
      * @param graph Complete graph with non-negative edge costs.
      * @return Minimum-cost cycle that visits every vertex exactly once.
+     * @throws IOException If file with a subset couldn't be read or written.
      */
-    public static float solve(Graph graph)
+    public static float solve(Graph graph) throws IOException
     {
         // Initializes corresponding data structures
         System.out.print("-- Initializing data structures for solving TSP...");
@@ -83,7 +86,6 @@ public class TSP
         int subsetsNumber = (int)Math.pow(2, n - 1);
         TSP.a = new float[subsetsNumber][n];
         TSP.x = new int[n];
-        TSP.subsets = new HashMap<Integer, Set<Integer>>(n);
         TSP.sizeSubsets = new HashMap<Integer, List<Integer>>(n);
         TSP.subsetSize = new HashMap<Integer, Integer>(n);
 
@@ -107,12 +109,14 @@ public class TSP
         TSP.a[nextSubsetId - 1][0] = 0;
         TSP.x[0] = nextSubsetId;
         nextSubsetId++;
+
         // Walks through the 2-D array a initializing base cases
         for(int k = 2; k <= n; k++)
         {
             // Gets all possible subsets of size k that contain 1
             List<Set<Integer>> subsets =
                     Combinations.solveWithV(subsetList, k, 1);
+
             // Puts each subset that contains 1 in its corresponding collection
             // and initializes its corresponding path length
             for(Set subset : subsets)
@@ -123,6 +127,7 @@ public class TSP
             }
             // Message in standard output for logging purposes
             System.out.println("-- [Subsets of size " + k + " set up.]");
+            subsets.clear();
         }
         System.out.println("-- ...finished setting up base cases.");
 
@@ -130,6 +135,7 @@ public class TSP
         // possible destinations j in {1,2,...,n}
         System.out.println("-- Looking for minimum-cost cycle that visits " +
                 "each vertex exactly once...");
+        Files.delete(Paths.get("data/ss_" + 1 + ".txt"));
         for(int m = 2; m <= n; m++)
         {
             // Saves min length of a set without j
@@ -142,7 +148,8 @@ public class TSP
                 // ...walks through each vertex j of the set looking for the
                 // minimum length of a path from 1 to j that visits precisely
                 // the vertices of the set with id setId
-                for(Integer j : TSP.subsets.get(setId))
+                Set<Integer> currentSubsetAux = TSP.getSubset(setId);
+                for(Integer j : currentSubsetAux)
                 {
                     if(j != 1)
                     {
@@ -157,11 +164,19 @@ public class TSP
                         }
                     }
                 }
+                // Clears stored subset
+                TSP.currentSubset = null;
             }
+
             // Message in standard output for logging purposes
             System.out.println("-- [Minimum-path of size " + m + " found.]");
+
+            // Deletes the file with the subsets of size m to save memory
+            Files.delete(Paths.get("data/ss_" + m + ".txt"));
         }
         System.out.println("-- ...minimum-cost cycle found.");
+
+
 
         // Finds and returns the minimum-length path from 1 to itself visiting
         // every vertex once
@@ -173,6 +188,29 @@ public class TSP
     //-------------------------------------------------------------------------
 
     /**
+     * Finds all permutations of a given string.
+     * @param prefix Prefix to add to permutations.
+     * @param str String to find the permutations for.
+     */
+    private static void permutation(String prefix, String str)
+    {
+        // TODO: Customize function for this problem and write result to a file.
+        int n = str.length();
+        if (n == 0)
+        {
+            System.out.println(prefix);
+        }
+        else
+        {
+            for (int i = 0; i < n; i++)
+            {
+                permutation(prefix + str.charAt(i),
+                        str.substring(0, i) + str.substring(i+1, n));
+            }
+        }
+    }
+
+    /**
      * Gets the minimum length path from 1 to j that contains precisely the
      * vertices of the given set.
      * @param graph Graph to select edge costs from.
@@ -181,16 +219,17 @@ public class TSP
      * @param j Destination vertex id.
      * @return Minimum length of a path from 1 to j that visits precisely the
      * vertices of the given set.
+     * @throws FileNotFoundException If file with subset couldn't be found.
      */
     private static float getMinimumLengthPath(Graph graph, Integer setWithoutJ,
-                                              int setId, int j)
-    {
+                                              int setId, int j) throws FileNotFoundException {
         float min = TSP.INFINITY;
         List<Edge> edges = graph.getEdgesArriving(j);
+        Set<Integer> subset = TSP.currentSubset.get(setId);
         for(Edge e : edges)
         {
             int k = e.getTail();
-            if(k != j && TSP.subsets.get(setId).contains(k))
+            if(k != j && subset.contains(k))
             {
                 float candidate = (TSP.a[setWithoutJ - 1][k - 1] == TSP.INFINITY)?
                         e.getCost() : TSP.a[setWithoutJ - 1][k - 1] + e.getCost();
@@ -234,12 +273,26 @@ public class TSP
      * corresponding values of the sizeSubsets and subsetSize hashmaps for
      * faster retrieval.
      * @param subsetId Id of the subset to add.
-     * @param subset Subset of vertices ids to add.
+     * @param subset Subset of vertex ids to add.
+     * @throws IOException If file to write the subset in couldn't be opened.
      */
-    private static void putSubset(int subsetId, Set<Integer> subset)
+    private static void putSubset(int subsetId, Set<Integer> subset) throws IOException
     {
-        TSP.subsets.put(subsetId, subset);
         int size = subset.size();
+        // Writes subset to file. filename includes subset size.
+        // For each line, first value is subsetId,
+        // subsequent values are corresponding vertices.
+        String filename = "data/ss_" + size + ".txt";
+        FileWriter fileWriter = new FileWriter(filename, true);
+        BufferedWriter output = new BufferedWriter(fileWriter);
+        output.write(String.valueOf(subsetId) + " ");
+        for(Integer vId : subset)
+        {
+            output.write(vId.toString() + " ");
+        }
+        output.write('\n');
+        output.close();
+
         List<Integer> subsetIds = TSP.sizeSubsets.remove(size);
         if(subsetIds == null)
         {
@@ -248,5 +301,56 @@ public class TSP
         subsetIds.add(subsetId);
         TSP.sizeSubsets.put(size, subsetIds);
         TSP.subsetSize.put(subsetId, size);
+    }
+
+    /**
+     * Reads the file with the subset with the given Id and returns it.
+     * @param subsetId Id of the subset to look for.
+     * @return Set of vertices of the subset with the given setId.
+     * @throws FileNotFoundException If file couldn't be found.
+     */
+    private static Set<Integer> getSubset(Integer subsetId) throws FileNotFoundException
+    {
+        if (TSP.currentSubset != null && TSP.currentSubset.containsKey(subsetId))
+        {
+            return TSP.currentSubset.get(subsetId);
+        }
+
+        // Read subset vertices from file
+        int size = TSP.subsetSize.get(subsetId);
+        String filename = "data/ss_" + size + ".txt";
+        FileReader fileReader = new FileReader(filename);
+        BufferedReader input = new BufferedReader(fileReader);
+
+        TSP.currentSubset = new HashMap<Integer, Set<Integer>>();
+        Set<Integer> subset = new TreeSet<Integer>();
+
+        try
+        {
+            boolean found = false;
+            while(!found)
+            {
+                String line = input.readLine();
+                String[] subsetValues = line.split(" ");
+                //Integer setId = Integer.parseInt(subsetValues[0]);
+                if(subsetValues[0].equalsIgnoreCase(String.valueOf(subsetId)))
+                {
+                    for(int i = 1; i < subsetValues.length; i++)
+                    {
+                        subset.add(Integer.parseInt(subsetValues[i]));
+                    }
+                    TSP.currentSubset.put(subsetId, subset);
+                    found = true;
+                }
+            }
+            input.close();
+            fileReader.close();
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+
+        return TSP.currentSubset.get(subsetId);
     }
 }

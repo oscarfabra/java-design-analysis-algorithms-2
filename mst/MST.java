@@ -31,9 +31,8 @@ public class MST
     // chained-list representation since 2+ vertices could have the same score.
     private static Map<Integer,List<Integer>> verticesHeapKeys = null;
 
-    // Maps vertex ids with their respective scores in heap. In this case
-    // there's no need for a chained list since there are no duplicate vertex
-    // ids.
+    // Maps vertex ids with their respective scores in heap. No need for a
+    // chained list since there are no duplicate vertex ids.
     private static Map<Integer, Integer> heapKeysVertices = null;
 
     //-------------------------------------------------------------------------
@@ -247,7 +246,7 @@ public class MST
     private static Integer findVertexScore(int vertexId, Graph graph)
     {
         // Assumes smallest cost to be a very large number
-        int minCost = 1000000;
+        int minCost = Integer.MAX_VALUE;
 
         // Walks through the list of vertices added to the MST looking for its
         // corresponding cheapest edge

@@ -188,10 +188,10 @@ public class Solver
      * Main test method.
      * @param args filepath relative to the file with the representation of an
      *             undirected graph in the form -file=filepath
-     *              For a cost edges problem, the number of clusters k must be
-     *              provided as second input.
-     *              For a hamming distances problem, the size of minimum spacing
-     *              s must be provided as second input.
+     *             For a cost edges problem, the number of clusters k must be
+     *             provided as second input.
+     *             For a hamming distances problem, the size of minimum spacing
+     *             s must be provided as second input.
      */
     public static void main(String [] args)
     {

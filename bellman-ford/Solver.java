@@ -69,10 +69,16 @@ public class Solver
         {
             System.out.println("The lengths of the shortest paths from vertex "+
                     Solver.s + " to all other vertices are:");
+            int minIndex = 0;
             for(int i = 0; i < n; i++)
             {
                 System.out.println("-- To " + (i + 1) + ": " + lengths[i]);
+                if (lengths[i] <= lengths[minIndex]){
+                    minIndex = i;
+                }
             }
+            System.out.println("The shortest shortest path is: " +
+                    lengths[minIndex]);
         }
     }
 

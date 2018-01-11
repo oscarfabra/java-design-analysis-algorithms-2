@@ -28,7 +28,7 @@ public class JobsScheduler
     //-------------------------------------------------------------------------
 
     /**
-     * Gets a list of jobs from the given lines os String.
+     * Gets a list of jobs from the given lines of String.
      * @param lines Lines of Strings, each line has the form
      *              [job_weight] [job_length]
      * @return List of Job objects from the given list of lines.
@@ -91,8 +91,7 @@ public class JobsScheduler
         int i = 0;
         for(Job job : jobs)
         {
-            scores[i] = job.getWeight() - job.getLength();
-            i++;
+            scores[i++] = job.getWeight() - job.getLength();
         }
 
         // Sorts the jobs list in descending order of their scores
@@ -112,8 +111,7 @@ public class JobsScheduler
         int i = 0;
         for(Job job : jobs)
         {
-            scores[i] = (1.0 * job.getWeight())/(1.0 * job.getLength());
-            i++;
+            scores[i++] = (1.0 * job.getWeight())/(1.0 * job.getLength());
         }
 
         // Sorts the jobs list in descending order of their scores
